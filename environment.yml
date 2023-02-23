@@ -1,0 +1,11 @@
+name: bikerbyte
+channels:
+  - defaults
+dependencies:
+  - python=3.7
+  - pandas
+  - sqlalchemy
+  - mysqlclient
+  - numpy
+  - jupyterlab
+prefix: D:\software\Anaconda\envs\bikerbyte
