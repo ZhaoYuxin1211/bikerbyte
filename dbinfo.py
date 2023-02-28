@@ -1,3 +1,9 @@
 JCKEY = "324bb56b90d684d8109852bc7cf93be348cd44ed"
 NAME = "dublin"
 STATIONS_URI = "https://api.jcdecaux.com/vls/v1/stations"
+DB_PORT = 3306
+DB_USERNAME = "admin"
+DB_DATABASE = "bikerbyte"
+DB_SCHEMA = "bikerbytedata"
+DB_PASSWORD = "bikerbyte"
+DB_ADDRESS = "database-bike.cm2v37iz6jos.eu-west-1.rds.amazonaws.com"
