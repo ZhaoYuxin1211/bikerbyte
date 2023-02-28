@@ -37,13 +37,13 @@ engine =sqla.create_engine("mysql+pymysql://{}:{}@{}:{}/{}".format(USER,PASSWORD
 def stations_to_db(text, vals=None):
     stations = json.loads(text)
     print(type(stations), len(stations))
+    # print(stations)
     for station in stations:
         print(station)
         vals = (
         station.get('number'), station.get('address'), int(station.get('banking')), station.get('bike_stands'), station.get('name'), station.get('position').get('lat'),
         station.get('position').get('lng'))
         engine.execute("insert into station values(%s,%s,%s,%s,%s,%s,%s)", vals)
-        break
     return
 
 
