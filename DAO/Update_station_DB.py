@@ -5,8 +5,6 @@ from DAO import dbinfo
 import json
 import sqlalchemy as sqla
 import traceback
-
-import simplejson as json
 import requests
 import time
 
@@ -20,6 +18,7 @@ engine = sqla.create_engine(
 #     with open("data/bike_{}".format(now).replace(" ", "_"), "w") as f:
 #         f.write(r.text)
 
+# update station data into database
 def stations_to_db(text):
     stations = json.loads(text)
     # print(type(stations), len(stations))
@@ -27,15 +26,17 @@ def stations_to_db(text):
     for station in stations:
         # print(station)
         vals = (
-                   station.get('address'), int(station.get('banking')),
-        station.get('bike_stands'), station.get('name'), station.get('position').get('lat'),
-        station.get('position').get('lng'), int(station.get('number')))
+            station.get('address'), int(station.get('banking')),
+            station.get('bike_stands'), station.get('name'), station.get('position').get('lat'),
+            station.get('position').get('lng'), int(station.get('number')))
         engine.execute(
-            "UPDATE station SET address=%s, banking = %s, bike_stands = %s, name = %s, position_lat = %s, position_lng = %s WHERE number = %s",
+            "UPDATE station SET address=%s, banking = %s, bike_stands = %s, name = %s, position_lat = %s, "
+            "position_lng = %s WHERE number = %s",
             vals)
     return
 
 
+# update availability info into database
 def availability_to_db(text):
     availability = json.loads(text)
     print(type(availability), len(availability))
@@ -45,7 +46,8 @@ def availability_to_db(text):
             a.get('last_update'), int(a.get('available_bikes')),
             int(a.get('available_bike_stands')), a.get('status'), int(a.get('number')))
         # update
-        engine.execute("UPDATE availability SET last_update = %s, available_bikes = %s, available_bike_stands = %s, status = %s WHERE number = %s", vals)
+        engine.execute("UPDATE availability SET last_update = %s, available_bikes = %s, available_bike_stands = %s, "
+                       "status = %s WHERE number = %s", vals)
         # insert
         # vals = (
         #     int(a.get('number')), a.get('last_update'), int(a.get('available_bikes')),
@@ -59,12 +61,12 @@ def main():
         try:
             now = datetime.datetime.now()
             r = requests.get(dbinfo.STATIONS_URI, params={"apiKey": dbinfo.JCKEY, "contract": dbinfo.NAME})
-            print(r, now)
+            # print(r, now)
             # write_to_file(r.text)
             stations_to_db(r.text)
             availability_to_db(r.text)
             # print(a)
-            time.sleep(10 * 60)
+            time.sleep(10 * 60) # update every 10min
         except:
             print(traceback.format_exc())
             if engine is None:
