@@ -1,22 +1,14 @@
 # web API crawling
 import datetime
 
-from sqlalchemy.sql.functions import now
-import dbinfo
+from DAO import dbinfo
 import json
 import sqlalchemy as sqla
-import pymysql
-from sqlalchemy import create_engine
 import traceback
-import glob
-import os
-from pprint import pprint
 
 import simplejson as json
 import requests
 import time
-
-from IPython.display import display
 
 # using mysql + pymysql, not the same as the slides.
 engine = sqla.create_engine(

@@ -1,7 +1,6 @@
 import sqlite3
-import dbinfo
+from DAO import dbinfo
 from flask import Flask, g, render_template, jsonify
-import json
 from sqlalchemy import create_engine
 
 # create flask app, static files are served from "static" directory

@@ -1,7 +1,7 @@
 import time
 import traceback
 
-import dbinfo
+from DAO import dbinfo
 import requests
 import json
 from pprint import pprint
