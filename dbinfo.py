@@ -12,3 +12,4 @@ DB_ADDRESS = "database-bike.cm2v37iz6jos.eu-west-1.rds.amazonaws.com"
 # weather api
 WEATHER_KEY = "97f5ad60a294eb1953e8b2cc90f50214"
 WEATHER_URI = "http://api.openweathermap.org/data/2.5/forecast?id=524901&appid="
+MAP_KEY = "AIzaSyCBqLJ1VO0sxQFYsdj4R0_5ArcCNBQdjJI"
