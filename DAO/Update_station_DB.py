@@ -1,7 +1,8 @@
 # web API crawling
+# station info from dublin bike
 import datetime
 
-from DAO import dbinfo
+import dbinfo
 import json
 import sqlalchemy as sqla
 import traceback
@@ -59,7 +60,7 @@ def availability_to_db(text):
 def main():
     while True:
         try:
-            now = datetime.datetime.now()
+            # now = datetime.datetime.now()
             r = requests.get(dbinfo.STATIONS_URI, params={"apiKey": dbinfo.JCKEY, "contract": dbinfo.NAME})
             # print(r, now)
             # write_to_file(r.text)

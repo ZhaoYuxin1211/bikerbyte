@@ -1,6 +1,5 @@
 import time
 import traceback
-
 from DAO import dbinfo
 import requests
 import json
@@ -16,7 +15,7 @@ def main():
 
             pprint(json.loads(r.text))
 
-            time.sleep(30)
+            time.sleep(5 * 60)
         except:
             print(traceback.format_exc())
 
