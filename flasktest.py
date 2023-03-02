@@ -26,7 +26,6 @@ def connect_to_database():
     return conn
 
 
-# this route simply serves "static/index.html'
 @app.route('/')
 def root():
     return render_template('index.html', MAPS_APIKEY=dbinfo.MAP_KEY)
