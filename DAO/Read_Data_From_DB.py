@@ -30,7 +30,7 @@ stations = []
 for row in results:
     station = Station(row.number, row.address, row.banking, row.bike_stands, row.name, row.position_lat, row.position_lng)
     # convert timestamp to datetime
-    lastUpdate = datetime.fromtimestamp(row.last_update)
+    lastUpdate = datetime.fromtimestamp(float(row.last_update)/1000)
     station.getAvailability(lastUpdate, row.available_bikes, row.available_bike_stands, row.status)
     stations.append(station)
 
