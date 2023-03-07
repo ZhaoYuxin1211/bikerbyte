@@ -3,7 +3,6 @@ import json
 import dbinfo
 import sqlalchemy as sqla
 import pandas as pd
-from DAO.Entity.StationEntity import Station
 from datetime import datetime
 
 stationDic = {
