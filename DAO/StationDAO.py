@@ -1,4 +1,4 @@
-import dbinfo
+from DAO import dbinfo
 import sqlalchemy as sqla
 import pandas as pd
 from DAO.Entity.StationEntity import Station
