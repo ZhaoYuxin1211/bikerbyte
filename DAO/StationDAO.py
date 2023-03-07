@@ -1,8 +1,24 @@
+import json
+
 import dbinfo
 import sqlalchemy as sqla
 import pandas as pd
 from DAO.Entity.StationEntity import Station
 from datetime import datetime
+
+stationDic = {
+    'number': 0,
+    'address': "address",
+    'banking': "banking",
+    'bikeStands': 0,
+    'name': "name",
+    'positionLat': 0,
+    'positionLng': 0,
+    'lastUpdate': 0,
+    'availableBikes': 0,
+    'availableBikeStands': 0,
+    'status': 0
+}
 
 
 def StationDAO():
@@ -31,11 +47,24 @@ def StationDAO():
     # stations are stored in a list
     stations = []
     for row in results:
-        station = Station(row.number, row.address, row.banking, row.bike_stands, row.name, row.position_lat,
-                          row.position_lng)
+        stationDic['number'] = row.number
+        stationDic['address'] = row.address
+        stationDic['banking'] = row.banking
+        stationDic['bikeStands'] = row.bike_stands
+        stationDic['name'] = row.name
+        stationDic['positionLat'] = row.position_lat
+        stationDic['positionLng'] = row.position_lng
         # convert timestamp to datetime
         lastUpdate = datetime.fromtimestamp(float(row.last_update) / 1000)
-        station.getAvailability(lastUpdate, row.available_bikes, row.available_bike_stands, row.status)
-        stations.append(station)
+        stationDic['lastUpdate'] = str(lastUpdate)
+        stationDic['availableBikes'] = row.available_bikes
+        stationDic['availableBikeStands'] = row.available_bike_stands
+        stationDic['status'] = row.status
+        stations.append(stationDic)
+    stationData = json.dumps(stations)
+    # print(stationData)
 
-    return stations
+    return stationData
+
+
+StationDAO()
