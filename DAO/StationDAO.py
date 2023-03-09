@@ -67,5 +67,7 @@ def StationDAO():
 
     return stations
 
+print(StationDAO())
+
 
 # StationDAO()
