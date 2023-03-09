@@ -1,6 +1,6 @@
 import json
 
-import dbinfo
+from DAO import dbinfo
 import sqlalchemy as sqla
 import pandas as pd
 from datetime import datetime
@@ -61,7 +61,8 @@ def StationDAO():
         stationDic['status'] = row.status
         stations.append(stationDic)
     stationData = json.dumps(stations)
-    # print(stationData)
+    print(stationData)
+    print("111")
 
     return stationData
 
