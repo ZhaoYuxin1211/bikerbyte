@@ -1,6 +1,6 @@
 import json
 
-import dbinfo
+from DAO import dbinfo
 import sqlalchemy as sqla
 import pandas as pd
 from datetime import datetime
