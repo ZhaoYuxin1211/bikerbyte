@@ -5,20 +5,19 @@ import sqlalchemy as sqla
 import pandas as pd
 from datetime import datetime
 
-stationDic = {
-    'number': 0,
-    'address': "address",
-    'banking': "banking",
-    'bikeStands': 0,
-    'name': "name",
-    'positionLat': 0,
-    'positionLng': 0,
-    'lastUpdate': 0,
-    'availableBikes': 0,
-    'availableBikeStands': 0,
-    'status': 0
-}
-
+# stationDic = {
+#     'number': 0,
+#     'address': "address",
+#     'banking': "banking",
+#     'bikeStands': 0,
+#     'name': "name",
+#     'positionLat': 0,
+#     'positionLng': 0,
+#     'lastUpdate': 0,
+#     'availableBikes': 0,
+#     'availableBikeStands': 0,
+#     'status': 0
+# }
 
 def StationDAO():
     # create engine
@@ -46,6 +45,7 @@ def StationDAO():
     # stations are stored in a list
     stations = []
     for row in results:
+        stationDic = {}
         stationDic['number'] = row.number
         stationDic['address'] = row.address
         stationDic['banking'] = row.banking
@@ -59,11 +59,13 @@ def StationDAO():
         stationDic['availableBikes'] = row.available_bikes
         stationDic['availableBikeStands'] = row.available_bike_stands
         stationDic['status'] = row.status
+        # print(stationDic)
         stations.append(stationDic)
-    stationData = json.dumps(stations)
-    # print(stationData)
+        # print(stations)
+    # stationData = json.dumps(stations)
+    print(stations)
 
-    return stationData
+    return stations
 
 
 StationDAO()
