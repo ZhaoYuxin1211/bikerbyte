@@ -1,5 +1,7 @@
-function addMakers(stations){
-    for (const station of Stations){
+function addMarkers(stations){
+    // console.log(stations)
+    console.log(stations.station)
+    for (const station of stations){
         var marker = new google.maps.Marker({
             position:{
                 lat:station.position_lat,
@@ -12,9 +14,17 @@ function addMakers(stations){
     }
 }
 
+// function getStations() {
+//     fetch("/stations")
+//         .then((response) => response.json())
+//         .then((data) => {
+//             console.log("fetch response", typeof data);
+//             addMarkers(data);
+// });
+
 function getStations() {
     fetch("/stations")
-        .then((response) => response.json())
+        .then(response => {response.json();})
         .then((data) => {
             console.log("fetch response", typeof data);
             addMarkers(data);
