@@ -20,37 +20,32 @@ def root():
 
 def get_stations():
     # get the station data from StationDAO.py the return type is jason string
-    # stations = json.loads(StationDAO())
-
-    testStation = [{
-    "station":
-    {
-      "address": "JCDecaux Ireland, 52 Oriel Street Lower, Dublin 1",
-      "availableBikeStands": 0,
-      "availableBikes": 1,
-      "banking": 0,
-      "bikeStands": 1,
-      "lastUpdate": "2023-02-07 16:08:48",
-      "name": "ORIEL STREET TEST TERMINAL",
-      "number": 507,
-      "positionLat": 53.3546,
-      "positionLng": -6.24262,
-      "status": "OPEN"
-    }}]
-
-    return jsonify(station=testStation)
+    stations = StationDAO()
+    return jsonify(stations=stations)
 
 
 
 @app.route("/available/<int:station_id>")
 def get_available_bikes(station_id):
-    # show the station with the given id, the id is an integer
-    available = json.loads(StationDAO())
+    # Get all station data
+    all_stations = StationDAO()
+
+    # Find the station with the given ID
+    station = next((s for s in all_stations if s['number'] == station_id), None)
+
+    if station is None:
+        # Station not found
+        return jsonify(error='Station not found'), 404
+
+    # Extract the available bikes data for the station
+    available_bikes = station['availableBikes']
+
+    return jsonify(available=available_bikes)
 
 if __name__ == "__main__":
 
     app.run(debug=True)
-print("======================================================================")
-print(get_stations())
+
+
 
 
