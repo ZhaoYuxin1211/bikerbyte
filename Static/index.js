@@ -1,7 +1,19 @@
 function addMarkers(data){
     console.log(data)
-    const stations = data.station;
-    // console.log(stations.station)
+    const stations = data.stations;
+    // console.log("---------------")
+    // console.log(stations)
+    // for (var i = 0; i < stations.length; i++) {
+    //     var marker = new google.maps.Marker({
+    //         position:{
+    //             lat:Number(stations[i].positionLat),
+    //             lng:Number(stations[i].positionLng),
+    //         },
+    //         map:map,
+    //         title:stations[i].name,
+    //         station_number:stations[i].number,
+    //     });
+    // }
     stations.forEach(station =>{
         var marker = new google.maps.Marker({
             position:{
@@ -20,7 +32,7 @@ function getStations() {
     fetch("/stations")
         .then((response) => response.json())
         .then((data) => {
-            console.log("fetch response", data);
+            console.log("fetch response",data);
             addMarkers(data);
         });
 }
