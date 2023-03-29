@@ -10,12 +10,15 @@ def main():
     while True:
         try:
             r = requests.get(dbinfo.WEATHER_URI, params={"q": dbinfo.WEATHER_CITY, "appid": dbinfo.WEATHER_KEY})
-
-            # json.loads(r.text)
-
             pprint(json.loads(r.text))
 
-            time.sleep(5 * 60)
+            weathertext = r.text
+            weatherinfo = json.loads(weathertext)
+            print(weatherinfo.get('main').get('temp'))
+            print(weatherinfo.get('main').get('humidity'))
+            print(weatherinfo.get('wind').get('speed'))
+            # print(int(round(time.time() * 1000)))
+            time.sleep(60)
         except:
             print(traceback.format_exc())
 
