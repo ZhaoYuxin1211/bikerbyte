@@ -50,6 +50,7 @@ def get_available_bikes(station_id):
 if __name__ == "__main__":
 
     app.run(debug=True)
-
+print("======================================================================")
+print(get_stations())
 
 
