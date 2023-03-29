@@ -20,25 +20,8 @@ def root():
 
 def get_stations():
     # get the station data from StationDAO.py the return type is jason string
-    # stations = json.loads(StationDAO())
-
-    testStation = [{
-    "station":
-    {
-      "address": "JCDecaux Ireland, 52 Oriel Street Lower, Dublin 1",
-      "availableBikeStands": 0,
-      "availableBikes": 1,
-      "banking": 0,
-      "bikeStands": 1,
-      "lastUpdate": "2023-02-07 16:08:48",
-      "name": "ORIEL STREET TEST TERMINAL",
-      "number": 507,
-      "positionLat": 53.3546,
-      "positionLng": -6.24262,
-      "status": "OPEN"
-    }}]
-
-    return jsonify(station=testStation)
+    stations = StationDAO()
+    return jsonify(stations=stations)
 
 
 
