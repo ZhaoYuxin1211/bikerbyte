@@ -6,8 +6,6 @@ function addMarkers(data){
         var marker = new google.maps.Marker({
             position:{
                 lat:Number(station.positionLat),
-                // lat:53.34833,
-                // lng: -6.26673,
                 lng:Number(station.positionLng),
             },
             map:map,
