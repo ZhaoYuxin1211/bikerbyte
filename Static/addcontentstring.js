@@ -10,9 +10,7 @@ function addMarkers(stations) {
       map: map,
       title: station.name,
       station_number: station.number,
-    });
-
-    // Create an InfoWindow with custom content
+      // Create an InfoWindow with custom content
     const contentString =
       '<div id="content"><h1>' + station.name + '</h1></div>' +
       '<div id="station_availability"></div>';
@@ -24,6 +22,9 @@ function addMarkers(stations) {
     marker.addListener('click', function () {
       infowindow.open(map, marker);
     });
+    });
+
+
   }
 }
 
