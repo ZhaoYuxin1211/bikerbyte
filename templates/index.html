@@ -10,11 +10,10 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" type="text/css" href="../Static/teststyle.css">
-    <link rel="icon" type="image/x-icon" href="../image/bike.ico">
+    <link rel="stylesheet" type="text/css" href="../Static/teststyle.css" />
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script type="module" src="../Static/index.js"></script>
-<!--    <script type="module" src="../test/testicon.js"></script>-->
+    <script type="module" src="../Static/mapstyle.js"></script>
 
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBqLJ1VO0sxQFYsdj4R0_5ArcCNBQdjJI&callback=initMap&v=weekly"
@@ -28,7 +27,7 @@
       style="background-color: #e3f2fd"
     >
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Biker-bike</a>
+        <a class="navbar-brand" href="#">Biker-byte</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -88,14 +87,16 @@
       </div>
     </nav>
 
-
     <!--MAP-->
-    <div id="map">
+    <div class="container-fluid text-center">
+      <div class="row">
+        <div class="col">
+          <div id="map"></div>
 
+          <div class="col">Column</div>
+        </div>
+      </div>
     </div>
     <div id="test">dfsgdfsgdfg</div>
-
-
-
   </body>
 </html>

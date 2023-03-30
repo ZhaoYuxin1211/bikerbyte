@@ -1,7 +1,10 @@
+.col {
+  height: 90vh;
+}
 #map {
+  top: 30px;
   height: 90%;
   width: 70%;
-  margin-top: auto;
 }
 
 /*
