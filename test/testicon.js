@@ -6,17 +6,12 @@ function addMarkers(data) {
         var markerIcon = '';
 
         if (station.availableBikes >= 0 && station.availableBikes <= 5) {
-            markerIcon = 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png';
-
-        } else if (station.availableBikes > 5 && station.availableBikes <= 10) {
             markerIcon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
-
+        } else if (station.availableBikes > 5 && station.availableBikes <= 10) {
+            markerIcon = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
         } else {
             markerIcon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
-
         }
-
-
 
         var marker = new google.maps.Marker({
             position: {
@@ -34,7 +29,7 @@ function addMarkers(data) {
             content:
                 '<div id="content"><h4>' + station.name + '</h4></div>'
                 + '<div id="station_status"><h6>'+'Station Status:'+station.status+'</h6></div>'
-                + '<div id="station_availability"><h6>'+'Avilabilable Bikes:'+ station.availableBikes+'</h6></div>'
+                + '<div id="station_availability"><h6>'+'Available Bikes:'+ station.availableBikes+'</h6></div>'
         });
 
         // makes the info box if you click the box
@@ -47,37 +42,8 @@ function addMarkers(data) {
                 infoWindow.close();
             }
         });
-//        //other pop up
-//        var jqxhr = $.getJSON($SCRIPT_ROOT + "/occupancy/" + marker.station_number, function(data) {
-//            data = JSON.parse(data.data);
-//            console.log('data', data);
-//
-//            var node = document.createElement('div');
-//            var infowindow2 = new google.maps.InfoWindow();
-//            var chart = new google.visualization.ColumnChart(node);
-//            var chart_data = new google.visualization.DataTable();
-//
-//
-//            chart_data.addColumn('datetime', 'Time of Day');
-//            chart_data.addColumn('number', '#');
-//
-//             _.forEach(data, function(row) {
-//             chart_data.addRow([new Date(row[0]), row[1]]);
-//             });
-//
-//            chart.draw(chart_data, options);
-//
-//            infowindow2.setContent(node);
-//            infowindow2.open(map, marker);
-//        }).fail(function() {
-//            console.log("error");
-//        });
-
     });
 }
-
-//other pop up
-
 function getStations() {
     fetch("/stations")
         .then((response) => response.json())
@@ -100,8 +66,3 @@ function initMap() {
 
 var map = null;
 window.initMap = initMap;
-
-
-
-
-
