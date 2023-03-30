@@ -56,25 +56,27 @@ function addMarkers(data) {
             title: station.name,
             station_number: station.number,
         });
-         //creates markers with info box with information
-        var infoWindow = new google.maps.InfoWindow({
-        content:
-          '<div id="content"><h1>' + station.name + '</h1></div>' + '<div id="station_availability">'+station.availability+'</div>'
-        });
-        //makes the info box if you click the box
-        marker.addListener('click', function(){
-            infoWindow.open(map, marker);
-            // Close the infoWindow after it's opened
-//            infoWindow.close();
-        });
-//        const contentString = '<div id="content"><h1>' + station.name + '</h1></div>' + '<div id="station_availability"></div>';
-//        google.maps.event.addListener(marker, 'click', function () {
-//            drawInfoWindowChart(this);
-//        });
 
+        // creates markers with info box with information
+        var infoWindow = new google.maps.InfoWindow({
+            content:
+                '<div id="content"><h4>' + station.name + '</h4></div>'
+                + '<div id="station_status"><h6>'+'Station Status:'+station.status+'</h6></div>'
+                + '<div id="station_availability"><h6>'+'Avilabilable Bikes:'+ station.availableBikes+'</h6></div>'
+        });
+
+        // makes the info box if you click the box
+        marker.addListener('click', function() {
+            if (infoWindow.getMap() == null) {
+                // infoWindow is not open
+                infoWindow.open(map, marker);
+            } else {
+                // infoWindow is open, close it
+                infoWindow.close();
+            }
+        });
     });
 }
-
 
  // Create an InfoWindow with custom content
 
