@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../Static/teststyle.css" />
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script type="module" src="../Static/index.js"></script>
+    <script type="module" src="../Static/mapstyle.js"></script>
 
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBqLJ1VO0sxQFYsdj4R0_5ArcCNBQdjJI&callback=initMap&v=weekly"
@@ -86,14 +87,17 @@
       </div>
     </nav>
 
-
     <!--MAP-->
-    <div id="map">
-
+    <div class="container-fluid text-center">
+      <div class="row">
+        <div class="col">
+          <div id="map"></div>
+          <div id="style-selector-control"></div>
+          <div id="style-selector"></div>
+          <div class="col">Column</div>
+        </div>
+      </div>
     </div>
     <div id="test">dfsgdfsgdfg</div>
-
-
-
   </body>
 </html>
