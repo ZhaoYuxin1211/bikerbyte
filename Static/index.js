@@ -1,47 +1,3 @@
-//function addMarkers(data){
-//    console.log(data)
-//    const stations = data.stations;
-//    // console.log("---------------")
-//    // console.log(stations)
-//    // for (var i = 0; i < stations.length; i++) {
-//    //     var marker = new google.maps.Marker({
-//    //         position:{
-//    //             lat:Number(stations[i].positionLat),
-//    //             lng:Number(stations[i].positionLng),
-//    //         },
-//    //         map:map,
-//    //         title:stations[i].name,
-//    //         station_number:stations[i].number,
-//    //     });
-//    // }
-//    stations.forEach(station =>{
-//        var marker = new google.maps.Marker({
-//            position:{
-//                lat:Number(station.positionLat),
-//                lng:Number(station.positionLng),
-//            },
-//            map:map,
-//            title:station.name,
-//            station_number:station.number,
-//        });
-//        contentString = '<div id="content"><h1>' + station.name + '</h1></div>' + '<div id="station_availability"></div>';
-//        google.maps.event.addListener(marker, 'click', function() {
-//        drawInfoWindowChart(this);
-//        });
-////        const contentString =
-////        '<div id="content"><h1>' + station.name + '</h1></div>' +
-////        '<div id="station_availability"></div>';
-////        const infowindow = new google.maps.InfoWindow({
-////        content: contentString,
-////        });
-////
-////        // Attach the InfoWindow to the marker
-////        marker.addListener('click', function () {
-////        infowindow.open(map, marker);
-////
-////        });
-//     }
-//}
 function addMarkers(data) {
     console.log(data);
     const stations = data.stations;
@@ -75,13 +31,37 @@ function addMarkers(data) {
                 infoWindow.close();
             }
         });
+//        //other pop up
+//        var jqxhr = $.getJSON($SCRIPT_ROOT + "/occupancy/" + marker.station_number, function(data) {
+//            data = JSON.parse(data.data);
+//            console.log('data', data);
+//
+//            var node = document.createElement('div');
+//            var infowindow2 = new google.maps.InfoWindow();
+//            var chart = new google.visualization.ColumnChart(node);
+//            var chart_data = new google.visualization.DataTable();
+//
+//
+//            chart_data.addColumn('datetime', 'Time of Day');
+//            chart_data.addColumn('number', '#');
+//
+//             _.forEach(data, function(row) {
+//             chart_data.addRow([new Date(row[0]), row[1]]);
+//             });
+//
+//            chart.draw(chart_data, options);
+//
+//            infowindow2.setContent(node);
+//            infowindow2.open(map, marker);
+//        }).fail(function() {
+//            console.log("error");
+//        });
+
     });
 }
 
- // Create an InfoWindow with custom content
+//other pop up
 
-//  }
-//}
 function getStations() {
     fetch("/stations")
         .then((response) => response.json())
