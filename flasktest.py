@@ -42,6 +42,21 @@ def get_available_bikes(station_id):
 
     return jsonify(available=available_bikes)
 
+@app.route("/occupancy/<int:station_id>")
+def get_occupancy(station_id):
+    station =StationDAO()
+    df = pd.read_sql_query("select * from availability where number = %(number)s", station, params={"number":
+    station_id})
+    df['last_update_date'] = pd.to_datetime(df.last_update, unit='ms')
+    df.set_index('last_update_date', inplace=True)
+    res = df['available_bike_stands'].resample('1d').mean()
+    #res['dt'] = df.index
+    print(res)
+    return jsonify(data=json.dumps(list(zip(map(lambda x: x.isoformat(), res.index), res.values))))
+
+
+
+
 if __name__ == "__main__":
 
     app.run(debug=True)
