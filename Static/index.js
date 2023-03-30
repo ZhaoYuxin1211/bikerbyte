@@ -56,10 +56,22 @@ function addMarkers(data) {
             title: station.name,
             station_number: station.number,
         });
-        const contentString = '<div id="content"><h1>' + station.name + '</h1></div>' + '<div id="station_availability"></div>';
-        google.maps.event.addListener(marker, 'click', function () {
-            drawInfoWindowChart(this);
+         //creates markers with info box with information
+        var infoWindow = new google.maps.InfoWindow({
+        content:
+          '<div id="content"><h1>' + station.name + '</h1></div>' + '<div id="station_availability">'+station.availability+'</div>'
         });
+        //makes the info box if you click the box
+        marker.addListener('click', function(){
+            infoWindow.open(map, marker);
+            // Close the infoWindow after it's opened
+//            infoWindow.close();
+        });
+//        const contentString = '<div id="content"><h1>' + station.name + '</h1></div>' + '<div id="station_availability"></div>';
+//        google.maps.event.addListener(marker, 'click', function () {
+//            drawInfoWindowChart(this);
+//        });
+
     });
 }
 
