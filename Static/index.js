@@ -70,6 +70,56 @@ function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 14,
     center: dublin,
+    styles: [
+      {
+        featureType: "all",
+        stylers: [
+          {
+            saturation: 0,
+          },
+          {
+            hue: "#e3f2fd",
+          },
+        ],
+      },
+      {
+        featureType: "road",
+        stylers: [
+          {
+            saturation: -70,
+          },
+        ],
+      },
+
+      {
+        featureType: "transit",
+        stylers: [
+          {
+            visibility: "off",
+          },
+        ],
+      },
+
+      {
+        featureType: "poi",
+        stylers: [
+          {
+            visibility: "off",
+          },
+        ],
+      },
+      {
+        featureType: "water",
+        stylers: [
+          {
+            visibility: "simplified",
+          },
+          {
+            saturation: -60,
+          },
+        ],
+      },
+    ],
   });
 
   getStations();
