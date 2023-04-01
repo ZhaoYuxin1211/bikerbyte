@@ -6,11 +6,41 @@ function addMarkers(data) {
     var markerIcon = "";
 
     if (station.availableBikes >= 0 && station.availableBikes <= 5) {
-      markerIcon = "http://maps.google.com/mapfiles/ms/icons/purple-dot.png";
+
+
+      markerIcon = {
+        path: google.maps.SymbolPath.CIRCLE,
+        fillColor: 'red',
+        fillOpacity: 0.8,
+        strokeColor: 'white',
+        strokeWeight: 1,
+        scale: 12,
+      };
+
     } else if (station.availableBikes > 5 && station.availableBikes <= 10) {
-      markerIcon = "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
+      markerIcon = {
+        path: google.maps.SymbolPath.CIRCLE,
+        fillColor: 'orange',
+        fillOpacity: 0.8,
+        strokeColor: 'white',
+        strokeWeight: 1,
+        scale: 12,
+      };
+       // markerIcon = "https://i.postimg.cc/HnRsbFjZ/map.png";
+      // markerIcon = "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
     } else {
-      markerIcon = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+       markerIcon = {
+        path: google.maps.SymbolPath.CIRCLE,
+        fillColor: 'green',
+        fillOpacity: 0.8,
+        strokeColor: 'white',
+        strokeWeight: 1,
+        scale: 12,
+      };
+       // markerIcon = "https://i.postimg.cc/HnRsbFjZ/map.png";
+      // markerIcon = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+
+
     }
 
     var marker = new google.maps.Marker({
@@ -22,6 +52,13 @@ function addMarkers(data) {
       title: station.name,
       station_number: station.number,
       icon: markerIcon,
+      // set the available bikes as the marker label
+      label: {
+        text: station.availableBikes.toString(),
+        color: '#ffffff', // set the color of the label to white
+        fontSize: '10px', // set the font size of the label to 14px
+        fontWeight: 'bold' // set the font weight of the label to bold
+      }
     });
 
     // creates markers with info box with information
@@ -40,8 +77,8 @@ function addMarkers(data) {
         "</h6></div>",
     });
 
-    // makes the info box if you click the box
-    marker.addListener("click", function () {
+    // makes the info box if you mouseover the box
+    marker.addListener("mouseover", function () {
       if (infoWindow.getMap() == null) {
         // infoWindow is not open
         infoWindow.open(map, marker);
@@ -49,6 +86,27 @@ function addMarkers(data) {
         // infoWindow is open, close it
         infoWindow.close();
       }
+    });
+    // makes the info box close when mouseout
+    marker.addListener("mouseout", function () {
+      infoWindow.close();
+    });
+     // click the marker,zoom the map and  set marker position as the center of the map
+     marker.addListener('click', function() {
+      map.setZoom(17); // set zoom level to 17
+      map.setCenter(marker.getPosition()); // set marker position as the center of the map
+       document.getElementById("search-input").value = station.name;
+        // Retrieve information for station
+      var stationName = this.getTitle();
+      var availableBikes = station.availableBikes;
+      var availableBikeStands = station.availableBikeStands;
+
+    // Create and display div element
+    var div = document.createElement('div');
+    div.innerHTML = '<p>' + stationName + '</p><p>Available Bikes: ' + availableBikes + '</p><p>Available Bike Stands: ' + availableBikeStands + '</p>';
+    document.body.appendChild(div);
+
+
     });
   });
 }
