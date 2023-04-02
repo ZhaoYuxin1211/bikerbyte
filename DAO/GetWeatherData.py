@@ -10,7 +10,7 @@ def main():
     while True:
         try:
             r = requests.get(dbinfo.WEATHER_URI, params={"q": dbinfo.WEATHER_CITY, "appid": dbinfo.WEATHER_KEY})
-            pprint(json.loads(r.text))
+            print(json.loads(r.text))
 
             weathertext = r.text
             weatherinfo = json.loads(weathertext)

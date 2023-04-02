@@ -4,8 +4,22 @@
 #map {
   top: 30px;
   height: 90%;
-  width: 70%;
 }
+.map-info {
+  position: relative;
+  top:30px;
+  right:10px;
+  padding: 40px;
+  background-color: white;
+}
+.map-box {
+  flex: 6;
+}
+.info-box {
+  flex: 2;
+}
+
+
 
 /*
  * Optional: Makes the sample page fill the window.

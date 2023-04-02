@@ -1,5 +1,5 @@
 function addMarkers(data) {
-  console.log(data);
+  // console.log(data);
   const stations = data.stations;
 
   stations.forEach((station) => {
@@ -96,22 +96,27 @@ function addMarkers(data) {
       map.setZoom(17); // set zoom level to 17
       map.setCenter(marker.getPosition()); // set marker position as the center of the map
        document.getElementById("search-input").value = station.name;
-        // Retrieve information for station
+
+       // Retrieve information for station
       var stationName = this.getTitle();
+      var stationNumber = station.number;
       var availableBikes = station.availableBikes;
       var availableBikeStands = station.availableBikeStands;
 
-    // Create and display div element
-    var div = document.createElement('div');
-    div.innerHTML = '<p>' + stationName + '</p><p>Available Bikes: ' + availableBikes + '</p><p>Available Bike Stands: ' + availableBikeStands + '</p>';
-    document.body.appendChild(div);
-
-
+// display the station info
+    document.getElementsByClassName("info-box")[0].innerHTML =
+     '<div>' + stationName + '<div>Station Number: ' + stationNumber + '</div>' +'</div><div>Available Bikes: ' + availableBikes +
+    '</div><div>Available Bike Stands: ' + availableBikeStands + '</div>';
     });
+
+
   });
 }
 
-//other pop up
+// display weather data
+function  DisplayWeather(Weatherdata){
+  console.log(Weatherdata);
+}
 
 function getStations() {
   fetch("/stations")
@@ -120,6 +125,16 @@ function getStations() {
       console.log("fetch response", data);
       addMarkers(data);
     });
+}
+
+function  getWeather(){
+  fetch("/weather")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("fetch response", data);
+      DisplayWeather(data);
+    });
+
 }
 
 function initMap() {
@@ -181,7 +196,10 @@ function initMap() {
   });
 
   getStations();
+  getWeather();
 }
+
+
 
 var map = null;
 window.initMap = initMap;
