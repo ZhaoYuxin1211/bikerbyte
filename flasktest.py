@@ -1,10 +1,7 @@
-import functools
-
-from flask import Flask, g, render_template,jsonify
+from flask import Flask, render_template,jsonify
 from DAO.StationDAO import *
-import json
-from DAO.GetWeatherData import *
-from test.testWeather import get_weather_data
+# from DAO.GetWeatherData import *
+from DAO.testWeather import *
 
 # create flask app, static files are served from "static" directory
 app = Flask(__name__, static_folder='Static')
@@ -27,14 +24,14 @@ def get_stations():
 @app.route("/weather")
 def get_weather():
     weather_data = get_weather_data()
-    # if weather_data is not None:
-    #     return jsonify({
-    #         "temperature": weather_data.get("main", {}).get("temp"),
-    #         "humidity": weather_data.get("main", {}).get("humidity"),
-    #         "wind_speed": weather_data.get("wind", {}).get("speed"),
-    #     })
-    # else:
-    #     return jsonify({"error": "Failed to retrieve weather data"})
+#     if weather_data is not None:
+#         return jsonify({
+#             "temperature": weather_data.get("main", {}).get("temp"),
+#             "humidity": weather_data.get("main", {}).get("humidity"),
+#             "wind_speed": weather_data.get("wind", {}).get("speed"),
+#         })
+#     else:
+#         return jsonify({"error": "Failed to retrieve weather data"})
     return jsonify(weather=weather_data)
 
 

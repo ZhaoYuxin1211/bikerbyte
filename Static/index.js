@@ -91,6 +91,8 @@ function addMarkers(data) {
     marker.addListener("mouseout", function () {
       infoWindow.close();
     });
+
+
      // click the marker,zoom the map and  set marker position as the center of the map
      marker.addListener('click', function() {
       map.setZoom(17); // set zoom level to 17
@@ -107,16 +109,32 @@ function addMarkers(data) {
     document.getElementsByClassName("info-box")[0].innerHTML =
      '<div>' + stationName + '<div>Station Number: ' + stationNumber + '</div>' +'</div><div>Available Bikes: ' + availableBikes +
     '</div><div>Available Bike Stands: ' + availableBikeStands + '</div>';
+
+    // call getWeather() function and pass in station position coordinates
+     getWeather(toString(station.positionLat), toString(station.positionLng));
     });
-
-
   });
 }
 
 // display weather data
-function  DisplayWeather(Weatherdata){
-  console.log(Weatherdata);
+// function  DisplayWeather(Weatherdata){
+//   console.log(Weatherdata);
+//    const ;
+//
+// }
+
+function DisplayWeather(Weatherdata) {
+    console.log(Weatherdata);
+    const weather = Weatherdata.weather;
+    const temperature = Math.round(Weatherdata.weather.main.temp);
+    const main =  Weatherdata.main;
+    const description =Weatherdata.weather.weather.description;
+
+    // Display weather data
+    const weatherDiv = document.getElementsByClassName("weather-box")[0];
+    weatherDiv.innerHTML = `${main}, ${description}, ${temperature}°C`;
 }
+
 
 function getStations() {
   fetch("/stations")
@@ -127,15 +145,25 @@ function getStations() {
     });
 }
 
-function  getWeather(){
-  fetch("/weather")
+// function  getWeather(){
+//   fetch("/weather")
+//     .then((response) => response.json())
+//     .then((data) => {
+//       console.log("fetch response", data);
+//       DisplayWeather(data);
+//     });
+//
+// }
+
+function getWeather(lat, lng) {
+  fetch(`/weather?lat=${lat}&lng=${lng}`)
     .then((response) => response.json())
     .then((data) => {
       console.log("fetch response", data);
       DisplayWeather(data);
     });
-
 }
+
 
 function initMap() {
   const dublin = { lat: 53.35014, lng: -6.266155 };
@@ -196,7 +224,7 @@ function initMap() {
   });
 
   getStations();
-  getWeather();
+
 }
 
 
