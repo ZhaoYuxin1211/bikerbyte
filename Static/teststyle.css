@@ -12,6 +12,9 @@
   padding: 40px;
   background-color: white;
 }
+.row weather-box{
+  padding: 40px;
+}
 .map-box {
   flex: 6;
 }

@@ -37,10 +37,6 @@ function addMarkers(data) {
         strokeWeight: 1,
         scale: 12,
       };
-       // markerIcon = "https://i.postimg.cc/HnRsbFjZ/map.png";
-      // markerIcon = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
-
-
     }
 
     var marker = new google.maps.Marker({
@@ -110,29 +106,26 @@ function addMarkers(data) {
      '<div>' + stationName + '<div>Station Number: ' + stationNumber + '</div>' +'</div><div>Available Bikes: ' + availableBikes +
     '</div><div>Available Bike Stands: ' + availableBikeStands + '</div>';
 
-    // call getWeather() function and pass in station position coordinates
-     getWeather(toString(station.positionLat), toString(station.positionLng));
+    // // call getWeather() function and pass in station position coordinates
+    //  getWeather(station.positionLat,station.positionLng));
     });
   });
 }
 
 // display weather data
-// function  DisplayWeather(Weatherdata){
-//   console.log(Weatherdata);
-//    const ;
-//
-// }
 
 function DisplayWeather(Weatherdata) {
     console.log(Weatherdata);
     const weather = Weatherdata.weather;
-    const temperature = Math.round(Weatherdata.weather.main.temp);
-    const main =  Weatherdata.main;
-    const description =Weatherdata.weather.weather.description;
+    const temperature = Math.round(weather.main.temp - 273.15);
+    const main =  weather.weather[0].main;
+    const description =weather.weather[0].description;
 
     // Display weather data
     const weatherDiv = document.getElementsByClassName("weather-box")[0];
-    weatherDiv.innerHTML = `${main}, ${description}, ${temperature}°C`;
+    // weatherDiv.innerHTML = `${main}, ${description}, ${temperature}°C`;
+     weatherDiv.innerHTML = `${main}, ${temperature}°C`;
+    //  weatherDiv.innerHTML =  '<div>' + main+ '<div>temperature: '+ temperature + '</div>';
 }
 
 
@@ -145,24 +138,24 @@ function getStations() {
     });
 }
 
-// function  getWeather(){
-//   fetch("/weather")
-//     .then((response) => response.json())
-//     .then((data) => {
-//       console.log("fetch response", data);
-//       DisplayWeather(data);
-//     });
-//
-// }
-
-function getWeather(lat, lng) {
-  fetch(`/weather?lat=${lat}&lng=${lng}`)
+function  getWeather(){
+  fetch("/weather")
     .then((response) => response.json())
     .then((data) => {
       console.log("fetch response", data);
       DisplayWeather(data);
     });
+
 }
+
+// function getWeather(lat, lng) {
+//   fetch(`/weather?lat=${lat}&lng=${lng}`)
+//     .then((response) => response.json())
+//     .then((data) => {
+//       console.log("fetch response", data);
+//       DisplayWeather(data);
+//     });
+// }
 
 
 function initMap() {
@@ -224,6 +217,7 @@ function initMap() {
   });
 
   getStations();
+  getWeather();
 
 }
 
