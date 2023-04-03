@@ -74,6 +74,7 @@ function addMarkers(data) {
         'Avilabilable Stands:'+
         station.availableBikeStands+
         '</h6></div>',
+
     });
 
     // makes the info box if you mouseover the box
@@ -105,7 +106,7 @@ function addMarkers(data) {
       var availableBikeStands = station.availableBikeStands;
 
 // display the station info
-    document.getElementsByClassName("info-box")[0].innerHTML =
+    document.getElementById("info-box").innerHTML[0] =
      '<div>' + stationName + '<div>Station Number: ' + stationNumber + '</div>' +'</div><div>Available Bikes: ' + availableBikes +
     '</div><div>Available Bike Stands: ' + availableBikeStands + '</div>';
 
@@ -125,7 +126,7 @@ function DisplayWeather(Weatherdata) {
     const description =weather.weather[0].description;
 
     // Display weather data
-    const weatherDiv = document.getElementsByClassName("weather-box")[0];
+    const weatherDiv = document.getElementById("weather-box");
     // weatherDiv.innerHTML = `${main}, ${description}, ${temperature}°C`;
      weatherDiv.innerHTML = `${main}, ${temperature}°C`;
     //  weatherDiv.innerHTML =  '<div>' + main+ '<div>temperature: '+ temperature + '</div>';
@@ -218,6 +219,7 @@ function initMap() {
       },
     ],
   });
+
 
   getStations();
   getWeather();
