@@ -106,7 +106,7 @@ function addMarkers(data) {
       var availableBikeStands = station.availableBikeStands;
 
 // display the station info
-    document.getElementById("info-box").innerHTML[0] =
+    document.getElementById("info-box")[0].innerHTML =
      '<div>' + stationName + '<div>Station Number: ' + stationNumber + '</div>' +'</div><div>Available Bikes: ' + availableBikes +
     '</div><div>Available Bike Stands: ' + availableBikeStands + '</div>';
 
