@@ -106,7 +106,7 @@ function addMarkers(data) {
       var availableBikeStands = station.availableBikeStands;
 
 // display the station info
-    document.getElementById("info-box")[0].innerHTML =
+    document.getElementById("info-box").innerHTML =
      '<div>' + stationName + '<div>Station Number: ' + stationNumber + '</div>' +'</div><div>Available Bikes: ' + availableBikes +
     '</div><div>Available Bike Stands: ' + availableBikeStands + '</div>';
 
@@ -119,16 +119,32 @@ function addMarkers(data) {
 // display weather data
 
 function DisplayWeather(Weatherdata) {
+
+
+
     console.log(Weatherdata);
     const weather = Weatherdata.weather;
     const temperature = Math.round(weather.main.temp - 273.15);
     const main =  weather.weather[0].main;
     const description =weather.weather[0].description;
 
+    // add image to weather display:
+    function getImageUrl(weatherType) {
+        if (main === 'CLOUDS') {
+            return 'image/clouds.png';
+            } else if (main === 'sunny') {
+            return 'image/clouds.png';
+            } else if (main === 'rainy') {
+            return 'image/clouds.png';
+            } else {
+            return 'image/clouds.png';
+            }
+        }
+
     // Display weather data
     const weatherDiv = document.getElementById("weather-box");
     // weatherDiv.innerHTML = `${main}, ${description}, ${temperature}°C`;
-     weatherDiv.innerHTML = `${main}, ${temperature}°C`;
+     weatherDiv.innerHTML = `<img src="${getImageUrl(main)}" alt="${main}"> ${main}, ${temperature}°C`;
     //  weatherDiv.innerHTML =  '<div>' + main+ '<div>temperature: '+ temperature + '</div>';
 }
 
