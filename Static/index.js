@@ -1,45 +1,45 @@
 function addMarkers(data) {
   // console.log(data);
   const stations = data.stations;
-
+  var markers = [];
   stations.forEach((station) => {
     var markerIcon = "";
 
     if (station.availableBikes == 0) {
       markerIcon = {
         path: google.maps.SymbolPath.CIRCLE,
-        fillColor: 'grey',
+        fillColor: "grey",
         fillOpacity: 0.8,
-        strokeColor: 'white',
+        strokeColor: "white",
         strokeWeight: 1,
         scale: 12,
       };
-    }else if (station.availableBikes >= 0 && station.availableBikes <= 5) {
+    } else if (station.availableBikes >= 0 && station.availableBikes <= 5) {
       markerIcon = {
         path: google.maps.SymbolPath.CIRCLE,
-        fillColor: 'red',
+        fillColor: "red",
         fillOpacity: 0.8,
-        strokeColor: 'white',
+        strokeColor: "white",
         strokeWeight: 1,
         scale: 12,
       };
     } else if (station.availableBikes > 5 && station.availableBikes <= 10) {
       markerIcon = {
         path: google.maps.SymbolPath.CIRCLE,
-        fillColor: 'orange',
+        fillColor: "orange",
         fillOpacity: 0.8,
-        strokeColor: 'white',
+        strokeColor: "white",
         strokeWeight: 1,
         scale: 12,
       };
-       // markerIcon = "https://i.postimg.cc/HnRsbFjZ/map.png";
+      // markerIcon = "https://i.postimg.cc/HnRsbFjZ/map.png";
       // markerIcon = "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
     } else {
-       markerIcon = {
+      markerIcon = {
         path: google.maps.SymbolPath.CIRCLE,
-        fillColor: 'green',
+        fillColor: "green",
         fillOpacity: 0.8,
-        strokeColor: 'white',
+        strokeColor: "white",
         strokeWeight: 1,
         scale: 12,
       };
@@ -57,17 +57,23 @@ function addMarkers(data) {
       // set the available bikes as the marker label
       label: {
         text: station.availableBikes.toString(),
-        color: '#ffffff', // set the color of the label to white
-        fontSize: '10px', // set the font size of the label to 14px
-        fontWeight: 'bold' // set the font weight of the label to bold
-      }
+        color: "#ffffff", // set the color of the label to white
+        fontSize: "10px", // set the font size of the label to 14px
+        fontWeight: "bold", // set the font weight of the label to bold
+      },
     });
+
+    markers.push(marker);
 
     // creates markers with info box with information
     var infoWindow = new google.maps.InfoWindow({
       content:
-        '<div id="content"><h5>' +"No."+station.number+" "+
-        station.name + " "+
+        '<div id="content"><h5>' +
+        "No." +
+        station.number +
+        " " +
+        station.name +
+        " " +
         '<span class="badge rounded-pill text-bg-primary">' +
         station.status +
         "</span>" +
@@ -76,11 +82,10 @@ function addMarkers(data) {
         "Avilabilable Bikes:" +
         station.availableBikes +
         "</h6></div>" +
-        '<div id="station_availability"><h6>'+
-        'Avilabilable Stands:'+
-        station.availableBikeStands+
-        '</h6></div>',
-
+        '<div id="station_availability"><h6>' +
+        "Avilabilable Stands:" +
+        station.availableBikeStands +
+        "</h6></div>",
     });
 
     // makes the info box if you mouseover the box
@@ -98,69 +103,112 @@ function addMarkers(data) {
       infoWindow.close();
     });
 
-
-     // click the marker,zoom the map and  set marker position as the center of the map
-     marker.addListener('click', function() {
+    // click the marker,zoom the map and  set marker position as the center of the map
+    marker.addListener("click", function () {
       map.setZoom(17); // set zoom level to 17
       map.setCenter(marker.getPosition()); // set marker position as the center of the map
-       document.getElementById("search-input").value = station.name;
+      document.getElementById("search-input").value = station.name;
 
-       // Retrieve information for station
+      // Retrieve information for station
       var stationName = this.getTitle();
       var stationNumber = station.number;
       var availableBikes = station.availableBikes;
       var availableBikeStands = station.availableBikeStands;
 
-// display the station info
-    document.getElementById("info-box").innerHTML =
-     '<div>' + stationName + '<div>Station Number: ' + stationNumber + '</div>' +'</div><div>Available Bikes: ' + availableBikes +
-    '</div><div>Available Bike Stands: ' + availableBikeStands + '</div>';
+      // display the station info
+      document.getElementById("info-box").innerHTML =
+        "<div>" +
+        stationName +
+        "<div>Station Number: " +
+        stationNumber +
+        "</div>" +
+        "</div><div>Available Bikes: " +
+        availableBikes +
+        "</div><div>Available Bike Stands: " +
+        availableBikeStands +
+        "</div>";
 
-    // // call getWeather() function and pass in station position coordinates
-    //  getWeather(station.positionLat,station.positionLng));
+      // // call getWeather() function and pass in station position coordinates
+      //  getWeather(station.positionLat,station.positionLng));
     });
   });
+  console.log(markers);
+  //Adding search function:
+  function handleSearchInput() {
+    const searchInput = document.getElementById("search-input");
+    const searchValue = searchInput.value.trim().toUpperCase();
+
+    // Loop through all markers and find the one that matches the search input
+    let matchFound = false;
+    for (let i = 0; i < markers.length; i++) {
+      const marker = markers[i];
+      const stationName = marker.getTitle();
+
+      if (stationName.indexOf(searchValue) !== -1) {
+        // Found a match, set the marker as the center of the map and display station information
+        map.setZoom(17);
+        map.setCenter(marker.getPosition());
+        document.getElementById("info-box").innerHTML =
+          "<div>" +
+          stationName +
+          "<div>Station Number: " +
+          stationNumber +
+          "</div>" +
+          "</div><div>Available Bikes: " +
+          availableBikes +
+          "</div><div>Available Bike Stands: " +
+          availableBikeStands +
+          "</div>";
+        matchFound = true;
+        break;
+      }
+    }
+
+    // If no match was found, clear the info box
+    if (!matchFound) {
+      document.getElementById("info-box").innerHTML =
+        "<p>There is no such station,please try again</p>";
+    }
+  }
 }
 
 // display weather data
 
 function DisplayWeather(Weatherdata) {
+  console.log(Weatherdata);
+  const weather = Weatherdata.weather;
+  const temperature = Math.round(weather.main.temp - 273.15);
+  const main = weather.weather[0].main;
+  const description = weather.weather[0].description;
 
+  // add image to weather display:
+  // for main: https://openweathermap.org/weather-conditions
+  function getImageUrl(weatherType) {
+    if (main === "Thunderstorm") {
+      return "https://openweathermap.org/img/wn/11d@2x.png";
+    } else if (main === "Drizzle") {
+      return "https://openweathermap.org/img/wn/09d@2x.png";
+    } else if (main === "Rain") {
+      return "https://openweathermap.org/img/wn/10d@2x.png";
+    } else if (main === "Snow") {
+      return "https://openweathermap.org/img/wn/13d@2x.png";
+    } else if (main === "Clear") {
+      return "https://openweathermap.org/img/wn/01d@2x.png";
+    } else if (main === "Clouds") {
+      return "https://openweathermap.org/img/wn/02d@2x.png";
+    } else {
+      return "https://openweathermap.org/img/wn/50d@2x.png";
+    }
+  }
 
-
-    console.log(Weatherdata);
-    const weather = Weatherdata.weather;
-    const temperature = Math.round(weather.main.temp - 273.15);
-    const main =  weather.weather[0].main;
-    const description =weather.weather[0].description;
-
-    // add image to weather display:
-    // for main: https://openweathermap.org/weather-conditions
-    function getImageUrl(weatherType) {
-        if (main === 'Thunderstorm') {
-            return 'https://openweathermap.org/img/wn/11d@2x.png';
-            } else if (main === 'Drizzle') {
-            return 'https://openweathermap.org/img/wn/09d@2x.png';
-            } else if (main === 'Rain') {
-            return 'https://openweathermap.org/img/wn/10d@2x.png';
-            } else if (main === 'Snow') {
-            return 'https://openweathermap.org/img/wn/13d@2x.png';
-            } else if (main === 'Clear') {
-            return 'https://openweathermap.org/img/wn/01d@2x.png';
-            } else if (main === 'Clouds') {
-            return 'https://openweathermap.org/img/wn/02d@2x.png';
-            } else {
-            return 'https://openweathermap.org/img/wn/50d@2x.png';
-            }
-        }
-
-    // Display weather data
-    const weatherDiv = document.getElementById("weather-box");
-    // weatherDiv.innerHTML = `${main}, ${description}, ${temperature}°C`;
-     weatherDiv.innerHTML = `<img src="${getImageUrl(main)}" alt="${main}"> ${main}, ${temperature}°C`;
-    //  weatherDiv.innerHTML =  '<div>' + main+ '<div>temperature: '+ temperature + '</div>';
+  // Display weather data
+  const weatherDiv = document.getElementById("weather-box");
+  // weatherDiv.innerHTML = `${main}, ${description}, ${temperature}°C`;
+  weatherDiv.innerHTML = `<img src="${getImageUrl(
+    main
+  )}" alt="${main}"> ${main}, ${temperature}°C`;
+  //  weatherDiv.innerHTML =  '<div>' + main+ '<div>temperature: '+ temperature + '</div>';
 }
-
 
 function getStations() {
   fetch("/stations")
@@ -171,14 +219,13 @@ function getStations() {
     });
 }
 
-function  getWeather(){
+function getWeather() {
   fetch("/weather")
     .then((response) => response.json())
     .then((data) => {
       console.log("fetch response", data);
       DisplayWeather(data);
     });
-
 }
 
 // function getWeather(lat, lng) {
@@ -189,7 +236,6 @@ function  getWeather(){
 //       DisplayWeather(data);
 //     });
 // }
-
 
 function initMap() {
   const dublin = { lat: 53.35014, lng: -6.266155 };
@@ -249,13 +295,9 @@ function initMap() {
     ],
   });
 
-
   getStations();
   getWeather();
-
 }
-
-
 
 var map = null;
 window.initMap = initMap;
