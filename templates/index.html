@@ -1,87 +1,98 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>BIKER BYTE</title>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-            crossorigin="anonymous"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
     />
-    <link rel="stylesheet" type="text/css" href="../Static/teststyle.css"/>
+    <link rel="stylesheet" type="text/css" href="../Static/teststyle.css" />
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <!-- <script type="module" src="../Static/searchTest.js"></script> -->
     <script type="module" src="../Static/index.js"></script>
 
     <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBqLJ1VO0sxQFYsdj4R0_5ArcCNBQdjJI&callback=initMap&v=weekly"
-            defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBqLJ1VO0sxQFYsdj4R0_5ArcCNBQdjJI&callback=initMap&v=weekly"
+      defer
     ></script>
-</head>
-<body>
-<!--  adding nav bar-->
-<nav
-        class="navbar navbar-expand-lg bg-body-tertiary"
-        style="background-color: #e3f2fd"
->
-    <div class="container-fluid">
+  </head>
+  <body>
+    <!--  adding nav bar-->
+    <nav
+      class="navbar navbar-expand-lg bg-body-tertiary"
+      style="background-color: #e3f2fd"
+    >
+      <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <img src="https://icons8.com/icon/70865/cycling-mountain-bike" alt="icon" width="36" height="36">
-            Biker-byte
+          <img
+            src="https://icons8.com/icon/70865/cycling-mountain-bike"
+            alt="icon"
+            width="36"
+            height="36"
+          />
+          Biker-byte
         </a>
         <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
+          class="navbar-toggler"
+          id="search-btn"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
-            <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link disabled"
-                    >Ride with ease, connect with the breeze - with BikerByte!</a
-                    >
-                </li>
-            </ul>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link disabled"
+                >Ride with ease, connect with the breeze - with BikerByte!</a
+              >
+            </li>
+          </ul>
         </div>
-    </div>
-</nav>
+      </div>
+    </nav>
 
-<div class="container-fluid text-center">
-    <div class="row container-fluid">
+    <div class="container-fluid text-center">
+      <div class="row container-fluid">
         <div class="container-fluid col-sm-9">
-            <div id="map"></div>
+          <div id="map"></div>
         </div>
-        <div class="container-fluid col">
-            <div class="row text-center align-items-stretch">
-                <div class="col h-100" id="weather-box">
-                    weather box
-                </div>
-            </div>
-            <div class="row text-center">
-                <nav class="navbar bg-body-tertiary">
-                    <div class="container-fluid">
-                        <form class="d-flex" role="search">
-                            <input id="search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
-                    </div>
-                </nav>
-            </div>
-            <div class="row text-center">
-                <div class="col" id="info-box">
-                    info box
-                </div>
-            </div>
+        <div id="info" class="container-fluid col">
+          <div class="row text-center align-items-stretch">
+            <div class="col h-100" id="weather-box">weather box</div>
+          </div>
+          <div class="row text-center">
+            <nav class="navbar bg-body-tertiary">
+              <div class="container-fluid">
+                <form class="d-flex" role="search">
+                  <input
+                    id="search-input"
+                    class="form-control me-2"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                  />
+                  <button class="btn btn-outline-success" type="submit">
+                    Search
+                  </button>
+                </form>
+              </div>
+            </nav>
+          </div>
+          <div class="row text-center">
+            <div class="col" id="info-box">info box</div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-<!--    -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-</body>
+    <!--    -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+  </body>
 </html>

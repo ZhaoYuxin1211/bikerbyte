@@ -2,10 +2,9 @@ function addMarkers(data) {
   // console.log(data);
   const stations = data.stations;
   //add markers array.
-  var markers = [];
   stations.forEach((station) => {
     var markerIcon = "";
-
+    //    color palette : https://coolors.co/palette/ff6b35-f7c59f-efefd0-004e89-1a659e
     if (station.availableBikes == 0) {
       markerIcon = {
         path: google.maps.SymbolPath.CIRCLE,
@@ -63,8 +62,6 @@ function addMarkers(data) {
         fontWeight: "bold", // set the font weight of the label to bold
       },
     });
-
-    markers.push(marker);
 
     // creates markers with info box with information
     var infoWindow = new google.maps.InfoWindow({
@@ -133,22 +130,29 @@ function addMarkers(data) {
       //  getWeather(station.positionLat,station.positionLng));
     });
   });
-  console.log(markers);
-  //Adding search function:
-  function handleSearchInput() {
+}
+// adding search functions:
+const searchBtn = document.getElementById("search-btn");
+
+function search(data) {
+  console.log("search range",data);
+  searchBtn.addEventListener("click", function () {
     const searchInput = document.getElementById("search-input");
     const searchValue = searchInput.value.trim().toUpperCase();
-
-    // Loop through all markers and find the one that matches the search input
+    const stations = data.stations;
+    // Loop through all stations and find the one that matches the search input
     let matchFound = false;
-    for (let i = 0; i < markers.length; i++) {
-      const marker = markers[i];
-      const stationName = marker.getTitle();
 
-      if (stationName.indexOf(searchValue) !== -1) {
+    data.stations.forEach((station) => {
+      const stationName = station.name;
+      const stationNumber = station.number;
+      const availableBikes = station.availableBikes;
+      const availableBikeStands = station.availableBikeStands;
+
+      if (stationName == searchValue) {
         // Found a match, set the marker as the center of the map and display station information
         map.setZoom(17);
-        map.setCenter(marker.getPosition());
+        map.setCenter(station.positionLat, station.positionLng);
         document.getElementById("info-box").innerHTML =
           "<div>" +
           stationName +
@@ -161,16 +165,16 @@ function addMarkers(data) {
           availableBikeStands +
           "</div>";
         matchFound = true;
-        break;
+        console.log(station.name);
       }
-    }
+    });
 
     // If no match was found, clear the info box
     if (!matchFound) {
       document.getElementById("info-box").innerHTML =
-        "<p>There is no such station,please try again</p>";
+        "<p>There is no such station, please try again</p>";
     }
-  }
+  });
 }
 
 // display weather data
@@ -217,6 +221,10 @@ function getStations() {
     .then((data) => {
       console.log("fetch response", data);
       addMarkers(data);
+      search(data);
+    })
+    .catch((error) => {
+      console.error("fetch error", error);
     });
 }
 
@@ -298,7 +306,6 @@ function initMap() {
 
   getStations();
   getWeather();
-
 }
 
 var map = null;
