@@ -5,7 +5,20 @@ function addMarkers(data) {
   stations.forEach((station) => {
     var markerIcon = "";
 
-    if (station.availableBikes >= 0 && station.availableBikes <= 5) {
+    if (station.availableBikes == 0) {
+
+
+      markerIcon = {
+        path: google.maps.SymbolPath.CIRCLE,
+        fillColor: 'grey',
+        fillOpacity: 0.8,
+        strokeColor: 'white',
+        strokeWeight: 1,
+        scale: 12,
+      };
+
+
+    }else if (station.availableBikes >= 0 && station.availableBikes <= 5) {
 
 
       markerIcon = {
@@ -129,15 +142,22 @@ function DisplayWeather(Weatherdata) {
     const description =weather.weather[0].description;
 
     // add image to weather display:
+    // for main: https://openweathermap.org/weather-conditions
     function getImageUrl(weatherType) {
-        if (main === 'CLOUDS') {
-            return 'image/clouds.png';
-            } else if (main === 'sunny') {
-            return 'image/clouds.png';
-            } else if (main === 'rainy') {
-            return 'image/clouds.png';
+        if (main === 'Thunderstorm') {
+            return 'https://openweathermap.org/img/wn/11d@2x.png';
+            } else if (main === 'Drizzle') {
+            return 'https://openweathermap.org/img/wn/09d@2x.png';
+            } else if (main === 'Rain') {
+            return 'https://openweathermap.org/img/wn/10d@2x.png';
+            } else if (main === 'Snow') {
+            return 'https://openweathermap.org/img/wn/13d@2x.png';
+            } else if (main === 'Clear') {
+            return 'https://openweathermap.org/img/wn/01d@2x.png';
+            } else if (main === 'Clouds') {
+            return 'https://openweathermap.org/img/wn/02d@2x.png';
             } else {
-            return 'image/clouds.png';
+            return 'https://openweathermap.org/img/wn/50d@2x.png';
             }
         }
 
