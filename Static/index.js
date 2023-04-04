@@ -1,6 +1,7 @@
 function addMarkers(data) {
   // console.log(data);
   const stations = data.stations;
+  //add markers array.
   var markers = [];
   stations.forEach((station) => {
     var markerIcon = "";
@@ -8,7 +9,7 @@ function addMarkers(data) {
     if (station.availableBikes == 0) {
       markerIcon = {
         path: google.maps.SymbolPath.CIRCLE,
-        fillColor: "grey",
+        fillColor: "#efefd0",
         fillOpacity: 0.8,
         strokeColor: "white",
         strokeWeight: 1,
@@ -17,7 +18,7 @@ function addMarkers(data) {
     } else if (station.availableBikes >= 0 && station.availableBikes <= 5) {
       markerIcon = {
         path: google.maps.SymbolPath.CIRCLE,
-        fillColor: "red",
+        fillColor: "#f7c59f",
         fillOpacity: 0.8,
         strokeColor: "white",
         strokeWeight: 1,
@@ -26,7 +27,7 @@ function addMarkers(data) {
     } else if (station.availableBikes > 5 && station.availableBikes <= 10) {
       markerIcon = {
         path: google.maps.SymbolPath.CIRCLE,
-        fillColor: "orange",
+        fillColor: "#ff6b35",
         fillOpacity: 0.8,
         strokeColor: "white",
         strokeWeight: 1,
@@ -37,7 +38,7 @@ function addMarkers(data) {
     } else {
       markerIcon = {
         path: google.maps.SymbolPath.CIRCLE,
-        fillColor: "green",
+        fillColor: "#1a659e",
         fillOpacity: 0.8,
         strokeColor: "white",
         strokeWeight: 1,
@@ -297,6 +298,7 @@ function initMap() {
 
   getStations();
   getWeather();
+
 }
 
 var map = null;
