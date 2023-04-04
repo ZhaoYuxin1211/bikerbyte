@@ -27,7 +27,7 @@
 >
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <img src="Image/Flat-PNG-MapMarkers-Icons-Variations.png" alt="icon" width="38" height="24">
+            <img src="\Image\bicycle.png" alt="icon" width="36" height="36">
             Biker-byte
         </a>
         <button
@@ -44,50 +44,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a
-                            class="nav-link dropdown-toggle"
-                            href="#"
-                            role="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                    >
-                        Dropdown
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                            <hr class="dropdown-divider"/>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link disabled"
                     >Ride with ease, connect with the breeze - with BikerByte!</a
                     >
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input id="search-input"
-                       class="form-control me-2"
-                       type="search"
-                       placeholder="Search"
-                       aria-label="Search"
-                />
-
-                <button class="btn btn-outline-success" type="submit">
-                    Search
-                </button>
-            </form>
         </div>
     </div>
 </nav>
@@ -97,32 +58,25 @@
         <div class="container-fluid col-sm-9">
             <div id="map"></div>
         </div>
-        <div class="col-sm-3">
+        <div class="container-fluid col">
             <div class="row text-center align-items-stretch">
                 <div class="col h-100" id="weather-box">
                     weather box
                 </div>
             </div>
             <div class="row text-center">
+                <nav class="navbar bg-body-tertiary">
+                    <div class="container-fluid">
+                        <form class="d-flex" role="search">
+                            <input id="search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                </nav>
+            </div>
+            <div class="row text-center">
                 <div class="col" id="info-box">
                     info box
-<!--                    <div class="card" style="width: 18rem;">-->
-<!--                        <img src="..." class="card-img-top" alt="...">-->
-<!--                        <div class="card-body">-->
-<!--                            <h5 class="card-title">Card title</h5>-->
-<!--                            <p class="card-text">Some quick example text to build on the card title and make up the bulk-->
-<!--                                of the card's content.</p>-->
-<!--                        </div>-->
-<!--                        <ul class="list-group list-group-flush">-->
-<!--                            <li class="list-group-item">An item</li>-->
-<!--                            <li class="list-group-item">A second item</li>-->
-<!--                            <li class="list-group-item">A third item</li>-->
-<!--                        </ul>-->
-<!--                        <div class="card-body">-->
-<!--                            <a href="#" class="card-link">Card link</a>-->
-<!--                            <a href="#" class="card-link">Another link</a>-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </div>
             </div>
         </div>

@@ -6,8 +6,6 @@ function addMarkers(data) {
     var markerIcon = "";
 
     if (station.availableBikes == 0) {
-
-
       markerIcon = {
         path: google.maps.SymbolPath.CIRCLE,
         fillColor: 'grey',
@@ -16,11 +14,7 @@ function addMarkers(data) {
         strokeWeight: 1,
         scale: 12,
       };
-
-
     }else if (station.availableBikes >= 0 && station.availableBikes <= 5) {
-
-
       markerIcon = {
         path: google.maps.SymbolPath.CIRCLE,
         fillColor: 'red',
@@ -29,7 +23,6 @@ function addMarkers(data) {
         strokeWeight: 1,
         scale: 12,
       };
-
     } else if (station.availableBikes > 5 && station.availableBikes <= 10) {
       markerIcon = {
         path: google.maps.SymbolPath.CIRCLE,
