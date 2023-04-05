@@ -149,11 +149,16 @@ function search(data) {
       const stationNumber = station.number;
       const availableBikes = station.availableBikes;
       const availableBikeStands = station.availableBikeStands;
+      const center = {
+        lat: Number(station.positionLat),
+        lng: Number(station.positionLng),
+      };
 
       if (stationName == searchValue) {
         // Found a match, set the marker as the center of the map and display station information
         map.setZoom(17);
-        map.setCenter(station.positionLat, station.positionLng);
+        map.setCenter(center);
+        console.log("center:", station.positionLat, station.positionLng);
         document.getElementById("info-box").innerHTML =
           "<div>" +
           stationName +
@@ -167,6 +172,7 @@ function search(data) {
           "</div>";
         matchFound = true;
         console.log(station.name);
+        return true;
       }
     });
 
@@ -176,6 +182,31 @@ function search(data) {
         "<p>There is no such station, please try again</p>";
     }
   });
+}
+
+//add info table
+function addinfotable(data) {
+  const stations = data.stations;
+  console.log("table:", stations);
+  var info_table = "";
+  stations.forEach((station) => {
+    var stationName = station.name;
+    var stationNumber = station.number;
+    var availableBikes = station.availableBikes;
+    var availableBikeStands = station.availableBikeStands;
+
+    info_table +=
+      '<tr><th scope="row">' +
+      stationNumber +
+      "</th><td>" +
+      stationName +
+      "</td><td>" +
+      availableBikes +
+      "</td><td>" +
+      availableBikeStands +
+      "</td></tr>";
+  });
+  document.getElementById("info-table").innerHTML = info_table;
 }
 
 // display weather data
@@ -223,6 +254,7 @@ function getStations() {
       console.log("fetch response", data);
       addMarkers(data);
       search(data);
+      addinfotable(data);
     })
     .catch((error) => {
       console.error("fetch error", error);

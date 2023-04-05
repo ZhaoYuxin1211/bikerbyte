@@ -1,35 +1,40 @@
-.col {
-  height: 90vh;
+#01 {
+  flex: 1;
+  display: flex;
+}
+#map,
+#info {
+  height: 85vh;
+  font-size: 12px;
 }
 #map {
-  top: 30px;
-  height: 90%;
+  top: 10px;
   margin-right: 5px;
 }
-body {
-  /* background-color: */
-  background-repeat: no-repeat;
-  background-size: 100%;
-  background-attachment: fixed;
+#info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 85vh;
 }
 
-/* #info {
-  margin-top: 30px;
-  margin-left: 5px;
-  box-shadow: 0 0 3px 0;
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
-  padding: 20px;
-  backdrop-filter: blur(5px);
-  text-align: center;
-} */
+#table-container {
+  flex: 1;
+  width: 100px;
+  height: 350px;
+  overflow: auto;
+  font-size: 12px;
+}
 
-/*
- * Optional: Makes the sample page fill the window.
- */
 html,
 body {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+#thead {
+  position: sticky;
+  background-color: #e3f2fd;
+  top: 0;
+  z-index: 1;
 }
