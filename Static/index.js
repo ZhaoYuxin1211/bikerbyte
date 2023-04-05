@@ -132,18 +132,19 @@ function addMarkers(data) {
   });
 }
 // adding search functions:
-const searchBtn = document.getElementById("search-btn");
 
+const searchBtn = document.getElementById("search-btn");
 function search(data) {
-  console.log("search range",data);
+  console.log("search range", data);
   searchBtn.addEventListener("click", function () {
     const searchInput = document.getElementById("search-input");
     const searchValue = searchInput.value.trim().toUpperCase();
     const stations = data.stations;
+    console.log("search stations:", data);
     // Loop through all stations and find the one that matches the search input
     let matchFound = false;
 
-    data.stations.forEach((station) => {
+    stations.forEach((station) => {
       const stationName = station.name;
       const stationNumber = station.number;
       const availableBikes = station.availableBikes;
