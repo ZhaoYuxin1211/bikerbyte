@@ -14,6 +14,7 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <!-- <script type="module" src="../Static/searchTest.js"></script> -->
     <script type="module" src="../Static/index.js"></script>
+    <script type="module" src="../test/infotable.js"></script>
 
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBqLJ1VO0sxQFYsdj4R0_5ArcCNBQdjJI&callback=initMap&v=weekly"
@@ -80,7 +81,11 @@
                     placeholder="Search"
                     aria-label="Search"
                   />
-                  <button class="btn btn-outline-success" type="submit">
+                  <button
+                    id="search-btn"
+                    class="btn btn-outline-primary"
+                    type="submit"
+                  >
                     Search
                   </button>
                 </form>
@@ -89,6 +94,21 @@
           </div>
           <div class="row text-center">
             <div class="col" id="info-box">info box</div>
+          </div>
+          <div class="row text-center">
+            <div class="col">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Number</th>
+                    <th scope="col">Station</th>
+                    <th scope="col">Bikes</th>
+                    <th scope="col">Stands</th>
+                  </tr>
+                </thead>
+                <tbody id="info-table"></tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
