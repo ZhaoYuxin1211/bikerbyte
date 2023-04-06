@@ -131,6 +131,7 @@ function addMarkers(data) {
     });
   });
 }
+//here
 // adding search functions:
 
 const searchBtn = document.getElementById("search-btn");
