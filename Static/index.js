@@ -132,8 +132,8 @@ function addMarkers(data) {
   });
 }
 //here
-// adding search functions:
 
+// adding search functions:
 const searchBtn = document.getElementById("search-btn");
 function search(data) {
   console.log("search range", data);
