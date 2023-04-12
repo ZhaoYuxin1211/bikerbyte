@@ -259,7 +259,8 @@ function displayFiveNearestStations(stations, targetStation) {
     }
   });
 
-  let infoTable = "";
+  let infoTable =
+    '<thead id="thead"><tr><th scope="col">Number</th><th scope="col">Station</th><th scope="col">Bikes</th><th scope="col">Stands</th></tr></thead><tbody>';
   // Display information of the five nearest stations on a table
   nearestStations.forEach(({ station }) => {
     const stationName = station.name;
@@ -278,6 +279,7 @@ function displayFiveNearestStations(stations, targetStation) {
       availableBikeStands +
       "</td></tr>";
   });
+  infoTable += "</tbody>";
 
   // Update the table with the information
   document.getElementById("info-table").innerHTML = infoTable;
