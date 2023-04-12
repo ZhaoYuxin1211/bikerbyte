@@ -13,5 +13,6 @@ DB_ADDRESS = "database-bike.cm2v37iz6jos.eu-west-1.rds.amazonaws.com"
 WEATHER_KEY = "97f5ad60a294eb1953e8b2cc90f50214"
 WEATHER_URI = "https://api.openweathermap.org/data/2.5/weather"
 WEATHER_CITY = "Dublin,IE"
+WEATHER_FORCAST = "https://api.openweathermap.org/data/2.5/forecast"
 # Map api
 MAP_KEY = "AIzaSyCBqLJ1VO0sxQFYsdj4R0_5ArcCNBQdjJI"
