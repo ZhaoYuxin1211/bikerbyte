@@ -51,3 +51,18 @@ body,
   justify-content: center;
   align-items: center;
 }
+#toggle {
+  background-color: #1a659e;
+}
+#chart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#history,
+#predict {
+  background-color: rgb(214, 203, 203);
+  height: 280px;
+  width: 300px;
+}

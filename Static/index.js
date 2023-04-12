@@ -124,7 +124,8 @@ function addMarkers(data) {
         availableBikes +
         "</div><div>Available Bike Stands: " +
         availableBikeStands +
-        "</div>";
+        "</div>" +
+        '<button id="toggle" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">History and Predict</button>';
 
       const targetStation = station;
       displayFiveNearestStations(stations, targetStation);
@@ -171,7 +172,8 @@ function search(data) {
           availableBikes +
           "</div><div>Available Bike Stands: " +
           availableBikeStands +
-          "</div>";
+          "</div>" +
+          '<button id="toggle"  class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">History and Predict</button>';
         matchFound = true;
         console.log(station.name);
         const targetStation = station;
@@ -260,10 +262,10 @@ function displayFiveNearestStations(stations, targetStation) {
   });
 
   let infoTable =
-    '<thead id="thead"><tr><th scope="col">Number</th><th scope="col">Station</th><th scope="col">Bikes</th><th scope="col">Stands</th></tr></thead><tbody>';
+    '<h6>The Nearest Five Station</h6><table class="table table-hover"><thead id="thead"><tr><th scope="col">Number</th><th scope="col">Station</th><th scope="col">Bikes</th><th scope="col">Stands</th></tr></thead><tbody>';
   // Display information of the five nearest stations on a table
   nearestStations.forEach(({ station }) => {
-    const stationName = station.name;
+    const stationName = station.name;art
     const stationNumber = station.number;
     const availableBikes = station.availableBikes;
     const availableBikeStands = station.availableBikeStands;
@@ -279,7 +281,7 @@ function displayFiveNearestStations(stations, targetStation) {
       availableBikeStands +
       "</td></tr>";
   });
-  infoTable += "</tbody>";
+  infoTable += "</tbody></table>";
 
   // Update the table with the information
   document.getElementById("info-table").innerHTML = infoTable;
