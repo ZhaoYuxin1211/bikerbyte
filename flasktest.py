@@ -7,11 +7,11 @@ from DAO.testWeather import *
 app = Flask(__name__, static_folder='Static')
 # app.config.from_object('config')
 
-#  this route simply serves 'static/index3.html'
+#  this route simply serves 'static/index.html'
 @app.route('/')
 def root():
     get_stations()
-    return render_template('index3.html', MAPS_APIKEY=dbinfo.MAP_KEY)
+    return render_template('index.html', MAPS_APIKEY=dbinfo.MAP_KEY)
     # return "hello there!"
 
 @app.route("/stations")
