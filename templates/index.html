@@ -10,7 +10,7 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" type="text/css" href="../Static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../Static/teststyle.css" />
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <!--     <script type="module" src="../Static/searchTest.js"></script>-->
     <script type="module" src="../Static/index.js"></script>
@@ -23,7 +23,6 @@
   <body>
     <!--  adding nav bar-->
     <nav
-      id="nav"
       class="navbar navbar-expand-lg bg-body-tertiary"
       style="background-color: #e3f2fd"
     >
@@ -37,6 +36,7 @@
           />
           Biker-byte
         </a>
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
@@ -48,46 +48,64 @@
         </div>
       </div>
     </nav>
-    <!-- ------------------------------------------container---------------------------------------- -->
-    <div class="container">
-      <div id="map"></div>
-      <div class="fixed-box">
-        <div id="info01">
-          <div id="weather-box">weather box</div>
 
-          <nav id="search" class="navbar bg-body-tertiary">
-            <div class="container-fluid">
-              <form class="d-flex" role="search">
-                <input
-                  id="search-input"
-                  class="form-control me-2"
-                  type="search"
-                  placeholder="Search Station Name"
-                  aria-label="Search"
-                />
-                <!--                  here-->
-                <button
-                  id="search-btn"
-                  class="btn btn-outline-primary"
-                  type="button"
-                >
-                  Search
-                </button>
-              </form>
-            </div>
-          </nav>
+    <div id="01" class="container-fluid text-center">
+      <div class="row container-fluid">
+        <div class="container-fluid col-sm-9">
+          <div id="map"></div>
         </div>
-        <br />
-        <div id="info02">
-          <br />
-          <h6>Information Board</h6>
-          <div class="col" id="info-box"></div>
+        <div id="info" class="container-fluid col">
+          <div class="row text-center align-items-stretch">
+            <div class="col h-100" id="weather-box">weather box</div>
+          </div>
+          <div class="row text-center">
+            <nav class="navbar bg-body-tertiary">
+              <div class="container-fluid">
+                <form class="d-flex" role="search">
+                  <input
+                    id="search-input"
+                    class="form-control me-2"
+                    type="search"
+                    placeholder="Search Station Name"
+                    aria-label="Search"
+                  />
+                  <!--                  here-->
+                  <button
+                    id="search-btn"
+                    class="btn btn-outline-primary"
+                    type="button"
+                  >
+                    Search
+                  </button>
+                </form>
+              </div>
+            </nav>
+          </div>
+          <div>
+            <div class="row text-center">
+              <div class="col" id="info-box">
+                <button
+                  class="btn btn-primary float-right"
+                  type="button"
+                  data-toggle="offcanvas"
+                  data-target="#offcanvas"
+                  aria-controls="offcanvas"
+                >
+                  Toggle
+                </button>
+              </div>
+            </div>
+            <div class="row text-center">
+              <div id="table-container" class="col">
+                <table id="info-table" class="table table-hover"></table>
+              </div>
+            </div>
+          </div>
 
-          <table id="info-table" class="table table-hover"></table>
+          <!-- Add offcanvas div -->
         </div>
       </div>
     </div>
-    <!-- Add offcanvas div -->
 
     <!--    -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
   </body>
