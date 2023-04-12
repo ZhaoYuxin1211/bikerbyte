@@ -1,0 +1,53 @@
+html,
+body,
+#nav {
+  width: 100vw;
+  height: 55px;
+}
+.container {
+  position: absolute;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#map {
+  height: 90vh;
+  width: 100vw;
+
+  margin: 0;
+  padding: 0;
+}
+.fixed-box {
+  align-items: center;
+  position: absolute;
+  top: 0;
+  top: 25px;
+  right: -150px;
+  width: 350px;
+  z-index: 1;
+}
+#info01 {
+  font-size: 14px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.7); /* 背景色为白色半透明 */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* 添加阴影效果 */
+  opacity: 1; /* 设置不透明度为1，也就是完全不透明 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#info02 {
+  font-size: 14px;
+  text-align: center;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.7); /* 背景色为白色半透明 */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* 添加阴影效果 */
+  opacity: 1; /* 设置不透明度为1，也就是完全不透明 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
