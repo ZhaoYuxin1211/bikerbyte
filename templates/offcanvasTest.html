@@ -12,7 +12,7 @@
     />
     <link rel="stylesheet" type="text/css" href="../Static/teststyle.css"/>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-<!--     <script type="module" src="../Static/searchTest.js"></script>-->
+    <!-- <script type="module" src="../Static/searchTest.js"></script> -->
     <script type="module" src="../Static/index.js"></script>
 
     <script
@@ -28,9 +28,12 @@
 >
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-             <img href="https://ibb.co/LxrXpB2" src="https://i.ibb.co/LxrXpB2/1111-removebg-preview.png>
-                  width="50"
-                  height=50"/>
+            <img
+                    src="https://icons8.com/icon/70865/cycling-mountain-bike"
+                    alt="icon"
+                    width="36"
+                    height="36"
+            />
             Biker-byte
         </a>
 
@@ -43,6 +46,10 @@
                 </li>
             </ul>
         </div>
+        <!-- Add the search button as the offcanvas toggle button -->
+        <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#info" aria-controls="info">
+            Search
+        </button>
     </div>
 </nav>
 
@@ -51,26 +58,34 @@
         <div class="container-fluid col-sm-9">
             <div id="map"></div>
         </div>
-        <div id="info" class="container-fluid col">
-            <div class="row text-center align-items-stretch">
-                <div class="col h-100" id="weather-box">weather box</div>
+        <!-- Add the offcanvas content as the info-box -->
+        <div id="info" class="offcanvas offcanvas-end">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">Info Box</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-            <div class="row text-center">
-                <nav class="navbar bg-body-tertiary">
-                    <div class="container-fluid">
-                        <form class="d-flex" role="search">
-                            <input
+            <div class="offcanvas-body">
+                <div class="row text-center align-items-stretch">
+                    <div class="col h-100" id="weather-box">weather box</div>
+                </div>
+                <div class="row text-center">
+                    <nav class="navbar bg-body-tertiary">
+                        <div class="container-fluid">
+                            <form class="d-flex" role="search">
+                               <input
                                     id="search-input"
                                     class="form-control me-2"
                                     type="search"
                                     placeholder="Search Station Name"
                                     aria-label="Search"
                             />
-                            <!--                  here-->
                             <button
                                     id="search-btn"
                                     class="btn btn-outline-primary"
                                     type="button"
+                                    data-bs-toggle="offcanvas"
+                                    data-bs-target="#info-box-offcanvas"
+                                    aria-controls="info-box-offcanvas"
                             >
                                 Search
                             </button>
@@ -78,14 +93,20 @@
                     </div>
                 </nav>
             </div>
+            <!-- Add the offcanvas container for info-box content -->
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="info-box-offcanvas" aria-labelledby="info-box-offcanvas-label">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="info-box-offcanvas-label">Info Box</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <!-- Add the content for info-box here -->
+                    <div class="col" id="info-box">info box</div>
+                </div>
+            </div>
             <div>
                 <div class="row text-center">
-                    <div class="col" id="info-box">info box
-                        <button class="btn btn-primary float-right" type="button" data-toggle="offcanvas"
-                                data-target="#offcanvas" aria-controls="offcanvas">
-                            Toggle
-                        </button>
-                    </div>
+                    <div class="col" id="info-box">info box</div>
                 </div>
                 <div class="row text-center">
                     <div id="table-container" class="col">
@@ -103,39 +124,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Add offcanvas div -->
-            <div class="offcanvas offcanvas-right" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasLabel">Offcanvas Title</h5>
-                    <button type="button" class="btn-close text-reset" data-toggle="offcanvas" data-target="#offcanvas"
-                            aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <!-- Offcanvas content goes here -->
-                    Offcanvas content
-                </div>
-            </div>
-            <!--        </div>-->
-            <!--        <div class="row text-center">-->
-            <!--            <div id="table-container" class="col">-->
-            <!--                <table class="table table-hover">-->
-            <!--                    <thead id="thead">-->
-            <!--                    <tr>-->
-            <!--                        <th scope="col">Number</th>-->
-            <!--                        <th scope="col">Station</th>-->
-            <!--                        <th scope="col">Bikes</th>-->
-            <!--                        <th scope="col">Stands</th>-->
-            <!--                    </tr>-->
-            <!--                    </thead>-->
-            <!--                    <tbody id="info-table"></tbody>-->
-            <!--                </table>-->
-            <!--            </div>-->
-            <!--        </div>-->
-            <!--    </div>-->
-            <!--</div>-->
-            <!--</div>-->
         </div>
-        <!--    -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-</body>
-</html>
+    </div>
+</div>
