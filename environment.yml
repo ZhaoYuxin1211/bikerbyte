@@ -8,4 +8,8 @@ dependencies:
   - mysqlclient
   - numpy
   - jupyterlab
+  - pymysql
+  - simplejson
+  - flask
+  - scikit-learn
 prefix: D:\software\Anaconda\envs\bikerbyte
