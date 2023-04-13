@@ -25,7 +25,7 @@
     <nav
       id="nav"
       class="navbar navbar-expand-lg bg-body-tertiary"
-      style="background-color: #e3f2fd"
+      style="background-color: #e3f2fd !important"
     >
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
@@ -57,7 +57,8 @@
 
           <nav id="search" class="navbar bg-body-tertiary">
             <div class="container-fluid">
-              <form class="d-flex" role="search">
+              <!-- -----------------  ------------        search       here--------------------------->
+              <form id="00" class="d-flex" role="search">
                 <input
                   id="search-input"
                   class="form-control me-2"
@@ -65,7 +66,7 @@
                   placeholder="Search Station Name"
                   aria-label="Search"
                 />
-                <!--                  here-->
+
                 <button
                   id="search-btn"
                   class="btn btn-outline-primary"
@@ -74,6 +75,7 @@
                   Search
                 </button>
               </form>
+              <!--  -------------     -----------------    search       here-------------------->
             </div>
           </nav>
         </div>
@@ -187,16 +189,24 @@
           <br />
 
           <!-- ---------------------------------Predict Chart here------------------------ -->
-          <nav id="navbar-example2" class="navbar navbar-light bg-light px-3">
-            <ul class="nav nav-pills">
-              <li id="01" class="nav-item">
-                <a class="nav-link" href="#scrollspyHeading1">Predict Chart</a>
-              </li>
-              <li id="02" class="nav-item">
-                <a class="nav-link" href="#scrollspyHeading2">Predict Tools</a>
-              </li>
-            </ul>
-          </nav>
+          <div id="btn-container">
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              href="#scrollspyHeading1"
+            >
+              <a class="nav-link" href="#scrollspyHeading1">Predict Chart</a>
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              href="#scrollspyHeading1"
+            >
+              <a class="nav-link" href="#scrollspyHeading2">Predict Tools</a>
+            </button>
+          </div>
+
           <div
             id="predict-scroll"
             data-bs-spy="scroll"

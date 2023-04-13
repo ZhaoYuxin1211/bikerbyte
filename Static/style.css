@@ -81,13 +81,9 @@ body,
 #navbar-example2 {
   text-align: center;
   width: 300px;
-  background-color: #e3f2fd;
+  background-color: white !important;
 }
-#01,
-#02 {
-  border: 2px;
-  border-color: #4479a1;
-}
+
 #predict-scroll {
   width: 300px;
 }
