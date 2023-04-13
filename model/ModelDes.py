@@ -28,6 +28,7 @@ def predict(station_num):
     # make prediction
     predict_available_bikes = model.predict(X_features)
     return times, predict_available_bikes
+# print(predict(33))
 
 def predict_collect():
     predict_sum={}
