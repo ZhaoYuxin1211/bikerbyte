@@ -2,7 +2,6 @@ from flask import Flask, render_template,jsonify
 from DAO.StationDAO import *
 # from DAO.GetWeatherData import *
 from DAO.GetWeatherUpdate import *
-from model.ModelDes import *
 
 # create flask app, static files are served from "static" directory
 app = Flask(__name__, static_folder='Static')
@@ -66,10 +65,8 @@ def get_occupancy(station_id):
     print(res)
     return jsonify(data=json.dumps(list(zip(map(lambda x: x.isoformat(), res.index), res.values))))
 
-@app.route("/predict")
-def predict_chart():
-    predict_data = predict_collect()
-    return jsonify(predict=predict_data)
+
+
 
 if __name__ == "__main__":
 
