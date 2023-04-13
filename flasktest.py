@@ -1,7 +1,7 @@
 from flask import Flask, render_template,jsonify
 from DAO.StationDAO import *
 # from DAO.GetWeatherData import *
-from DAO.testWeather import *
+from DAO.GetWeatherUpdate import *
 
 # create flask app, static files are served from "static" directory
 app = Flask(__name__, static_folder='Static')
