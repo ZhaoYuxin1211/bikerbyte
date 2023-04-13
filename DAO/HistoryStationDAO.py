@@ -1,9 +1,11 @@
 from DAO import dbinfo
 import sqlalchemy as sqla
 import pandas as pd
+import json
 from datetime import datetime
 
-def HistoryStationDAO():
+
+def HistoryStationDAO(number):
     # create engine
     engine = sqla.create_engine(
         "mysql+pymysql://{}:{}@{}:{}/{}".format(dbinfo.DB_USERNAME, dbinfo.DB_PASSWORD, dbinfo.DB_ADDRESS,
@@ -12,28 +14,31 @@ def HistoryStationDAO():
 
     # SQL to select station
     sql = """
-        select number, update_date, available_bikes
-        from history_station
-        """
+        SELECT update_date, available_bikes, available_bike_stands
+        From history_station
+        WHERE number = {};
+        """.format(number)
 
     # get results
-    results = engine.execute(sql)
-
-    # store each result in a station
-    # stations are stored in a list
-    stationsHistory = []
-    for row in results:
-        stationHistoryDic = {}
-        stationHistoryDic['number'] = row.number
-        # convert timestamp to datetime
-        lastUpdate = datetime.fromtimestamp(float(row.update_date) / 1000)
-        stationHistoryDic['lastUpdate'] = str(lastUpdate)
-        stationHistoryDic['availableBikes'] = row.available_bikes
-
-        stationsHistory.append(stationHistoryDic)
+    # results = engine.execute(sql)
+    df = pd.read_sql_query(sql, engine)
+    df['update_date'] = pd.to_datetime(df['update_date'], unit='ms')
+    df['hour'] = df['update_date'].dt.hour
+    df['weekday'] = df['update_date'].dt.weekday
+    df = df[['available_bikes', 'available_bike_stands', 'hour', 'weekday']]
+    df = df.groupby([df['weekday'], df['hour']]).mean()
+    df = df.reset_index()
+    js = df.to_json(orient='records')
+    history_data = json.loads(js)
 
 
-    return stationsHistory
+
+    # print(type(history_data))
+    print(history_data)
+
+    return history_data
 
 
-print(HistoryStationDAO())
+
+
+HistoryStationDAO(1)
