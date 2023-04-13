@@ -29,3 +29,17 @@ def predict(station_num):
     predict_available_bikes = model.predict(X_features)
     return times, predict_available_bikes
 
+def predict_collect():
+    predict_sum={}
+    for i in range(1,46):
+        station = i
+        predict_each = {}
+        times,availables=predict(i)
+        for j in range(len(times)):
+            predict_each[times[j]] = availables[j]
+        predict_sum[i]={'station':station,'predict_each':predict_each}
+    print(predict_sum)
+    return predict_sum
+
+
+predict_collect()
