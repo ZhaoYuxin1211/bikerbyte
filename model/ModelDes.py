@@ -1,4 +1,5 @@
 import pickle
+from DAO import StationDAO
 import pandas as pd
 import numpy as np
 from datetime import datetime
@@ -13,7 +14,7 @@ from model.get_weather_forecast_info import get_weather_forecast
 
 def get_predict_model(station_num):
     """get station's model"""
-    model_path = 'model/randomForestReg/model' + str(station_num) + '.pkl'
+    model_path = 'randomForestReg/model' + str(station_num) + '.pkl'
     with open(model_path, 'rb') as handle:
         model = pickle.load(handle)
     return model
@@ -32,13 +33,13 @@ def predict(station_num):
 
 def predict_collect():
     predict_sum = {}
-    for i in range(1, 46):
-        station = i
+    stations = StationDAO.StationDAO()
+    for station in stations[:-1]:
         predict_each = []
-        times, availables = predict(i)
+        times, availables = predict(station['number'])
         for j in range(len(times)):
             predict_each.append({"time": times[j], "available": availables[j]})
-        predict_sum[station] = predict_each
+        predict_sum[station['name']] =predict_each
     print(predict_sum)
     return predict_sum
 
