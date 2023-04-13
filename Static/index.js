@@ -115,9 +115,9 @@ function addMarkers(data) {
 
       // display the station info
       document.getElementById("info-box").innerHTML =
-        "<div>" +
+        "<br><h6>" +
         stationName +
-        "<div>Station Number: " +
+        "</h6><div>Station Number: " +
         stationNumber +
         "</div>" +
         "</div><div>Available Bikes: " +
@@ -163,9 +163,9 @@ function search(data) {
         map.setCenter(center);
         console.log("center:", station.positionLat, station.positionLng);
         document.getElementById("info-box").innerHTML =
-          "<div>" +
+          "<br><h6>" +
           stationName +
-          "<div>Station Number: " +
+          "</h6>Station Number: " +
           stationNumber +
           "</div>" +
           "</div><div>Available Bikes: " +
@@ -262,10 +262,10 @@ function displayFiveNearestStations(stations, targetStation) {
   });
 
   let infoTable =
-    '<h6>The Nearest Five Station</h6><table class="table table-hover"><thead id="thead"><tr><th scope="col">Number</th><th scope="col">Station</th><th scope="col">Bikes</th><th scope="col">Stands</th></tr></thead><tbody>';
+    '<br><h6>The Nearest Five Station</h6><table class="table table-hover"><thead id="thead"><tr><th scope="col">Number</th><th scope="col">Station</th><th scope="col">Bikes</th><th scope="col">Stands</th></tr></thead><tbody>';
   // Display information of the five nearest stations on a table
   nearestStations.forEach(({ station }) => {
-    const stationName = station.name;art
+    const stationName = station.name;
     const stationNumber = station.number;
     const availableBikes = station.availableBikes;
     const availableBikeStands = station.availableBikeStands;

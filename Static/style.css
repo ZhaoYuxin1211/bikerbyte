@@ -52,7 +52,7 @@ body,
   align-items: center;
 }
 #toggle {
-  background-color: #1a659e;
+  background-color: #4479a1;
 }
 #chart {
   display: flex;
@@ -65,4 +65,11 @@ body,
   background-color: rgb(214, 203, 203);
   height: 280px;
   width: 300px;
+}
+.badge {
+  background-color: #4479a1;
+}
+#thead {
+  background-color: #4479a1;
+  color: aliceblue;
 }
