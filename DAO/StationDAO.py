@@ -1,23 +1,7 @@
-import json
-
 from DAO import dbinfo
 import sqlalchemy as sqla
 import pandas as pd
 from datetime import datetime
-
-# stationDic = {
-#     'number': 0,
-#     'address': "address",
-#     'banking': "banking",
-#     'bikeStands': 0,
-#     'name': "name",
-#     'positionLat': 0,
-#     'positionLng': 0,
-#     'lastUpdate': 0,
-#     'availableBikes': 0,
-#     'availableBikeStands': 0,
-#     'status': 0
-# }
 
 def StationDAO():
     # create engine
