@@ -73,3 +73,20 @@ body,
   background-color: #4479a1;
   color: aliceblue;
 }
+#carouselExampleDark {
+  background-color: #4479a1;
+  height: 280px;
+}
+
+#navbar-example2 {
+  text-align: center;
+  width: 300px;
+}
+#01,
+#02 {
+  border: 2px;
+  border-color: #4479a1;
+}
+#predict-scroll {
+  width: 300px;
+}

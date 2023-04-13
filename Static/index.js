@@ -115,7 +115,7 @@ function addMarkers(data) {
 
       // display the station info
       document.getElementById("info-box").innerHTML =
-        "<br><h6>" +
+        '<br><h6>' +
         stationName +
         "</h6><div>Station Number: " +
         stationNumber +

@@ -66,12 +66,10 @@ def get_occupancy(station_id):
     print(res)
     return jsonify(data=json.dumps(list(zip(map(lambda x: x.isoformat(), res.index), res.values))))
 
-@app.route("/predict/<int:station_id>")
-def predict_chart(station_id):
-    times,availableBike = predict(station_id)
-    predict = {}
-
-    return jsonify(times=times,available=availableBike)
+@app.route("/predict")
+def predict_chart():
+    predict_data = predict_collect()
+    return jsonify(predict=predict_data)
 
 if __name__ == "__main__":
 

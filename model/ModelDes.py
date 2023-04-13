@@ -13,7 +13,7 @@ from model.get_weather_forecast_info import get_weather_forecast
 
 def get_predict_model(station_num):
     """get station's model"""
-    model_path = 'randomForestReg/model' + str(station_num) + '.pkl'
+    model_path = 'model/randomForestReg/model' + str(station_num) + '.pkl'
     with open(model_path, 'rb') as handle:
         model = pickle.load(handle)
     return model
@@ -31,16 +31,15 @@ def predict(station_num):
 # print(predict(33))
 
 def predict_collect():
-    predict_sum={}
-    for i in range(1,46):
+    predict_sum = {}
+    for i in range(1, 46):
         station = i
-        predict_each = {}
-        times,availables=predict(i)
+        predict_each = []
+        times, availables = predict(i)
         for j in range(len(times)):
-            predict_each[times[j]] = availables[j]
-        predict_sum[i]={'station':station,'predict_each':predict_each}
+            predict_each.append({"time": times[j], "available": availables[j]})
+        predict_sum[station] = predict_each
     print(predict_sum)
     return predict_sum
-
 
 predict_collect()
