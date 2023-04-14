@@ -1,0 +1,12 @@
+{
+  "fruits": [
+    {"name": "apple", "color": "red"},
+    {"name": "banana", "color": "yellow"},
+    {"name": "orange", "color": "orange"}
+  ],
+  "colors": [
+    {"name": "red", "hex": "#FF0000"},
+    {"name": "yellow", "hex": "#FFFF00"},
+    {"name": "orange", "hex": "#FFA500"}
+  ]
+}

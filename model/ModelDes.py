@@ -14,7 +14,7 @@ from model.get_weather_forecast_info import get_weather_forecast
 
 def get_predict_model(station_num):
     """get station's model"""
-    model_path = 'randomForestReg/model' + str(station_num) + '.pkl'
+    model_path = 'model/randomForestReg/model' + str(station_num) + '.pkl'
     with open(model_path, 'rb') as handle:
         model = pickle.load(handle)
     return model
@@ -34,13 +34,14 @@ def predict(station_num):
 def predict_collect():
     predict_sum = {}
     stations = StationDAO.StationDAO()
+    # except the last one in stations.
     for station in stations[:-1]:
         predict_each = []
         times, availables = predict(station['number'])
         for j in range(len(times)):
-            predict_each.append({"time": times[j], "available": availables[j]})
+            predict_each.append([times[j], availables[j]])
         predict_sum[station['name']] =predict_each
-    print(predict_sum)
+    # print(predict_sum)
     return predict_sum
 
 predict_collect()
