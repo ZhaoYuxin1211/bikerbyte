@@ -52,10 +52,15 @@ def get_available_bikes(station_id):
 
     return jsonify(available=available_bikes)
 
-@app.route("/predict")
+@app.route("/predictchart")
 def get_predict():
     predict_data = predict_collect()
     return jsonify(predict=predict_data)
+
+@app.route("/predicttools")
+def get_predict_tools():
+    predict_tools_data = predict_dict()
+    return jsonify(value=predict_tools_data)
 
 
 if __name__ == "__main__":
