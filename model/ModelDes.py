@@ -61,10 +61,15 @@ def predict_dict():
             time = times[j].time()
             available = availables[j]
 
-            if date not in predict_each:
-                predict_each[date] = {}
+            date_key = str(date)  # to string
+            time_key = str(time)  # to string
 
-            predict_each[date][time] = available
+            # time_key = (time.hour, time.minute, time.second)
+
+            if date_key not in predict_each:
+                predict_each[date_key] = {}
+
+            predict_each[date_key][time_key] = available
 
         predict_sum[station['name']] = predict_each
 
