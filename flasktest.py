@@ -3,6 +3,7 @@ from DAO.StationDAO import *
 # from DAO.GetWeatherData import *
 from DAO.GetWeatherUpdate import *
 from model.ModelDes import *
+from DAO.HistoryStationDAO import *
 # create flask app, static files are served from "static" directory
 app = Flask(__name__, static_folder='Static')
 # app.config.from_object('config')
@@ -24,32 +25,36 @@ def get_stations():
 @app.route("/weather")
 def get_weather():
     weather_data = get_weather_data()
-#     if weather_data is not None:
-#         return jsonify({
-#             "temperature": weather_data.get("main", {}).get("temp"),
-#             "humidity": weather_data.get("main", {}).get("humidity"),
-#             "wind_speed": weather_data.get("wind", {}).get("speed"),
-#         })
-#     else:
-#         return jsonify({"error": "Failed to retrieve weather data"})
     return jsonify(weather=weather_data)
+
+
+@app.route("/history/<int:station_id>")
+def get_history_avg_available(station_id):
+    # get the avg_available bikes data from historysattionDAO
+    history_data = HistoryStationDAO(station_id)
+    # get the data
+    available_bikes = [d['available_bikes'] for d in history_data]
+    available_bike_stands = [d['available_bike_stands'] for d in history_data]
+    hour = [d['hour'] for d in history_data]
+    weekday = [d['weekday'] for d in history_data]
+    return jsonify(available_bikes=available_bikes, available_bike_stands=available_bike_stands, hour=hour, weekday=weekday)
+
+def get_stations():
+    # get the station data from StationDAO.py the return type is jason string
+    stations = StationDAO()
+    return jsonify(stations=stations)
 
 
 @app.route("/available/<int:station_id>")
 def get_available_bikes(station_id):
     # Get all station data
     all_stations = StationDAO.StationDAO()
-
     # Find the station with the given ID
     station = next((s for s in all_stations if s['number'] == station_id), None)
-
     if station is None:
         # Station not found
         return jsonify(error='Station not found'), 404
-
-    # Extract the available bikes data for the station
     available_bikes = station['availableBikes']
-
     return jsonify(available=available_bikes)
 
 @app.route("/predictchart")
