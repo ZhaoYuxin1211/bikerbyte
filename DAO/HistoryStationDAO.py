@@ -4,6 +4,33 @@ import pandas as pd
 from datetime import datetime
 
 
+def HistroryStationWeekly(stationNumber, weekday):
+    # create engine
+    engine = sqla.create_engine(
+        "mysql+pymysql://{}:{}@{}:{}/{}".format(dbinfo.DB_USERNAME, dbinfo.DB_PASSWORD, dbinfo.DB_ADDRESS,
+                                                dbinfo.DB_PORT,
+                                                dbinfo.DB_SCHEMA), echo=True)
+    # SQL to select station
+    sql = """
+        SELECT number, update_date, available_bikes, available_bike_stands
+        From history_station
+        WHERE number = {};
+        """.format(stationNumber)
+
+    # get results
+    # results = engine.execute(sql)
+    df = pd.read_sql_query(sql, engine)
+    df['update_date'] = pd.to_datetime(df['update_date'], unit='ms')
+    df['hour'] = df['update_date'].dt.hour
+    df['weekday'] = df['update_date'].dt.weekday
+    df = df[['number', 'available_bikes', 'available_bike_stands', 'hour', 'weekday']]
+    df = df.groupby([df['weekday'], df['hour']]).mean()
+    df = df.reset_index()
+    df = df[df.weekday == weekday]
+    js = df.to_json(orient='records')
+    return js
+
+
 def HistoryStationDAO(number):
     # create engine
     engine = sqla.create_engine(
@@ -33,4 +60,5 @@ def HistoryStationDAO(number):
     return js
 
 
-HistoryStationDAO(1)
+# HistoryStationDAO(1)
+HistroryStationWeekly(1, 1)
