@@ -3,7 +3,10 @@ from DAO.StationDAO import *
 # from DAO.GetWeatherData import *
 from DAO.GetWeatherUpdate import *
 from model.ModelDes import *
+
 from DAO.HistoryStationDAO import *
+
+
 # create flask app, static files are served from "static" directory
 app = Flask(__name__, static_folder='Static')
 # app.config.from_object('config')
@@ -16,11 +19,11 @@ def root():
     # return "hello there!"
 
 @app.route("/stations")
-
 def get_stations():
     # get the station data from StationDAO.py the return type is jason string
     stations = StationDAO.StationDAO()
     return jsonify(stations=stations)
+
 
 @app.route("/weather")
 def get_weather():
@@ -39,10 +42,7 @@ def get_history_avg_available(station_id):
     weekday = [d['weekday'] for d in history_data]
     return jsonify(available_bikes=available_bikes, available_bike_stands=available_bike_stands, hour=hour, weekday=weekday)
 
-def get_stations():
-    # get the station data from StationDAO.py the return type is jason string
-    stations = StationDAO()
-    return jsonify(stations=stations)
+
 
 
 @app.route("/available/<int:station_id>")
