@@ -103,6 +103,7 @@ function addMarkers(data) {
 
     // click the marker,zoom the map and  set marker position as the center of the map
     marker.addListener("click", function () {
+
       map.setZoom(17); // set zoom level to 17
       map.setCenter(marker.getPosition()); // set marker position as the center of the map
       document.getElementById("search-input").value = station.name;
@@ -117,7 +118,7 @@ function addMarkers(data) {
       document.getElementById("info-box").innerHTML =
         '<br><h6>' +
         stationName +
-        "</h6><div>Station Number: " +
+        "</h6><div class='clicked-station' stationNumber=" + stationNumber + " >Station Number: " +
         stationNumber +
         "</div>" +
         "</div><div>Available Bikes: " +
@@ -129,6 +130,10 @@ function addMarkers(data) {
 
       const targetStation = station;
       displayFiveNearestStations(stations, targetStation);
+
+      displayHistoryHourly();
+
+
       // // call getWeather() function and pass in station position coordinates
       //  getWeather(station.positionLat,station.positionLng));
     });
@@ -190,30 +195,48 @@ function search(data) {
   });
 }
 
-//add info table
-// function addinfotable(data) {
-//   const stations = data.stations;
-//   console.log("table:", stations);
-//   var info_table = "";
-//   stations.forEach((station) => {
-//     const stationName = station.name;
-//     const stationNumber = station.number;
-//     const availableBikes = station.availableBikes;
-//     const availableBikeStands = station.availableBikeStands;
+// function display
+function displayHistoryHourly(){
+     // Load Google Charts library and call drawChart function when it's loaded
+    google.charts.load('current', {packages: ['corechart']});
 
-//     info_table +=
-//       '<tr><th scope="row">' +
-//       stationNumber +
-//       "</th><td>" +
-//       stationName +
-//       "</td><td>" +
-//       availableBikes +
-//       "</td><td>" +
-//       availableBikeStands +
-//       "</td></tr>";
-//   });
-//   document.getElementById("info-table").innerHTML = info_table;
-// }
+      let element = document.getElementsByClassName("clicked-station")[0];
+      let value = element.getAttribute("stationnumber");
+      console.log("ttttttttttt" + value);
+
+      //  fetch("/history/"+value).then( response => {
+      //     return response.json();
+      // }).then(data => {
+      //   // Extract available bike stands data from the response
+      //       var availableBikeStands = data.available_bike_stands;
+      //
+      //       // Create a data table for the chart
+      //       var dataTable = new google.visualization.DataTable();
+      //       dataTable.addColumn('string', 'Hour');
+      //       dataTable.addColumn('number', 'Available Bike Stands');
+      //       for (var i = 0; i < availableBikeStands.length; i++) {
+      //         dataTable.addRow([(i + 1).toString(), availableBikeStands[i]]);
+      //       }
+      //
+      //       // Define chart options
+      //       var options = {
+      //         title: 'Available Bike Stands by Hour',
+      //         curveType: 'function',
+      //         legend: { position: 'bottom' }
+      //       };
+      //
+      //       // Create and draw the chart
+      //       var chart = new google.visualization.LineChart(document.getElementById('history'));
+      //       chart.draw(dataTable, options);
+      //     })
+      //     .catch(error => console.error(error));
+      //   // Load Google Charts library and call drawChart function when it's loaded
+      //   google.charts.setOnLoadCallback(drawChart);
+
+}
+
+
+
 
 function displayFiveNearestStations(stations, targetStation) {
   const targetLat = targetStation.lat;
