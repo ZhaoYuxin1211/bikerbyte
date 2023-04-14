@@ -41,7 +41,7 @@ def get_history_avg_available(station_id):
 
 def get_stations():
     # get the station data from StationDAO.py the return type is jason string
-    stations = StationDAO()
+    stations = StationDAO.StationDAO()
     return jsonify(stations=stations)
 
 
