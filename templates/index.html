@@ -121,43 +121,39 @@
           <h6>Predict Chart</h6>
           <div id="predict"></div>
           <!-- --------------------------------------DropDown-------------------------------------------------------------- -->
-          <div>
-            <div id="filter" class="bg-primary text-white rounded">
+          <div id="predict-tools">
+            <h6 style="text-align: center">Predict Tools</h6>
+            <div id="filter">
               <form action="#nowhere">
-                <div class="form-row d-flex justify-content-center flex-nowrap">
-                  <div class="form-group col-3 m-3">
-                    <label for="party">start</label>
-                    <select
-                      class="form-control"
-                      name="party"
-                      id="start-station"
-                    ></select>
-                  </div>
-                  <div class="form-group col-3 m-3">
-                    <label for="state">dest</label>
-                    <select
-                      class="form-control"
-                      name="state"
-                      id="destination-station"
-                    ></select>
-                  </div>
-                  <div class="form-group col-3 m-3">
-                    <label for="rank">date</label>
-                    <select class="form-control" name="rank" id="date"></select>
-                  </div>
-                  <div class="form-group col-3 m-3">
-                    <label for="rank">time</label>
-                    <select class="form-control" name="rank" id="time"></select>
-                  </div>
-                  <button
-                    class="btn btn-primary m-3 w-10 border-3 border-light"
-                    id="Button"
-                    type="button"
-                    onclick="filterBtnClicked()"
-                  >
-                    Confirm
-                  </button>
+                <div class="form-group">
+                  <label for="tart"><h6>Start Station</h6></label>
+                  <select class="form-control" name="tart" id="start"></select>
                 </div>
+                <div class="form-group">
+                  <label for="dest"><h6>Destination Station</h6></label>
+                  <select class="form-control" name="dest" id="dest"></select>
+                </div>
+                <div
+                  class="form-row d-flex justify-content-between align-items-center"
+                >
+                  <div class="form-group col-5">
+                    <label for="rank"><h6>Start Date</h6></label>
+                    <select class="form-control" name="date" id="date"></select>
+                  </div>
+                  <div class="form-group col-5">
+                    <label for="rank"><h6>Start Time</h6></label>
+                    <select class="form-control" name="time" id="time"></select>
+                  </div>
+                </div>
+                <!-- ------------------------------------------------------------predict tool btn------------------------------------------------- -->
+                <button
+                  class="btn btn-primary m-3 w-10 border-3 border-light"
+                  id="Button"
+                  type="button"
+                  onclick="filterBtnClicked()"
+                >
+                  Confirm
+                </button>
               </form>
             </div>
             <p id="start-available-bikes"></p>

@@ -344,9 +344,9 @@ function DisplayWeather(Weatherdata) {
 }
 // ---------------------------------------------------------------------------DropDown----------------------------------------------------
 function AddingDropDown(data) {
-  let stationNames = "<option value='default'>show all</option>";
-  let dates = "<option value='default'>show all</option>";
-  let times = "<option value='default'>show all</option>";
+  let stationNames = "<option value='default'>Select station</option>";
+  let dates = "<option value='default'>Select date</option>";
+  let times = "<option value='default'>Select time</option>";
   const uniqueDates = new Set();
   const uniqueTimes = new Set();
 
