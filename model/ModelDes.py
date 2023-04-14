@@ -49,10 +49,12 @@ def predict_collect():
     # print(predict_sum)
     return predict_sum
 
+
 # output is dict,used to make the search function for predict
 def predict_dict():
     predict_sum = {}
     stations = StationDAO.StationDAO()
+    # except the last one in stations.
     for station in stations[:-1]:
         predict_each = {}
         times, availables = predict(station['number'])
