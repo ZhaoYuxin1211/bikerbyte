@@ -343,6 +343,8 @@ function DisplayWeather(Weatherdata) {
   //  weatherDiv.innerHTML =  '<div>' + main+ '<div>temperature: '+ temperature + '</div>';
 }
 // ---------------------------------------------------------------------------DropDown----------------------------------------------------
+
+const predictBtn = document.getElementById("predict-tools-btn");
 function AddingDropDown(data) {
   let stationNames = "<option value='default'>Select station</option>";
   let dates = "<option value='default'>Select date</option>";
@@ -375,6 +377,29 @@ function AddingDropDown(data) {
   document.getElementById("dest").innerHTML = stationNames;
   document.getElementById("date").innerHTML = dates;
   document.getElementById("time").innerHTML = times;
+
+  predictBtn.addEventListener("click", function () {
+  const startStation = document.getElementById("start").value;
+  const destStation = document.getElementById("dest").value;
+  const date = document.getElementById("date").value;
+  const time = document.getElementById("time").value;
+
+  if (startStation === "default" || destStation === "default" || date === "default" || time === "default") {
+    alert("Please select all the options");
+    return;
+  }
+
+  const startAvailableBikes = data.value[startStation][date][time];
+  const destAvailableBikes = data.value[destStation][date][time];
+
+  const startAvailableStands = 16 - startAvailableBikes;
+  const destAvailableStands = 16 - destAvailableBikes;
+
+  document.getElementById("start-available-bikes").innerText = `Start Station Available Bikes: ${Math.floor(startAvailableBikes)}~${Math.ceil(startAvailableBikes)}`;
+  document.getElementById("start-available-stands").innerText = `Start Station Available Stands: ${Math.floor(startAvailableStands)}~${Math.ceil(startAvailableStands)}`;
+  document.getElementById("destination-available-bikes").innerText = `Destination Station Available Bikes: ${Math.floor(destAvailableBikes)}~${Math.ceil(destAvailableBikes)}`;
+  document.getElementById("destination-available-stands").innerText = `Destination Station Available Stands: ${Math.floor(destAvailableStands)}~${Math.ceil(destAvailableStands)}`;
+});
 }
 
 function getStations() {
