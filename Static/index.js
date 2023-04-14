@@ -197,43 +197,46 @@ function search(data) {
 
 // function display
 function displayHistoryHourly(){
-     // Load Google Charts library and call drawChart function when it's loaded
-    google.charts.load('current', {packages: ['corechart']});
 
-      let element = document.getElementsByClassName("clicked-station")[0];
-      let value = element.getAttribute("stationnumber");
-      console.log("ttttttttttt" + value);
+  let element = document.getElementsByClassName("clicked-station")[0];
+  let value = element.getAttribute("stationNumber");
+  console.log("ttttttttttt" + value);
 
-      //  fetch("/history/"+value).then( response => {
-      //     return response.json();
-      // }).then(data => {
-      //   // Extract available bike stands data from the response
-      //       var availableBikeStands = data.available_bike_stands;
-      //
-      //       // Create a data table for the chart
-      //       var dataTable = new google.visualization.DataTable();
-      //       dataTable.addColumn('string', 'Hour');
-      //       dataTable.addColumn('number', 'Available Bike Stands');
-      //       for (var i = 0; i < availableBikeStands.length; i++) {
-      //         dataTable.addRow([(i + 1).toString(), availableBikeStands[i]]);
-      //       }
-      //
-      //       // Define chart options
-      //       var options = {
-      //         title: 'Available Bike Stands by Hour',
-      //         curveType: 'function',
-      //         legend: { position: 'bottom' }
-      //       };
-      //
-      //       // Create and draw the chart
-      //       var chart = new google.visualization.LineChart(document.getElementById('history'));
-      //       chart.draw(dataTable, options);
-      //     })
-      //     .catch(error => console.error(error));
-      //   // Load Google Charts library and call drawChart function when it's loaded
-      //   google.charts.setOnLoadCallback(drawChart);
+   fetch("/history/"+value).then( response => {
+      return response.json();
+  }).then(data => {
+    // Extract available bike stands data from the response
+        var availableBikeStands = data.available_bike_stands;
+
+        // Create a data table for the chart
+        var dataTable = new google.visualization.DataTable();
+        dataTable.addColumn('string', 'Hour');
+        dataTable.addColumn('number', 'Available Bike Stands');
+        for (var i = 0; i < availableBikeStands.length; i++) {
+          dataTable.addRow([(i + 1).toString(), availableBikeStands[i]]);
+        }
+
+        // Define chart options
+        var options = {
+          title: 'Available Bike Stands by Hour',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        // Create and draw the chart
+        var chart = new google.visualization.LineChart(document.getElementById('history'));
+        chart.draw(dataTable, options);
+      })
+      .catch(error => console.error(error));
 
 }
+
+// Load Google Charts library and call displayHistoryHourly function when it's loaded
+google.charts.load('current', {packages: ['corechart']});
+google.charts.setOnLoadCallback(displayHistoryHourly);
+
+
+
 
 
 
@@ -439,6 +442,7 @@ function initMap() {
 
   getStations();
   getWeather();
+
 }
 
 var map = null;
