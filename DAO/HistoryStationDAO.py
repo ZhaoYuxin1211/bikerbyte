@@ -1,6 +1,7 @@
 from DAO import dbinfo
 import sqlalchemy as sqla
 import pandas as pd
+import json
 from datetime import datetime
 
 
@@ -55,9 +56,17 @@ def HistoryStationDAO(number):
     df = df.groupby([df['weekday'], df['hour']]).mean()
     df = df.reset_index()
     js = df.to_json(orient='records')
-    print(js)
+    history_data = json.loads(js)
 
-    return js
+
+
+
+    # print(type(history_data))
+    print(history_data)
+
+    return history_data
+
+
 
 
 # HistoryStationDAO(1)

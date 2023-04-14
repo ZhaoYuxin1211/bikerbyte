@@ -14,7 +14,10 @@ from model.get_weather_forecast_info import get_weather_forecast
 
 def get_predict_model(station_num):
     """get station's model"""
-    model_path = 'randomForestReg/model' + str(station_num) + '.pkl'
+    # running the flask using path 'model/randomForestReg/model'
+    model_path = 'model/randomForestReg/model' + str(station_num) + '.pkl'
+    # running the function in this file use path 'randomForestReg/model'
+    # model_path = 'randomForestReg/model' + str(station_num) + '.pkl'
     with open(model_path, 'rb') as handle:
         model = pickle.load(handle)
     return model
@@ -24,23 +27,54 @@ def get_predict_model(station_num):
 def predict(station_num):
     # get times and features for prediction
     times, X_features = get_weather_forecast()
+    # print(times)
     # get station's model
     model = get_predict_model(station_num)
     # make prediction
     predict_available_bikes = model.predict(X_features)
     return times, predict_available_bikes
-# print(predict(33))
 
+
+#output is list which suit the format Google chart needed
 def predict_collect():
     predict_sum = {}
     stations = StationDAO.StationDAO()
+    # except the last one in stations.
     for station in stations[:-1]:
         predict_each = []
         times, availables = predict(station['number'])
         for j in range(len(times)):
-            predict_each.append({"time": times[j], "available": availables[j]})
+            predict_each.append([times[j], availables[j]])
         predict_sum[station['name']] =predict_each
-    print(predict_sum)
+    # print(predict_sum)
     return predict_sum
 
-predict_collect()
+
+# output is dict,used to make the search function for predict
+def predict_dict():
+    predict_sum = {}
+    stations = StationDAO.StationDAO()
+    # except the last one in stations.
+    for station in stations[:-1]:
+        predict_each = {}
+        times, availables = predict(station['number'])
+        for j in range(len(times)):
+            date = times[j].date()
+            time = times[j].time()
+            available = availables[j]
+
+            date_key = str(date)  # to string
+            time_key = str(time)  # to string
+
+            # time_key = (time.hour, time.minute, time.second)
+
+            if date_key not in predict_each:
+                predict_each[date_key] = {}
+
+            predict_each[date_key][time_key] = available
+
+        predict_sum[station['name']] = predict_each
+
+    return predict_sum
+
+

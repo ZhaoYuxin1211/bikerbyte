@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JSON to Multiple Dropdowns Example</title>
+</head>
+<body>
+  <form id="my-form" onsubmit="handleSubmit(event)">
+    <label for="fruit-select">Choose a fruit:</label>
+    <select id="fruit-select" name="fruit"></select>
+    <br>
+    <label for="color-select">Choose a color:</label>
+    <select id="color-select" name="color"></select>
+    <br>
+    <button type="submit">Submit</button>
+  </form>
+  <div id="result"></div>
+  <script>
+    function handleSubmit(event) {
+      event.preventDefault();
+      const selectedFruit = document.getElementById('fruit-select').value;
+      const selectedColor = document.getElementById('color-select').value;
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerText = `You selected: ${selectedFruit} and ${selectedColor}`;
+    }
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'fruits.json');
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        const data = JSON.parse(xhr.responseText);
+
+        const fruitDropdown = document.getElementById('fruit-select');
+        data.fruits.forEach(fruit => {
+          const option = document.createElement('option');
+          option.value = fruit.name;
+          option.text = fruit.name;
+          fruitDropdown.appendChild(option);
+        });
+
+        const colorDropdown = document.getElementById('color-select');
+        data.colors.forEach(color => {
+          const option = document.createElement('option');
+          option.value = color.name;
+          option.text = color.name;
+          colorDropdown.appendChild(option);
+        });
+      }
+    };
+    xhr.send();
+  </script>
+</body>
+</html>

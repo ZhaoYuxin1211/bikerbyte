@@ -115,9 +115,11 @@ function addMarkers(data) {
 
       // display the station info
       document.getElementById("info-box").innerHTML =
-        '<br><h6>' +
+        "<br><h6>" +
         stationName +
-        "</h6><div>Station Number: " +
+        "</h6><div class='clicked-station' stationNumber=" +
+        stationNumber +
+        " >Station Number: " +
         stationNumber +
         "</div>" +
         "</div><div>Available Bikes: " +
@@ -129,6 +131,9 @@ function addMarkers(data) {
 
       const targetStation = station;
       displayFiveNearestStations(stations, targetStation);
+
+      displayHistoryHourly();
+
       // // call getWeather() function and pass in station position coordinates
       //  getWeather(station.positionLat,station.positionLng));
     });
@@ -190,30 +195,44 @@ function search(data) {
   });
 }
 
-//add info table
-// function addinfotable(data) {
-//   const stations = data.stations;
-//   console.log("table:", stations);
-//   var info_table = "";
-//   stations.forEach((station) => {
-//     const stationName = station.name;
-//     const stationNumber = station.number;
-//     const availableBikes = station.availableBikes;
-//     const availableBikeStands = station.availableBikeStands;
+// function display
+function displayHistoryHourly() {
+  // Load Google Charts library and call drawChart function when it's loaded
+  google.charts.load("current", { packages: ["corechart"] });
 
-//     info_table +=
-//       '<tr><th scope="row">' +
-//       stationNumber +
-//       "</th><td>" +
-//       stationName +
-//       "</td><td>" +
-//       availableBikes +
-//       "</td><td>" +
-//       availableBikeStands +
-//       "</td></tr>";
-//   });
-//   document.getElementById("info-table").innerHTML = info_table;
-// }
+  let element = document.getElementsByClassName("clicked-station")[0];
+  let value = element.getAttribute("stationnumber");
+  console.log("ttttttttttt" + value);
+
+  //  fetch("/history/"+value).then( response => {
+  //     return response.json();
+  // }).then(data => {
+  //   // Extract available bike stands data from the response
+  //       var availableBikeStands = data.available_bike_stands;
+  //
+  //       // Create a data table for the chart
+  //       var dataTable = new google.visualization.DataTable();
+  //       dataTable.addColumn('string', 'Hour');
+  //       dataTable.addColumn('number', 'Available Bike Stands');
+  //       for (var i = 0; i < availableBikeStands.length; i++) {
+  //         dataTable.addRow([(i + 1).toString(), availableBikeStands[i]]);
+  //       }
+  //
+  //       // Define chart options
+  //       var options = {
+  //         title: 'Available Bike Stands by Hour',
+  //         curveType: 'function',
+  //         legend: { position: 'bottom' }
+  //       };
+  //
+  //       // Create and draw the chart
+  //       var chart = new google.visualization.LineChart(document.getElementById('history'));
+  //       chart.draw(dataTable, options);
+  //     })
+  //     .catch(error => console.error(error));
+  //   // Load Google Charts library and call drawChart function when it's loaded
+  //   google.charts.setOnLoadCallback(drawChart);
+}
 
 function displayFiveNearestStations(stations, targetStation) {
   const targetLat = targetStation.lat;
@@ -323,6 +342,40 @@ function DisplayWeather(Weatherdata) {
   )}" alt="${main}"> ${main}, ${temperature}°C`;
   //  weatherDiv.innerHTML =  '<div>' + main+ '<div>temperature: '+ temperature + '</div>';
 }
+// ---------------------------------------------------------------------------DropDown----------------------------------------------------
+function AddingDropDown(data) {
+  let stationNames = "<option value='default'>Select station</option>";
+  let dates = "<option value='default'>Select date</option>";
+  let times = "<option value='default'>Select time</option>";
+  const uniqueDates = new Set();
+  const uniqueTimes = new Set();
+
+  for (const stationName in data.value) {
+    const stationData = data.value[stationName];
+    stationNames +=
+      "<option value='" + stationName + "'>" + stationName + "</option>";
+
+    for (const date in stationData) {
+      if (!uniqueDates.has(date)) {
+        uniqueDates.add(date);
+        dates += "<option value='" + date + "'>" + date + "</option>";
+      }
+      const dateData = stationData[date];
+
+      for (const time in dateData) {
+        if (!uniqueTimes.has(time)) {
+          uniqueTimes.add(time);
+          times += "<option value='" + time + "'>" + time + "</option>";
+        }
+      }
+    }
+  }
+
+  document.getElementById("start").innerHTML = stationNames;
+  document.getElementById("dest").innerHTML = stationNames;
+  document.getElementById("date").innerHTML = dates;
+  document.getElementById("time").innerHTML = times;
+}
 
 function getStations() {
   fetch("/stations")
@@ -347,14 +400,14 @@ function getWeather() {
     });
 }
 
-// function getWeather(lat, lng) {
-//   fetch(`/weather?lat=${lat}&lng=${lng}`)
-//     .then((response) => response.json())
-//     .then((data) => {
-//       console.log("fetch response", data);
-//       DisplayWeather(data);
-//     });
-// }
+function getToolsData() {
+  fetch("/predicttools")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("fetch predicttools response", data);
+      AddingDropDown(data);
+    });
+}
 
 function initMap() {
   const dublin = { lat: 53.35014, lng: -6.266155 };
@@ -416,6 +469,7 @@ function initMap() {
 
   getStations();
   getWeather();
+  getToolsData();
 }
 
 var map = null;
