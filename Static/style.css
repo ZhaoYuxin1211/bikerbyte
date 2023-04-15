@@ -95,3 +95,7 @@ body,
 #info-box {
   width: 280px;
 }
+
+#warning {
+  font-size: 12px;
+}
