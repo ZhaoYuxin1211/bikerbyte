@@ -39,18 +39,19 @@ def predict(station_num):
 def predict_collect():
     predict_sum = {}
     stations = StationDAO.StationDAO()
+
     # except the last one in stations.
     for station in stations[:-1]:
         predict_each = []
         times, availables = predict(station['number'])
         for j in range(len(times)):
             predict_each.append([times[j], availables[j]])
-        predict_sum[station['name']] =predict_each
+        predict_sum[station['number']] =predict_each
     # print(predict_sum)
     return predict_sum
 
-
-# output is dict,used to make the search function for predict
+# print(predict_collect())
+        # output is dict,used to make the search function for predict
 def predict_dict():
     predict_sum = {}
     stations = StationDAO.StationDAO()
@@ -76,5 +77,21 @@ def predict_dict():
         predict_sum[station['name']] = predict_each
 
     return predict_sum
+
+# predict output by each station
+def predict_station(stationNumber):
+    predict_sum = predict_collect()
+    return predict_sum[stationNumber]
+
+
+
+
+
+
+
+
+
+
+
 
 

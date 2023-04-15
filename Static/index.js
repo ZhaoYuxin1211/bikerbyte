@@ -224,7 +224,7 @@ function displayHistoryHourly() {
         // Create a data table for the chart
         var dataTable = new google.visualization.DataTable();
         dataTable.addColumn("string", "Hour");
-        dataTable.addColumn("number", "Stands");
+        dataTable.addColumn("number", "Available Stands");
         dataTable.addColumn("number", "Available Bikes");
         // Add data to the data table
         for (var i = 0; i < history_weekly.length; i++) {
@@ -251,10 +251,10 @@ function dispalyPredictChart(){
   google.charts.load("current", { packages: ["corechart"] });
   // Callback function for when Google Charts library is loaded
   google.charts.setOnLoadCallback(() => {
-    let element = document.getElementsByClassName("clicked-station-name")[0];
-    let value = element.getAttribute("stationname");
+    let element = document.getElementsByClassName("clicked-station")[0];
+    let value = element.getAttribute("stationnumber");
     console.log("ttttttttttt" + value);
-    fetch("/predictchart")
+    fetch("/predictEach/"+value)
       .then(response => {
         return response.json();
       })
@@ -263,29 +263,25 @@ function dispalyPredictChart(){
         var predict = data.predict
         console.log("789hgkggiugshdgukwgdkgdkugkugskgakgd")
         console.log(predict);
+        // Create a data table for the chart
+        var dataTable = new google.visualization.DataTable();
+        dataTable.addColumn("string", "Time");
+        dataTable.addColumn("number", "Predict Available Bikes");
+        // Add data to the data table
+        for (var i = 0; i < predict.length; i++) {
+          dataTable.addRow([(predict[i][0]).toString(),predict[i][1]]);
+        }
 
+        // Define chart options
+        var options = {
+          title: "Predict Available Bike Stands ",
+          curveType: "function",
+          legend: { position: "bottom" }
+        };
 
-        // // Create a data table for the chart
-        // var dataTable = new google.visualization.DataTable();
-        // dataTable.addColumn("string", "Hour");
-        // dataTable.addColumn("number", "Stands");
-        // dataTable.addColumn("number", "Available Bikes");
-        //
-        // // Add data to the data table
-        // for (var i = 0; i < history_weekly.length; i++) {
-        //   dataTable.addRow([(history_weekly[i]['hour']).toString(), history_weekly[i]['available_bike_stands'],history_weekly[i]['available_bikes']]);
-        // }
-        //
-        // // Define chart options
-        // var options = {
-        //   title: "Available Bike Stands and Bikes by Hour",
-        //   curveType: "function",
-        //   legend: { position: "bottom" }
-        // };
-        //
-        // // Create and draw the chart
-        // var chart = new google.visualization.LineChart(document.getElementById("history"));
-        // chart.draw(dataTable, options);
+        // Create and draw the chart
+        var chart = new google.visualization.LineChart(document.getElementById("predict"));
+        chart.draw(dataTable, options);
       })
       .catch(error => console.error(error));
   });

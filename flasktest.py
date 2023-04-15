@@ -42,7 +42,10 @@ def get_history_avg_available(station_id):
     weekday = [d['weekday'] for d in history_data]
     return jsonify(available_bikes=available_bikes, available_bike_stands=available_bike_stands, hour=hour, weekday=weekday)
 
-
+@app.route("/history/<int:station_id>/<int:weekday>")
+def  get_history_weekly(station_id,weekday):
+    history_weekly = HistroryStationWeekly(station_id, weekday)
+    return jsonify(history_weekly = history_weekly)
 
 
 @app.route("/available/<int:station_id>")
@@ -56,6 +59,11 @@ def get_available_bikes(station_id):
         return jsonify(error='Station not found'), 404
     available_bikes = station['availableBikes']
     return jsonify(available=available_bikes)
+@app.route("/predictEach/<int:station_id>")
+def get_predict_each(station_id):
+    predict_data = predict_station(station_id)
+    return jsonify(predict=predict_data)
+
 
 @app.route("/predictchart")
 def get_predict():
@@ -66,6 +74,8 @@ def get_predict():
 def get_predict_tools():
     predict_tools_data = predict_dict()
     return jsonify(value=predict_tools_data)
+
+
 
 
 if __name__ == "__main__":
