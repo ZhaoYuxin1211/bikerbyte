@@ -127,7 +127,9 @@ function addMarkers(data) {
         "</div><div>Available Bike Stands: " +
         availableBikeStands +
         "</div>" +
-        '<button id="toggle" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">History and Predict</button>';
+        '<div class="d-flex justify-content-between align-items-center">' +
+        '<button id="toggle1" class="btn btn-primary col-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Information Charts</button>' +
+        '<button id="toggle2" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">Plan a Ride</button></div>';
 
       const targetStation = station;
       displayFiveNearestStations(stations, targetStation);
@@ -343,17 +345,27 @@ function DisplayWeather(Weatherdata) {
   //  weatherDiv.innerHTML =  '<div>' + main+ '<div>temperature: '+ temperature + '</div>';
 }
 // ---------------------------------------------------------------------------DropDown----------------------------------------------------
+let stationsDataReady = false;
+let toolsDataReady = false;
+let stationsData = null;
+let toolsData = null;
+//adding  function to get both stationsData, toolsData to AddingDropDown function
+function processData() {
+  if (stationsDataReady && toolsDataReady) {
+    AddingDropDown(stationsData, toolsData);
+  }
+}
 
 const predictBtn = document.getElementById("predict-tools-btn");
-function AddingDropDown(data) {
+function AddingDropDown(stationsData, toolsData) {
   let stationNames = "<option value='default'>Select station</option>";
   let dates = "<option value='default'>Select date</option>";
   let times = "<option value='default'>Select time</option>";
   const uniqueDates = new Set();
   const uniqueTimes = new Set();
 
-  for (const stationName in data.value) {
-    const stationData = data.value[stationName];
+  for (const stationName in toolsData.value) {
+    const stationData = toolsData.value[stationName];
     stationNames +=
       "<option value='" + stationName + "'>" + stationName + "</option>";
 
@@ -375,31 +387,72 @@ function AddingDropDown(data) {
 
   document.getElementById("start").innerHTML = stationNames;
   document.getElementById("dest").innerHTML = stationNames;
-  document.getElementById("date").innerHTML = dates;
-  document.getElementById("time").innerHTML = times;
+  document.getElementById("date1").innerHTML = dates;
+  document.getElementById("time1").innerHTML = times;
+  document.getElementById("date2").innerHTML = dates;
+  document.getElementById("time2").innerHTML = times;
 
   predictBtn.addEventListener("click", function () {
-  const startStation = document.getElementById("start").value;
-  const destStation = document.getElementById("dest").value;
-  const date = document.getElementById("date").value;
-  const time = document.getElementById("time").value;
+    const startStation = document.getElementById("start").value;
+    const destStation = document.getElementById("dest").value;
+    const date1 = document.getElementById("date1").value;
+    const time1 = document.getElementById("time1").value;
+    const date2 = document.getElementById("date2").value;
+    const time2 = document.getElementById("time2").value;
 
-  if (startStation === "default" || destStation === "default" || date === "default" || time === "default") {
-    alert("Please select all the options");
-    return;
-  }
+    if (
+      startStation === "default" ||
+      destStation === "default" ||
+      date1 === "default" ||
+      time1 === "default" ||
+      date2 === "default" ||
+      time2 === "default"
+    ) {
+      alert("Please select all the options");
+      return;
+    }
+    //  making a object from stationData to make staion name as the key and bikestands the value
+    const stationBikeStandsMap = {};
+    for (let i = 0; i < stationsData.stations.length; i++) {
+      const station = stationsData.stations[i];
+      stationBikeStandsMap[station.name] = station.bikeStands;
+    }
+    console.log("stationBikeStandsMap", stationBikeStandsMap);
+    console.log("stationBikeStandsMap", stationBikeStandsMap);
 
-  const startAvailableBikes = data.value[startStation][date][time];
-  const destAvailableBikes = data.value[destStation][date][time];
+    const startAvailableBikes = toolsData.value[startStation][date1][time1];
+    const destAvailableBikes = toolsData.value[destStation][date2][time2];
 
-  const startAvailableStands = 16 - startAvailableBikes;
-  const destAvailableStands = 16 - destAvailableBikes;
+    const startAvailableStands =
+      stationBikeStandsMap[startStation] - startAvailableBikes;
+    const destAvailableStands =
+      stationBikeStandsMap[destStation] - destAvailableBikes;
 
-  document.getElementById("start-available-bikes").innerText = `Start Station Available Bikes: ${Math.floor(startAvailableBikes)}~${Math.ceil(startAvailableBikes)}`;
-  document.getElementById("start-available-stands").innerText = `Start Station Available Stands: ${Math.floor(startAvailableStands)}~${Math.ceil(startAvailableStands)}`;
-  document.getElementById("destination-available-bikes").innerText = `Destination Station Available Bikes: ${Math.floor(destAvailableBikes)}~${Math.ceil(destAvailableBikes)}`;
-  document.getElementById("destination-available-stands").innerText = `Destination Station Available Stands: ${Math.floor(destAvailableStands)}~${Math.ceil(destAvailableStands)}`;
-});
+    document.getElementById("start-time").innerText =
+      "Start time at " + date1 + " " + time1 + ":";
+    document.getElementById(
+      "start-available-bikes"
+    ).innerText = `Start Station Available Bikes: ${Math.floor(
+      startAvailableBikes
+    )}~${Math.ceil(startAvailableBikes)}`;
+    document.getElementById(
+      "start-available-stands"
+    ).innerText = `Start Station Available Stands: ${Math.floor(
+      startAvailableStands
+    )}~${Math.ceil(startAvailableStands)}`;
+    document.getElementById("dest-time").innerText =
+      "Arrival time at " + date2 + " " + time2 + ":";
+    document.getElementById(
+      "destination-available-bikes"
+    ).innerText = `Destination Station Available Bikes: ${Math.floor(
+      destAvailableBikes
+    )}~${Math.ceil(destAvailableBikes)}`;
+    document.getElementById(
+      "destination-available-stands"
+    ).innerText = `Destination Station Available Stands: ${Math.floor(
+      destAvailableStands
+    )}~${Math.ceil(destAvailableStands)}`;
+  });
 }
 
 function getStations() {
@@ -410,6 +463,9 @@ function getStations() {
       addMarkers(data);
       search(data);
       // addinfotable(data);
+      stationsData = data;
+      stationsDataReady = true;
+      processData();
     })
     .catch((error) => {
       console.error("fetch error", error);
@@ -430,7 +486,9 @@ function getToolsData() {
     .then((response) => response.json())
     .then((data) => {
       console.log("fetch predicttools response", data);
-      AddingDropDown(data);
+      toolsData = data;
+      toolsDataReady = true;
+      processData();
     });
 }
 

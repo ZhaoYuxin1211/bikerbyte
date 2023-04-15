@@ -88,13 +88,14 @@
         <br />
         <div id="info02">
           <div class="col" id="info-box"></div>
+
           <div id="info-table"></div>
 
           <table class="table table-hover"></table>
         </div>
       </div>
     </div>
-    <!-- Add offcanvas div -->
+    <!------------------------------------------ Add offcanvas div---------------------------------------------------------------- -->
     <div
       class="offcanvas offcanvas-start"
       data-bs-scroll="true"
@@ -120,47 +121,84 @@
           <div id="history"></div>
           <h6>Predict Chart</h6>
           <div id="predict"></div>
-          <!-- --------------------------------------DropDown-------------------------------------------------------------- -->
-          <div id="predict-tools">
-            <h6 style="text-align: center">Predict Tools</h6>
-            <div id="filter">
-              <form action="#nowhere">
-                <div class="form-group">
-                  <label for="tart"><h6>Start Station</h6></label>
-                  <select class="form-control" name="tart" id="start"></select>
+        </div>
+      </div>
+    </div>
+    <!-- --------------------------------------------------offcanvas2----------------------------------------------------------- -->
+
+    <div
+      class="offcanvas offcanvas-start"
+      tabindex="-1"
+      id="offcanvasWithBackdrop"
+      aria-labelledby="offcanvasWithBackdropLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasWithBackdropLabel">
+          Plan with Ease
+        </h5>
+        <button
+          type="button"
+          class="btn-close text-reset"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <!-- --------------------------------------DropDown-------------------------------------------------------------- -->
+      <div class="offcanvas-body">
+        <div id="predict-tools">
+          <h6 style="text-align: center">Predict Tools</h6>
+          <div id="filter">
+            <form action="#nowhere">
+              <div class="form-group">
+                <label for="tart"><h6>Start Station</h6></label>
+                <select class="form-control" name="tart" id="start"></select>
+              </div>
+              <div
+                class="form-row d-flex justify-content-between align-items-center"
+              >
+                <div class="form-group col-5">
+                  <label for="rank"><h6>Start Date</h6></label>
+                  <select class="form-control" name="date1" id="date1"></select>
                 </div>
-                <div class="form-group">
-                  <label for="dest"><h6>Destination Station</h6></label>
-                  <select class="form-control" name="dest" id="dest"></select>
+                <div class="form-group col-5">
+                  <label for="rank"><h6>Start Time</h6></label>
+                  <select class="form-control" name="time1" id="time1"></select>
                 </div>
-                <div
-                  class="form-row d-flex justify-content-between align-items-center"
-                >
-                  <div class="form-group col-5">
-                    <label for="rank"><h6>Start Date</h6></label>
-                    <select class="form-control" name="date" id="date"></select>
-                  </div>
-                  <div class="form-group col-5">
-                    <label for="rank"><h6>Start Time</h6></label>
-                    <select class="form-control" name="time" id="time"></select>
-                  </div>
+              </div>
+              <div class="form-group">
+                <label for="dest"><h6>Destination Station</h6></label>
+                <select class="form-control" name="dest" id="dest"></select>
+              </div>
+              <div
+                class="form-row d-flex justify-content-between align-items-center"
+              >
+                <div class="form-group col-5">
+                  <label for="rank"><h6>Arrival Date</h6></label>
+                  <select class="form-control" name="date2" id="date2"></select>
                 </div>
-                <!-- ------------------------------------------------------------predict tool btn------------------------------------------------- -->
-                <button
-                  class="btn btn-primary mt-3"
-                  id="predict-tools-btn"
-                  type="button"
-                  onclick="predictBtnClicked()"
-                >
-                  Confirm
-                </button>
-              </form>
-            </div>
-            <p id="start-available-bikes"></p>
-            <p id="start-available-stands"></p>
-            <p id="destination-available-bikes"></p>
-            <p id="destination-available-stands"></p>
+                <div class="form-group col-5">
+                  <label for="rank"><h6>Arrival Time</h6></label>
+                  <select class="form-control" name="time2" id="time2"></select>
+                </div>
+              </div>
+              <!-- ------------------------------------------------------------predict tool btn------------------------------------------------- -->
+              <button
+                class="btn btn-primary mt-3"
+                id="predict-tools-btn"
+                type="button"
+                onclick="predictBtnClicked()"
+              >
+                Confirm
+              </button>
+            </form>
           </div>
+          <br />
+          <h5 id="start-time"></h5>
+          <p id="start-available-bikes"></p>
+          <p id="start-available-stands"></p>
+          <h5 id="dest-time"></h5>
+          <p id="destination-available-bikes"></p>
+          <p id="destination-available-stands"></p>
         </div>
       </div>
     </div>
