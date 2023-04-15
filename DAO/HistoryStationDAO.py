@@ -29,7 +29,9 @@ def HistroryStationWeekly(stationNumber, weekday):
     df = df.reset_index()
     df = df[df.weekday == weekday]
     js = df.to_json(orient='records')
-    return js
+    history_weekly = json.loads(js)
+    return history_weekly
+
 
 
 def HistoryStationDAO(number):
@@ -62,7 +64,7 @@ def HistoryStationDAO(number):
 
 
     # print(type(history_data))
-    print(history_data)
+    # print(history_data)
 
     return history_data
 
@@ -70,4 +72,4 @@ def HistoryStationDAO(number):
 
 
 # HistoryStationDAO(1)
-HistroryStationWeekly(1, 1)
+print(HistroryStationWeekly(1, 1))
