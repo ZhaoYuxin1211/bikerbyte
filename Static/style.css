@@ -3,6 +3,7 @@ body,
 #nav {
   width: 100vw;
   height: 55px;
+
 }
 .container {
   position: absolute;
@@ -13,7 +14,7 @@ body,
 }
 
 #map {
-  height: 90vh;
+  height: 92vh;
   width: 100vw;
 
   margin: 0;
@@ -51,7 +52,11 @@ body,
   justify-content: center;
   align-items: center;
 }
-#toggle {
+#toggle1,
+#toggle2 {
+  font-size: 12px;
+  width: 130px;
+
   background-color: #4479a1;
 }
 #chart {
@@ -86,4 +91,15 @@ body,
 
 #predict-scroll {
   width: 300px;
+}
+
+#info-box {
+  width: 280px;
+}
+
+#warning {
+  font-size: 12px;
+}
+#predict-tools-btn{
+ background-color: #4479a1;
 }
