@@ -3,6 +3,7 @@ body,
 #nav {
   width: 100vw;
   height: 55px;
+
 }
 .container {
   position: absolute;
@@ -98,4 +99,7 @@ body,
 
 #warning {
   font-size: 12px;
+}
+#predict-tools-btn{
+ background-color: #4479a1;
 }

@@ -142,7 +142,7 @@ function addMarkers(data) {
   });
 }
 
-// adding search functions:
+//----------------------------------------------------- adding search functions-----------------------------------------
 const searchBtn = document.getElementById("search-btn");
 function search(data) {
   console.log("search range", data);
@@ -159,15 +159,16 @@ function search(data) {
       const stationNumber = station.number;
       const availableBikes = station.availableBikes;
       const availableBikeStands = station.availableBikeStands;
-      const center = {
+      let center = {
         lon: Number(station.positionLng),
         lat: Number(station.positionLat),
       };
 
       if (stationName == searchValue) {
         // Found a match, set the marker as the center of the map and display station information
-        map.setZoom(17);
         map.setCenter(center);
+        map.setZoom(17);
+
         console.log("center:", station.positionLat, station.positionLng);
         document.getElementById("info-box").innerHTML =
           "<br><h6>" +
@@ -198,7 +199,7 @@ function search(data) {
     }
   });
 }
-
+//-------------------------------------------------------------function display-----------------------------------------
 // function display
 function displayHistoryHourly() {
   // Load Google Charts library and call drawChart function when it's loaded
@@ -237,7 +238,7 @@ function displayHistoryHourly() {
   //   // Load Google Charts library and call drawChart function when it's loaded
   //   google.charts.setOnLoadCallback(drawChart);
 }
-
+//--------------------------------------------------------displayFiveNearestStations------------------------------------
 function displayFiveNearestStations(stations, targetStation) {
   const targetLat = targetStation.lat;
   const targetLng = targetStation.lng;
@@ -309,8 +310,8 @@ function displayFiveNearestStations(stations, targetStation) {
   // Update the table with the information
   document.getElementById("info-table").innerHTML = infoTable;
 }
-// display weather data
 
+// -----------------------------------------------------display weather data--------------------------------------------
 function DisplayWeather(Weatherdata) {
   console.log(Weatherdata);
   const weather = Weatherdata.weather;
@@ -346,7 +347,7 @@ function DisplayWeather(Weatherdata) {
   )}" alt="${main}"> ${main}, ${temperature}°C`;
   //  weatherDiv.innerHTML =  '<div>' + main+ '<div>temperature: '+ temperature + '</div>';
 }
-// ---------------------------------------------------------------------------DropDown----------------------------------------------------
+// ----------------------------------------------------------DropDown Function------------------------------------------
 let stationsDataReady = false;
 let toolsDataReady = false;
 let stationsData = null;
@@ -463,6 +464,7 @@ function AddingDropDown(stationsData, toolsData) {
   });
 }
 
+//-------------------------------------------------------------get data functions---------------------------------------
 function getStations() {
   fetch("/stations")
     .then((response) => response.json())
@@ -499,7 +501,7 @@ function getToolsData() {
       processData();
     });
 }
-
+//---------------------------------------------------------------------init map-----------------------------------------------------------
 function initMap() {
   const dublin = { lat: 53.35014, lng: -6.266155 };
   // The map, centered at Dublin
