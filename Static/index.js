@@ -180,7 +180,9 @@ function search(data) {
           "</div><div>Available Bike Stands: " +
           availableBikeStands +
           "</div>" +
-          '<button id="toggle"  class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">History and Predict</button>';
+          '<div class="d-flex justify-content-between align-items-center">' +
+          '<button id="toggle1" class="btn btn-primary col-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Information Charts</button>' +
+          '<button id="toggle2" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">Plan a Ride</button></div>';
         matchFound = true;
         console.log(station.name);
         const targetStation = station;
@@ -365,7 +367,7 @@ function AddingDropDown(stationsData, toolsData) {
   // Create sets to store unique dates and times
   const uniqueDates = new Set();
   const uniqueTimes = new Set();
-// Populate dropdown options with data from toolsData
+  // Populate dropdown options with data from toolsData
   for (const stationName in toolsData.value) {
     const stationData = toolsData.value[stationName];
     stationNames +=
@@ -395,7 +397,7 @@ function AddingDropDown(stationsData, toolsData) {
   document.getElementById("time2").innerHTML = times;
 
   predictBtn.addEventListener("click", function () {
-  // Get user's selections from the dropdown menus
+    // Get user's selections from the dropdown menus
     const startStation = document.getElementById("start").value;
     const destStation = document.getElementById("dest").value;
     const date1 = document.getElementById("date1").value;
@@ -403,7 +405,7 @@ function AddingDropDown(stationsData, toolsData) {
     const date2 = document.getElementById("date2").value;
     const time2 = document.getElementById("time2").value;
 
-// Check if all options are selected, otherwise display an alert
+    // Check if all options are selected, otherwise display an alert
     if (
       startStation === "default" ||
       destStation === "default" ||
@@ -426,14 +428,14 @@ function AddingDropDown(stationsData, toolsData) {
 
     const startAvailableBikes = toolsData.value[startStation][date1][time1];
     const destAvailableBikes = toolsData.value[destStation][date2][time2];
-// calculate available stands (stands-available bikes)
+    // calculate available stands (stands-available bikes)
     const startAvailableStands =
       stationBikeStandsMap[startStation] - startAvailableBikes;
     const destAvailableStands =
       stationBikeStandsMap[destStation] - destAvailableBikes;
 
-// Update the innerText of the HTML elements with the calculated values
-// Use Math.floor and Math.ceil function make Available bike number to integer
+    // Update the innerText of the HTML elements with the calculated values
+    // Use Math.floor and Math.ceil function make Available bike number to integer
     document.getElementById("start-time").innerText =
       "Start time at " + date1 + " " + time1 + ":";
     document.getElementById(
