@@ -349,21 +349,23 @@ let stationsDataReady = false;
 let toolsDataReady = false;
 let stationsData = null;
 let toolsData = null;
-//adding  function to get both stationsData, toolsData to AddingDropDown function
+// Process data and call AddingDropDown if both stationsData and toolsData are ready
 function processData() {
   if (stationsDataReady && toolsDataReady) {
     AddingDropDown(stationsData, toolsData);
   }
 }
 
+// Add options for stations, dates, and times to dropdown menus
 const predictBtn = document.getElementById("predict-tools-btn");
 function AddingDropDown(stationsData, toolsData) {
   let stationNames = "<option value='default'>Select station</option>";
   let dates = "<option value='default'>Select date</option>";
   let times = "<option value='default'>Select time</option>";
+  // Create sets to store unique dates and times
   const uniqueDates = new Set();
   const uniqueTimes = new Set();
-
+// Populate dropdown options with data from toolsData
   for (const stationName in toolsData.value) {
     const stationData = toolsData.value[stationName];
     stationNames +=
@@ -393,6 +395,7 @@ function AddingDropDown(stationsData, toolsData) {
   document.getElementById("time2").innerHTML = times;
 
   predictBtn.addEventListener("click", function () {
+  // Get user's selections from the dropdown menus
     const startStation = document.getElementById("start").value;
     const destStation = document.getElementById("dest").value;
     const date1 = document.getElementById("date1").value;
@@ -400,6 +403,7 @@ function AddingDropDown(stationsData, toolsData) {
     const date2 = document.getElementById("date2").value;
     const time2 = document.getElementById("time2").value;
 
+// Check if all options are selected, otherwise display an alert
     if (
       startStation === "default" ||
       destStation === "default" ||
@@ -411,7 +415,7 @@ function AddingDropDown(stationsData, toolsData) {
       alert("Please select all the options");
       return;
     }
-    //  making a object from stationData to make staion name as the key and bikestands the value
+    // Create a map of station names to their respective number of bike stands
     const stationBikeStandsMap = {};
     for (let i = 0; i < stationsData.stations.length; i++) {
       const station = stationsData.stations[i];
@@ -422,12 +426,14 @@ function AddingDropDown(stationsData, toolsData) {
 
     const startAvailableBikes = toolsData.value[startStation][date1][time1];
     const destAvailableBikes = toolsData.value[destStation][date2][time2];
-
+// calculate available stands (stands-available bikes)
     const startAvailableStands =
       stationBikeStandsMap[startStation] - startAvailableBikes;
     const destAvailableStands =
       stationBikeStandsMap[destStation] - destAvailableBikes;
 
+// Update the innerText of the HTML elements with the calculated values
+// Use Math.floor and Math.ceil function make Available bike number to integer
     document.getElementById("start-time").innerText =
       "Start time at " + date1 + " " + time1 + ":";
     document.getElementById(
