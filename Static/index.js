@@ -115,26 +115,28 @@ function addMarkers(data) {
 
       // display the station info
       document.getElementById("info-box").innerHTML =
-        "<br><h6>" +
+        "<br><h6><div class='clicked-station-name' stationName='" +
         stationName +
-        "</h6><div class='clicked-station' stationNumber=" +
+        "'>" +
+        stationName +
+        "</div></h6><div class='clicked-station' stationNumber='" +
         stationNumber +
-        " >Station Number: " +
+        "'>Station Number: " +
         stationNumber +
-        "</div>" +
         "</div><div>Available Bikes: " +
         availableBikes +
         "</div><div>Available Bike Stands: " +
         availableBikeStands +
-        "</div>" +
-        '<div class="d-flex justify-content-between align-items-center">' +
-        '<button id="toggle1" class="btn btn-primary col-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Information Charts</button>' +
-        '<button id="toggle2" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">Plan a Ride</button></div>';
+        "</div><div class='d-flex justify-content-between align-items-center'>" +
+        "<button id='toggle1' class='btn btn-primary col-5' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasScrolling' aria-controls='offcanvasScrolling'>Information Charts</button>" +
+        "<button id='toggle2' class='btn btn-primary' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasWithBackdrop' aria-controls='offcanvasWithBackdrop'>Plan a Ride</button></div>";
 
       const targetStation = station;
       displayFiveNearestStations(stations, targetStation);
 
       displayHistoryHourly();
+      dispalyPredictChart();
+
 
       // // call getWeather() function and pass in station position coordinates
       //  getWeather(station.positionLat,station.positionLng));
@@ -202,42 +204,94 @@ function search(data) {
 //-------------------------------------------------------------function display-----------------------------------------
 // function display
 function displayHistoryHourly() {
-  // Load Google Charts library and call drawChart function when it's loaded
+  // Load Google Charts library
   google.charts.load("current", { packages: ["corechart"] });
 
-  let element = document.getElementsByClassName("clicked-station")[0];
-  let value = element.getAttribute("stationnumber");
-  console.log("ttttttttttt" + value);
+  // Callback function for when Google Charts library is loaded
+  google.charts.setOnLoadCallback(() => {
+    let element = document.getElementsByClassName("clicked-station")[0];
+    let value = element.getAttribute("stationnumber");
+    // console.log("ttttttttttt" + value);
+    const today_date = new Date().getDay() - 1;
+    fetch("/history/" + value + "/" + today_date)
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        // Extract available bike stands data from the response
+        var history_weekly = data.history_weekly
+        // console.log(history_weekly.length);
+        // Create a data table for the chart
+        var dataTable = new google.visualization.DataTable();
+        dataTable.addColumn("string", "Hour");
+        dataTable.addColumn("number", "Stands");
+        dataTable.addColumn("number", "Available Bikes");
+        // Add data to the data table
+        for (var i = 0; i < history_weekly.length; i++) {
+          dataTable.addRow([(history_weekly[i]['hour']).toString(), history_weekly[i]['available_bike_stands'],history_weekly[i]['available_bikes']]);
+        }
 
-  //  fetch("/history/"+value).then( response => {
-  //     return response.json();
-  // }).then(data => {
-  //   // Extract available bike stands data from the response
-  //       var availableBikeStands = data.available_bike_stands;
-  //
-  //       // Create a data table for the chart
-  //       var dataTable = new google.visualization.DataTable();
-  //       dataTable.addColumn('string', 'Hour');
-  //       dataTable.addColumn('number', 'Available Bike Stands');
-  //       for (var i = 0; i < availableBikeStands.length; i++) {
-  //         dataTable.addRow([(i + 1).toString(), availableBikeStands[i]]);
-  //       }
-  //
-  //       // Define chart options
-  //       var options = {
-  //         title: 'Available Bike Stands by Hour',
-  //         curveType: 'function',
-  //         legend: { position: 'bottom' }
-  //       };
-  //
-  //       // Create and draw the chart
-  //       var chart = new google.visualization.LineChart(document.getElementById('history'));
-  //       chart.draw(dataTable, options);
-  //     })
-  //     .catch(error => console.error(error));
-  //   // Load Google Charts library and call drawChart function when it's loaded
-  //   google.charts.setOnLoadCallback(drawChart);
+        // Define chart options
+        var options = {
+          title: "Available Bike Stands and Bikes by Hour",
+          curveType: "function",
+          legend: { position: "bottom" }
+        };
+
+        // Create and draw the chart
+        var chart = new google.visualization.LineChart(document.getElementById("history"));
+        chart.draw(dataTable, options);
+      })
+      .catch(error => console.error(error));
+  });
 }
+//--------------------------------------------------------displaypredictdata------------------------------------
+
+function dispalyPredictChart(){
+  google.charts.load("current", { packages: ["corechart"] });
+  // Callback function for when Google Charts library is loaded
+  google.charts.setOnLoadCallback(() => {
+    let element = document.getElementsByClassName("clicked-station-name")[0];
+    let value = element.getAttribute("stationname");
+    console.log("ttttttttttt" + value);
+    fetch("/predictchart")
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        // Extract available bike stands data from the response
+        var predict = data.predict
+        console.log("789hgkggiugshdgukwgdkgdkugkugskgakgd")
+        console.log(predict);
+
+
+        // // Create a data table for the chart
+        // var dataTable = new google.visualization.DataTable();
+        // dataTable.addColumn("string", "Hour");
+        // dataTable.addColumn("number", "Stands");
+        // dataTable.addColumn("number", "Available Bikes");
+        //
+        // // Add data to the data table
+        // for (var i = 0; i < history_weekly.length; i++) {
+        //   dataTable.addRow([(history_weekly[i]['hour']).toString(), history_weekly[i]['available_bike_stands'],history_weekly[i]['available_bikes']]);
+        // }
+        //
+        // // Define chart options
+        // var options = {
+        //   title: "Available Bike Stands and Bikes by Hour",
+        //   curveType: "function",
+        //   legend: { position: "bottom" }
+        // };
+        //
+        // // Create and draw the chart
+        // var chart = new google.visualization.LineChart(document.getElementById("history"));
+        // chart.draw(dataTable, options);
+      })
+      .catch(error => console.error(error));
+  });
+
+}
+
 //--------------------------------------------------------displayFiveNearestStations------------------------------------
 function displayFiveNearestStations(stations, targetStation) {
   const targetLat = targetStation.lat;
