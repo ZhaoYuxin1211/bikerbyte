@@ -74,13 +74,17 @@ def predict_dict():
 
             predict_each[date_key][time_key] = available
 
-        predict_sum[station['name']] = predict_each
+        predict_sum[station['number']] = predict_each
 
     return predict_sum
 
 # predict output by each station
 def predict_station(stationNumber):
     predict_sum = predict_collect()
+    return predict_sum[stationNumber]
+
+def predict_dict_each(stationNumber):
+    predict_sum = predict_dict()
     return predict_sum[stationNumber]
 
 

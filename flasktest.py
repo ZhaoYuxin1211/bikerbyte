@@ -59,10 +59,18 @@ def get_available_bikes(station_id):
         return jsonify(error='Station not found'), 404
     available_bikes = station['availableBikes']
     return jsonify(available=available_bikes)
+
+# predict by each
 @app.route("/predictEach/<int:station_id>")
 def get_predict_each(station_id):
     predict_data = predict_station(station_id)
     return jsonify(predict=predict_data)
+
+# predict by each
+@app.route("/predictTools/<int:station_id>")
+def get_predict_each(station_id):
+    predict_tools_each = predict_dict_each(station_id)
+    return jsonify(predict=predict_tools_each)
 
 
 @app.route("/predictchart")

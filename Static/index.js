@@ -231,13 +231,15 @@ function displayHistoryHourly() {
           dataTable.addRow([(history_weekly[i]['hour']).toString(), history_weekly[i]['available_bike_stands'],history_weekly[i]['available_bikes']]);
         }
 
+        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const dayOfWeek = daysOfWeek[today_date];
+
         // Define chart options
         var options = {
-          title: "Available Bike Stands and Bikes by Hour",
+          title: "Average Available Stands and Bikes of "+dayOfWeek,
           curveType: "function",
           legend: { position: "bottom" }
         };
-
         // Create and draw the chart
         var chart = new google.visualization.LineChart(document.getElementById("history"));
         chart.draw(dataTable, options);
@@ -253,7 +255,7 @@ function dispalyPredictChart(){
   google.charts.setOnLoadCallback(() => {
     let element = document.getElementsByClassName("clicked-station")[0];
     let value = element.getAttribute("stationnumber");
-    console.log("ttttttttttt" + value);
+    // console.log("ttttttttttt" + value);
     fetch("/predictEach/"+value)
       .then(response => {
         return response.json();
@@ -261,8 +263,8 @@ function dispalyPredictChart(){
       .then(data => {
         // Extract available bike stands data from the response
         var predict = data.predict
-        console.log("789hgkggiugshdgukwgdkgdkugkugskgakgd")
-        console.log(predict);
+        // console.log("789hgkggiugshdgukwgdkgdkugkugskgakgd")
+        // console.log(predict);
         // Create a data table for the chart
         var dataTable = new google.visualization.DataTable();
         dataTable.addColumn("string", "Time");
@@ -274,7 +276,7 @@ function dispalyPredictChart(){
 
         // Define chart options
         var options = {
-          title: "Predict Available Bike Stands ",
+          title: "Predict Available Bikes of next five days",
           curveType: "function",
           legend: { position: "bottom" }
         };

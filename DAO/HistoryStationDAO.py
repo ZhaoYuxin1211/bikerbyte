@@ -61,8 +61,6 @@ def HistoryStationDAO(number):
     history_data = json.loads(js)
 
 
-
-
     # print(type(history_data))
     # print(history_data)
 
