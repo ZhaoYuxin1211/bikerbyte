@@ -70,13 +70,11 @@ def get_predict_each(station_id):
     predict_data = predict_station(station_id)
     return jsonify(predict=predict_data)
 
-# predict by each
-# @app.route("/ToolsEach/<int:station_id>")
-# def get_predict_each(station_id):
-#     predict_tools_each = predict_dict_each(station_id)
-#     return jsonify(value=predict_tools_each)
-
-
+# predict tool by each
+@app.route("/ToolsEach/<int:station_id>")
+def get_predict_tools_each(station_id):
+    predict_tools_each = predict_dict_each(station_id)
+    return jsonify(value=predict_tools_each)
 
 
 @app.route("/predictchart")
