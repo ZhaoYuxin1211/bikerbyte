@@ -103,3 +103,8 @@ body,
 #predict-tools-btn{
  background-color: #4479a1;
 }
+
+#show_date {
+  font-size: 14px;
+  /*color: #4479a1;*/
+}

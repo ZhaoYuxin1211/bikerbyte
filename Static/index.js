@@ -214,8 +214,33 @@ function displayHistoryHourly() {
     let element = document.getElementsByClassName("clicked-station")[0];
     let value = element.getAttribute("stationnumber");
     // console.log("ttttttttttt" + value);
-    const today_date = new Date().getDay() - 1;
-    fetch("/history/" + value + "/" + today_date)
+    const today_date = new Date().getDay();
+    let data_date = 0;
+    // trans the get data correspond with the history date data
+    switch (today_date) {
+    case 0:
+      data_date = 6;
+      break;
+    case 1:
+      data_date = 0;
+      break;
+    case 2:
+       data_date = 1;
+      break;
+    case 3:
+     data_date = 2;
+      break;
+    case 4:
+      data_date = 3;
+      break;
+    case 5:
+      data_date = 4;
+      break;
+    case 6:
+      data_date = 5;
+}
+    // const show_today = new Date().getUTCDay();
+    fetch("/history/" + value + "/" + data_date)
       .then(response => {
         return response.json();
       })
@@ -265,8 +290,6 @@ function dispalyPredictChart(){
       .then(data => {
         // Extract available bike stands data from the response
         var predict = data.predict
-        // console.log("789hgkggiugshdgukwgdkgdkugkugskgakgd")
-        // console.log(predict);
         // Create a data table for the chart
         var dataTable = new google.visualization.DataTable();
         dataTable.addColumn("string", "Time");
