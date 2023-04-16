@@ -65,26 +65,28 @@ function addMarkers(data) {
 
     // creates markers with info box with information
     var infoWindow = new google.maps.InfoWindow({
-      content:
-        '<div id="content"><h5>' +
-        "No." +
-        station.number +
-        " " +
-        station.name +
-        " " +
-        '<span class="badge rounded-pill text-bg-primary">' +
-        station.status +
-        "</span>" +
-        "</h5></div>" +
-        '<div id="station_availability"><h6>' +
-        "Avilabilable Bikes:" +
-        station.availableBikes +
-        "</h6></div>" +
-        '<div id="station_availability"><h6>' +
-        "Avilabilable Stands:" +
-        station.availableBikeStands +
-        "</h6></div>",
-    });
+  content:
+    '<div id="content"><h6>' +
+    'No.' +
+    station.number +
+    ' ' +
+    station.name +
+    ' ' +
+    '<span id="status" class="badge badge-primary">' +
+    'Now: ' +
+    station.status +
+    '</span>' +
+    '</h6></div>' +
+    '<div id="station_availability"><h6>' +
+    'Available Bikes: ' +
+    station.availableBikes +
+    '</h6></div>' +
+    '<div id="station_availability"><h6>' +
+    'Available Stands: ' +
+    station.availableBikeStands +
+    '</h6></div>',
+});
+
 
     // makes the info box if you mouseover the box
     marker.addListener("mouseover", function () {

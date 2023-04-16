@@ -4,7 +4,6 @@ from DAO.StationDAO import *
 from DAO.GetWeatherUpdate import *
 from model.ModelDes import *
 from model.get_weather_forecast_info import *
-
 from DAO.HistoryStationDAO import *
 
 
@@ -34,7 +33,6 @@ def get_weather():
 # @app.route("/weather/forecast")
 # def get_weather_forecast():
 #     weather_data = get_weather_forecast()
-#
 #     return jsonify(weather=weather_data)
 
 @app.route("/history/<int:station_id>")

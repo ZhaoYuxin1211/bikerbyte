@@ -16,6 +16,7 @@ def get_weather_forecast():
         r = requests.get(dbinfo.WEATHER_FORCAST, params={"q": dbinfo.WEATHER_CITY, "appid": dbinfo.WEATHER_KEY})
         weather_forecast = json.loads(r.text)
 
+
         X_features = []
         dates = []
         for forecast_each in weather_forecast.get('list'):
@@ -29,6 +30,8 @@ def get_weather_forecast():
             dates.append(dt)
             X_features.append([hour, temp, wind_speed, weekday])
 
+            print(dates,X_features)
+
         return dates, X_features
 
     except:
@@ -36,3 +39,4 @@ def get_weather_forecast():
         return None
 
 
+get_weather_forecast()
