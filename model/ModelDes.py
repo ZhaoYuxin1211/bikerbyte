@@ -80,12 +80,37 @@ def predict_dict():
 
 # predict output by each station
 def predict_station(stationNumber):
-    predict_sum = predict_collect()
-    return predict_sum[stationNumber]
+    # predict_sum = predict_collect()
+    # return predict_sum[stationNumber]
+
+        predict_each = []
+        times, availables = predict(stationNumber)
+        for j in range(len(times)):
+            predict_each.append([times[j], availables[j]])
+        return predict_each
+
+
 
 def predict_dict_each(stationNumber):
-    predict_sum = predict_dict()
-    return predict_sum[stationNumber]
+    # predict_sum = predict_dict()
+    # return predict_sum[stationNumber]
+    predict_each = {}
+    times, availables = predict(stationNumber)
+    for j in range(len(times)):
+        date = times[j].date()
+        time = times[j].time()
+        available = availables[j]
+
+        date_key = str(date)  # to string
+        time_key = str(time)  # to string
+
+        # time_key = (time.hour, time.minute, time.second)
+
+        if date_key not in predict_each:
+            predict_each[date_key] = {}
+
+        predict_each[date_key][time_key] = available
+    return predict_each
 
 
 
