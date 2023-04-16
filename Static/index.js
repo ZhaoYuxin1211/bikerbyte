@@ -108,6 +108,10 @@ function addMarkers(data) {
       map.setZoom(17); // set zoom level to 17
       map.setCenter(marker.getPosition()); // set marker position as the center of the map
       document.getElementById("search-input").value = station.name;
+      const today_date = new Date().getDay();
+      const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const dayOfWeek = daysOfWeek[today_date];
+      document.getElementById("show_date").append("Today:"+dayOfWeek);
 
       // Retrieve information for station
       var stationName = this.getTitle();
