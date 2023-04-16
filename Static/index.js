@@ -111,7 +111,7 @@ function addMarkers(data) {
       const today_date = new Date().getDay();
       const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       const dayOfWeek = daysOfWeek[today_date];
-      document.getElementById("show_date").append("Today:"+dayOfWeek);
+      document.getElementById("show_date").innerHTML="Today: "+dayOfWeek;
 
       // Retrieve information for station
       var stationName = this.getTitle();
