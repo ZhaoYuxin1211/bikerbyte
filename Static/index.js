@@ -141,8 +141,6 @@ function addMarkers(data) {
 
       displayHistoryHourly();
       dispalyPredictChart();
-
-
       // // call getWeather() function and pass in station position coordinates
       //  getWeather(station.positionLat,station.positionLng));
     });
@@ -260,7 +258,6 @@ function displayHistoryHourly() {
         for (var i = 0; i < history_weekly.length; i++) {
           dataTable.addRow([(history_weekly[i]['hour']).toString(), history_weekly[i]['available_bike_stands'],history_weekly[i]['available_bikes']]);
         }
-
         const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         const dayOfWeek = daysOfWeek[today_date];
 
@@ -420,12 +417,40 @@ function DisplayWeather(Weatherdata) {
   }
 
   // Display weather data
+//  const weatherDiv = document.getElementById("weather-box");
+//  // weatherDiv.innerHTML = `${main}, ${description}, ${temperature}°C`;
+//  weatherDiv.innerHTML = `<img src="${getImageUrl(
+//    main
+//  )}" alt="${main}"> ${main}, ${temperature}°C`;
+  //  weatherDiv.innerHTML =  '<div>' + main+ '<div>temperature: '+ temperature + '</div>';
+
+  // Display weather data
   const weatherDiv = document.getElementById("weather-box");
-  // weatherDiv.innerHTML = `${main}, ${description}, ${temperature}°C`;
+  const currentDate = new Date();
+  const formattedDate = currentDate.toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric"
+  });
   weatherDiv.innerHTML = `<img src="${getImageUrl(
     main
-  )}" alt="${main}"> ${main}, ${temperature}°C`;
-  //  weatherDiv.innerHTML =  '<div>' + main+ '<div>temperature: '+ temperature + '</div>';
+  )}" alt="${main}"> ${main}, ${temperature}°C <div id="date">${formattedDate}</div>`;
+
+  const dateDiv = document.getElementById("date");
+  dateDiv.style.display = "none";
+
+  weatherDiv.addEventListener("mouseenter", function() {
+    dateDiv.style.display = "block";
+  });
+
+  weatherDiv.addEventListener("mousemove", function(event) {
+    dateDiv.style.top = event.clientY - 30 + "px";
+    dateDiv.style.left = event.clientX + 10 + "px";
+
+  });
+
+  weatherDiv.addEventListener("mouseleave", function() {
+    dateDiv.style.display = "none";
+  });
 }
 
 // ----------------------------------------------------------Display Weather Forecast-----------------------------------------
