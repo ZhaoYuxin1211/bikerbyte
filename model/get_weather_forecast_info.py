@@ -28,6 +28,7 @@ def get_weather_forecast():
 
             dates.append(dt)
             X_features.append([hour, temp, wind_speed, weekday])
+
         return dates, X_features
 
     except:

@@ -3,6 +3,7 @@ from DAO.StationDAO import *
 # from DAO.GetWeatherData import *
 from DAO.GetWeatherUpdate import *
 from model.ModelDes import *
+from model.get_weather_forecast_info import *
 
 from DAO.HistoryStationDAO import *
 
@@ -30,6 +31,11 @@ def get_weather():
     weather_data = get_weather_data()
     return jsonify(weather=weather_data)
 
+# @app.route("/weather/forecast")
+# def get_weather_forecast():
+#     weather_data = get_weather_forecast()
+#
+#     return jsonify(weather=weather_data)
 
 @app.route("/history/<int:station_id>")
 def get_history_avg_available(station_id):
@@ -67,10 +73,12 @@ def get_predict_each(station_id):
     return jsonify(predict=predict_data)
 
 # predict by each
-@app.route("/predictTools/<int:station_id>")
-def get_predict_each(station_id):
-    predict_tools_each = predict_dict_each(station_id)
-    return jsonify(predict=predict_tools_each)
+# @app.route("/ToolsEach/<int:station_id>")
+# def get_predict_each(station_id):
+#     predict_tools_each = predict_dict_each(station_id)
+#     return jsonify(value=predict_tools_each)
+
+
 
 
 @app.route("/predictchart")
@@ -82,7 +90,6 @@ def get_predict():
 def get_predict_tools():
     predict_tools_data = predict_dict()
     return jsonify(value=predict_tools_data)
-
 
 
 
