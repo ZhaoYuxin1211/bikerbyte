@@ -100,6 +100,10 @@ body,
 #warning {
   font-size: 12px;
 }
+
+#warning2 {
+  font-size: 10px;
+}
 #predict-tools-btn{
  background-color: #4479a1;
 }

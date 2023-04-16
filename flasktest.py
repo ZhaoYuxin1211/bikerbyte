@@ -30,10 +30,10 @@ def get_weather():
     weather_data = get_weather_data()
     return jsonify(weather=weather_data)
 
-# @app.route("/weather/forecast")
-# def get_weather_forecast():
-#     weather_data = get_weather_forecast()
-#     return jsonify(weather=weather_data)
+@app.route("/weatherForecast")
+def get_weather_forecast():
+    forecast = get_weather_forecast_to_show()
+    return jsonify(forecast=forecast)
 
 @app.route("/history/<int:station_id>")
 def get_history_avg_available(station_id):

@@ -61,4 +61,4 @@ def get_weather_forecast_to_show():
         return None
 
 
-get_weather_forecast_to_show()
+# get_weather_forecast_to_show()

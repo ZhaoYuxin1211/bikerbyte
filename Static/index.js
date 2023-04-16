@@ -134,9 +134,8 @@ function addMarkers(data) {
         "</div><div>Available Bike Stands: " +
         availableBikeStands +
         "</div><div class='d-flex justify-content-between align-items-center'>" +
-        "<button id='toggle1' class='btn btn-primary col-5' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasScrolling' aria-controls='offcanvasScrolling'>Information Charts</button>" +
-        "<button id='toggle2' class='btn btn-primary' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasWithBackdrop' aria-controls='offcanvasWithBackdrop'>Plan a Ride</button></div>";
-
+        "<button id='toggle1' class='btn btn-primary flex-fill me-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasScrolling' aria-controls='offcanvasScrolling'>Information Charts</button>" +
+        "<button id='toggle2' class='btn btn-primary flex-fill ms-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasWithBackdrop' aria-controls='offcanvasWithBackdrop'>Plan a Ride</button>" + "</div>";
       const targetStation = station;
       displayFiveNearestStations(stations, targetStation);
 
@@ -394,7 +393,7 @@ function displayFiveNearestStations(stations, targetStation) {
 
 // -----------------------------------------------------display weather data--------------------------------------------
 function DisplayWeather(Weatherdata) {
-  console.log(Weatherdata);
+  // console.log(Weatherdata);
   const weather = Weatherdata.weather;
   const temperature = Math.round(weather.main.temp - 273.15);
   const main = weather.weather[0].main;
@@ -428,6 +427,56 @@ function DisplayWeather(Weatherdata) {
   )}" alt="${main}"> ${main}, ${temperature}°C`;
   //  weatherDiv.innerHTML =  '<div>' + main+ '<div>temperature: '+ temperature + '</div>';
 }
+
+// ----------------------------------------------------------Display Weather Forecast-----------------------------------------
+function DisplayWeatherForecast(WeatherForecastData){
+  // console.log(Weatherdata);
+  const forecast = WeatherForecastData.forecast;
+  for (let i = 0; i < forecast.length; i++) {
+    const temperature = Math.round(forecast[i][2] - 273.15);
+    const main = forecast[i][1];
+    const time = forecast[i][0];
+    console.log("999999" + main);
+
+    // add image to weather display:
+    // for main: https://openweathermap.org/weather-conditions
+    function getImageUrl(weatherType) {
+      if (main === "Thunderstorm") {
+        return "https://openweathermap.org/img/wn/11d@2x.png";
+      } else if (main === "Drizzle") {
+        return "https://openweathermap.org/img/wn/09d@2x.png";
+      } else if (main === "Rain") {
+        return "https://openweathermap.org/img/wn/10d@2x.png";
+      } else if (main === "Snow") {
+        return "https://openweathermap.org/img/wn/13d@2x.png";
+      } else if (main === "Clear") {
+        return "https://openweathermap.org/img/wn/01d@2x.png";
+      } else if (main === "Clouds") {
+        return "https://openweathermap.org/img/wn/02d@2x.png";
+      } else {
+        return "https://openweathermap.org/img/wn/50d@2x.png";
+      }
+    }
+
+    // Display weather data
+    const weatherDiv = document.getElementById("weather-predict");
+    const icon = `<img src="${getImageUrl(main)}" alt="${main}" style="grid-row: 1; grid-column: 1; align-self: flex-start;width: 50px; height: 50px">`;
+    const weatherData = `<div style="grid-row: 2; grid-column: 1;font-size: 12px;">${main}</div><div style="grid-row: 3; grid-column: 1;font-size: 12px;">${temperature}°C</div>`;
+    weatherDiv.innerHTML += `<div style="display: grid; gap: 8px; align-items: center;">${icon}${weatherData}</div>`;
+  }}
+
+
+
+
+
+
+
+
+
+
+
+
+
 // ----------------------------------------------------------DropDown Function------------------------------------------
 let stationsDataReady = false;
 let toolsDataReady = false;
@@ -572,6 +621,15 @@ function getWeather() {
     });
 }
 
+function  getForecastWeather(){
+  fetch("/weatherForecast")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("fetch response", data);
+      DisplayWeatherForecast(data);
+    });
+}
+
 function getToolsData() {
   fetch("/predicttools")
     .then((response) => response.json())
@@ -644,6 +702,7 @@ function initMap() {
   getStations();
   getWeather();
   getToolsData();
+  getForecastWeather();
 }
 
 var map = null;
