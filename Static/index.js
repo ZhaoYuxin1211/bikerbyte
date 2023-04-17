@@ -389,15 +389,76 @@ function displayFiveNearestStations(stations, targetStation) {
 }
 
 // -----------------------------------------------------display weather data--------------------------------------------
+//function DisplayWeather(Weatherdata) {
+//  // console.log(Weatherdata);
+//  const weather = Weatherdata.weather;
+//  const temperature = Math.round(weather.main.temp - 273.15);
+//  const main = weather.weather[0].main;
+//  const description = weather.weather[0].description;
+//
+//  // add image to weather display:
+//  // for main: https://openweathermap.org/weather-conditions
+//  function getImageUrl(weatherType) {
+//    if (main === "Thunderstorm") {
+//      return "https://openweathermap.org/img/wn/11d@2x.png";
+//    } else if (main === "Drizzle") {
+//      return "https://openweathermap.org/img/wn/09d@2x.png";
+//    } else if (main === "Rain") {
+//      return "https://openweathermap.org/img/wn/10d@2x.png";
+//    } else if (main === "Snow") {
+//      return "https://openweathermap.org/img/wn/13d@2x.png";
+//    } else if (main === "Clear") {
+//      return "https://openweathermap.org/img/wn/01d@2x.png";
+//    } else if (main === "Clouds") {
+//      return "https://openweathermap.org/img/wn/02d@2x.png";
+//    } else {
+//      return "https://openweathermap.org/img/wn/50d@2x.png";
+//    }
+//  }
+//
+//  // Display weather data
+////  const weatherDiv = document.getElementById("weather-box");
+////  // weatherDiv.innerHTML = `${main}, ${description}, ${temperature}°C`;
+////  weatherDiv.innerHTML = `<img src="${getImageUrl(
+////    main
+////  )}" alt="${main}"> ${main}, ${temperature}°C`;
+//  //  weatherDiv.innerHTML =  '<div>' + main+ '<div>temperature: '+ temperature + '</div>';
+//
+//  // Display weather data
+//  const weatherDiv = document.getElementById("weather-box");
+//  const currentDate = new Date();
+//  const formattedDate = currentDate.toLocaleDateString(undefined, {
+//    month: "short",
+//    day: "numeric"
+//  });
+//  weatherDiv.innerHTML = `<img src="${getImageUrl(
+//    main
+//  )}" alt="${main}"> ${main}, ${temperature}°C <div id="date">${formattedDate}</div>`;
+//
+//  const dateDiv = document.getElementById("date");
+//  dateDiv.style.display = "none";
+//
+//  weatherDiv.addEventListener("mouseenter", function() {
+//    dateDiv.style.display = "block";
+//  });
+//
+//  weatherDiv.addEventListener("mousemove", function(event) {
+////  justify the position of the time but something wrong, need fix.
+//    dateDiv.style.top = event.clientY + "px";
+//    dateDiv.style.left = event.clientX +"px";
+//
+//  });
+//
+//  weatherDiv.addEventListener("mouseleave", function() {
+//    dateDiv.style.display = "none";
+//  });
+//}
 function DisplayWeather(Weatherdata) {
-  // console.log(Weatherdata);
   const weather = Weatherdata.weather;
   const temperature = Math.round(weather.main.temp - 273.15);
   const main = weather.weather[0].main;
   const description = weather.weather[0].description;
 
-  // add image to weather display:
-  // for main: https://openweathermap.org/weather-conditions
   function getImageUrl(weatherType) {
     if (main === "Thunderstorm") {
       return "https://openweathermap.org/img/wn/11d@2x.png";
@@ -416,18 +477,10 @@ function DisplayWeather(Weatherdata) {
     }
   }
 
-  // Display weather data
-//  const weatherDiv = document.getElementById("weather-box");
-//  // weatherDiv.innerHTML = `${main}, ${description}, ${temperature}°C`;
-//  weatherDiv.innerHTML = `<img src="${getImageUrl(
-//    main
-//  )}" alt="${main}"> ${main}, ${temperature}°C`;
-  //  weatherDiv.innerHTML =  '<div>' + main+ '<div>temperature: '+ temperature + '</div>';
-
-  // Display weather data
   const weatherDiv = document.getElementById("weather-box");
   const currentDate = new Date();
   const formattedDate = currentDate.toLocaleDateString(undefined, {
+    weekday: "long",
     month: "short",
     day: "numeric"
   });
@@ -443,9 +496,9 @@ function DisplayWeather(Weatherdata) {
   });
 
   weatherDiv.addEventListener("mousemove", function(event) {
-    dateDiv.style.top = event.clientY - 30 + "px";
-    dateDiv.style.left = event.clientX + 10 + "px";
-
+    // Position the day of the week directly below the weather information
+    dateDiv.style.top = event.clientY + 50 + "px";
+    dateDiv.style.left = event.clientX + "px";
   });
 
   weatherDiv.addEventListener("mouseleave", function() {
@@ -454,6 +507,41 @@ function DisplayWeather(Weatherdata) {
 }
 
 // ----------------------------------------------------------Display Weather Forecast-----------------------------------------
+//function DisplayWeatherForecast(WeatherForecastData){
+//  // console.log(Weatherdata);
+//  const forecast = WeatherForecastData.forecast;
+//  for (let i = 0; i < forecast.length; i++) {
+//    const temperature = Math.round(forecast[i][2] - 273.15);
+//    const main = forecast[i][1];
+//    const time = forecast[i][0];
+//    console.log("999999" + main);
+//
+//    // add image to weather display:
+//    // for main: https://openweathermap.org/weather-conditions
+//    function getImageUrl(weatherType) {
+//      if (main === "Thunderstorm") {
+//        return "https://openweathermap.org/img/wn/11d@2x.png";
+//      } else if (main === "Drizzle") {
+//        return "https://openweathermap.org/img/wn/09d@2x.png";
+//      } else if (main === "Rain") {
+//        return "https://openweathermap.org/img/wn/10d@2x.png";
+//      } else if (main === "Snow") {
+//        return "https://openweathermap.org/img/wn/13d@2x.png";
+//      } else if (main === "Clear") {
+//        return "https://openweathermap.org/img/wn/01d@2x.png";
+//      } else if (main === "Clouds") {
+//        return "https://openweathermap.org/img/wn/02d@2x.png";
+//      } else {
+//        return "https://openweathermap.org/img/wn/50d@2x.png";
+//      }
+//    }
+//
+//    // Display weather data
+//    const weatherDiv = document.getElementById("weather-predict");
+//    const icon = `<img src="${getImageUrl(main)}" alt="${main}" style="grid-row: 1; grid-column: 1; align-self: flex-start;width: 50px; height: 50px">`;
+//    const weatherData = `<div style="grid-row: 2; grid-column: 1;font-size: 12px;">${main}</div><div style="grid-row: 3; grid-column: 1;font-size: 12px;">${temperature}°C</div>`;
+//    weatherDiv.innerHTML += `<div style="display: grid; gap: 8px; align-items: center;">${icon}${weatherData}</div>`;
+//  }}
 function DisplayWeatherForecast(WeatherForecastData){
   // console.log(Weatherdata);
   const forecast = WeatherForecastData.forecast;
@@ -461,12 +549,14 @@ function DisplayWeatherForecast(WeatherForecastData){
     const temperature = Math.round(forecast[i][2] - 273.15);
     const main = forecast[i][1];
     const time = forecast[i][0];
-    console.log("999999" + main);
+    const date = new Date(time).toLocaleDateString(undefined, {
+      weekday: "short"
+    });
 
     // add image to weather display:
     // for main: https://openweathermap.org/weather-conditions
     function getImageUrl(weatherType) {
-      if (main === "Thunderstorm") {
+     if (main === "Thunderstorm") {
         return "https://openweathermap.org/img/wn/11d@2x.png";
       } else if (main === "Drizzle") {
         return "https://openweathermap.org/img/wn/09d@2x.png";
@@ -487,15 +577,28 @@ function DisplayWeatherForecast(WeatherForecastData){
     const weatherDiv = document.getElementById("weather-predict");
     const icon = `<img src="${getImageUrl(main)}" alt="${main}" style="grid-row: 1; grid-column: 1; align-self: flex-start;width: 50px; height: 50px">`;
     const weatherData = `<div style="grid-row: 2; grid-column: 1;font-size: 12px;">${main}</div><div style="grid-row: 3; grid-column: 1;font-size: 12px;">${temperature}°C</div>`;
-    weatherDiv.innerHTML += `<div style="display: grid; gap: 8px; align-items: center;">${icon}${weatherData}</div>`;
-  }}
-
-
-
-
-
-
-
+    const dateDiv = document.createElement("div");
+    dateDiv.style.display = "none";
+    dateDiv.style.position = "absolute";
+    dateDiv.style.top = "-30px";
+    dateDiv.style.left = "50%";
+    dateDiv.style.transform = "translateX(-50%)";
+    dateDiv.innerText = date;
+    weatherDiv.innerHTML += `<div style="display: grid; gap: 8px; align-items: center; position: relative;">${icon}${weatherData}</div>`;
+    weatherDiv.lastChild.addEventListener("mouseenter", function() {
+      dateDiv.style.display = "block";
+    });
+    weatherDiv.lastChild.addEventListener("mousemove", function(event) {
+      dateDiv.style.top = "-30px";
+      dateDiv.style.left = "50%";
+      dateDiv.style.transform = "translateX(-50%)";
+    });
+    weatherDiv.lastChild.addEventListener("mouseleave", function() {
+      dateDiv.style.display = "none";
+    });
+    weatherDiv.lastChild.appendChild(dateDiv);
+  }
+}
 
 
 
