@@ -33,50 +33,50 @@ def predict(station_num):
     # make prediction
     predict_available_bikes = model.predict(X_features)
     return times, predict_available_bikes
-
-
-#output is list which suit the format Google chart needed
-def predict_collect():
-    predict_sum = {}
-    stations = StationDAO.StationDAO()
-
-    # except the last one in stations.
-    for station in stations[:-1]:
-        predict_each = []
-        times, availables = predict(station['number'])
-        for j in range(len(times)):
-            predict_each.append([times[j], availables[j]])
-        predict_sum[station['number']] =predict_each
-    # print(predict_sum)
-    return predict_sum
+#
+#
+# #output is list which suit the format Google chart needed
+# def predict_collect():
+#     predict_sum = {}
+#     stations = StationDAO.StationDAO()
+#
+#     # except the last one in stations.
+#     for station in stations[:-1]:
+#         predict_each = []
+#         times, availables = predict(station['number'])
+#         for j in range(len(times)):
+#             predict_each.append([times[j], availables[j]])
+#         predict_sum[station['number']] =predict_each
+#     # print(predict_sum)
+#     return predict_sum
 
 # print(predict_collect())
         # output is dict,used to make the search function for predict
-def predict_dict():
-    predict_sum = {}
-    stations = StationDAO.StationDAO()
-    # except the last one in stations.
-    for station in stations[:-1]:
-        predict_each = {}
-        times, availables = predict(station['number'])
-        for j in range(len(times)):
-            date = times[j].date()
-            time = times[j].time()
-            available = availables[j]
-
-            date_key = str(date)  # to string
-            time_key = str(time)  # to string
-
-            # time_key = (time.hour, time.minute, time.second)
-
-            if date_key not in predict_each:
-                predict_each[date_key] = {}
-
-            predict_each[date_key][time_key] = available
-
-        predict_sum[station['number']] = predict_each
-
-    return predict_sum
+# def predict_dict():
+#     predict_sum = {}
+#     stations = StationDAO.StationDAO()
+#     # except the last one in stations.
+#     for station in stations[:-1]:
+#         predict_each = {}
+#         times, availables = predict(station['number'])
+#         for j in range(len(times)):
+#             date = times[j].date()
+#             time = times[j].time()
+#             available = availables[j]
+#
+#             date_key = str(date)  # to string
+#             time_key = str(time)  # to string
+#
+#             # time_key = (time.hour, time.minute, time.second)
+#
+#             if date_key not in predict_each:
+#                 predict_each[date_key] = {}
+#
+#             predict_each[date_key][time_key] = available
+#
+#         predict_sum[station['number']] = predict_each
+#
+#     return predict_sum
 
 # predict output by each station
 def predict_station(stationNumber):
@@ -113,7 +113,7 @@ def predict_dict_each(stationNumber):
     return predict_each
 
 
-
+print(predict_dict_each(1))
 
 
 
