@@ -77,18 +77,6 @@ def get_predict_tools_each(station_id):
     return jsonify(value=predict_tools_each)
 
 
-@app.route("/predictchart")
-def get_predict():
-    predict_data = predict_collect()
-    return jsonify(predict=predict_data)
-
-@app.route("/predicttools")
-def get_predict_tools():
-    predict_tools_data = predict_dict()
-    return jsonify(value=predict_tools_data)
-
-
-
 if __name__ == "__main__":
 
     app.run(debug=True)

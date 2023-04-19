@@ -66,28 +66,27 @@ function addMarkers(data) {
 
     // creates markers with info box with information
     var infoWindow = new google.maps.InfoWindow({
-  content:
-    '<div id="content"><h6>' +
-    'No.' +
-    station.number +
-    ' ' +
-    station.name +
-    ' ' +
-    '<span id="status" class="badge badge-primary">' +
-    'Now: ' +
-    station.status +
-    '</span>' +
-    '</h6></div>' +
-    '<div id="station_availability"><h6>' +
-    'Available Bikes: ' +
-    station.availableBikes +
-    '</h6></div>' +
-    '<div id="station_availability"><h6>' +
-    'Available Stands: ' +
-    station.availableBikeStands +
-    '</h6></div>',
-});
-
+      content:
+        '<div id="content"><h6>' +
+        "No." +
+        station.number +
+        " " +
+        station.name +
+        " " +
+        '<span id="status" class="badge badge-primary">' +
+        "Now: " +
+        station.status +
+        "</span>" +
+        "</h6></div>" +
+        '<div id="station_availability"><h6>' +
+        "Available Bikes: " +
+        station.availableBikes +
+        "</h6></div>" +
+        '<div id="station_availability"><h6>' +
+        "Available Stands: " +
+        station.availableBikeStands +
+        "</h6></div>",
+    });
 
     // makes the info box if you mouseover the box
     marker.addListener("mouseover", function () {
@@ -529,6 +528,17 @@ function DisplayWeatherForecast(WeatherForecastData){
 
 
 // ----------------------------------------------------------DropDown Function------------------------------------------
+let stationsDataReady = false;
+let toolsDataReady = false;
+let stationsData = null;
+let toolsData = null;
+// Process data and call AddingDropDown if both stationsData and toolsData are ready
+function processData() {
+  if (stationsDataReady && toolsDataReady) {
+    AddingDropDown(stationsData, toolsData);
+  }
+}
+
 // Add options for stations, dates, and times to dropdown menus
 const predictBtn = document.getElementById("predict-tools-btn");
 function AddingDropDown(data) {
@@ -546,6 +556,9 @@ function AddingDropDown(data) {
   const nameNumberDict = {};
   let dates = "<option value='default'>Select date</option>";
   let times = "<option value='default'>Select time</option>";
+  // Create sets to store unique dates and times
+  const uniqueDates = new Set();
+  const uniqueTimes = new Set();
   // Populate dropdown options with data from toolsData
   stations.forEach((station) => {
     stationNames +=
@@ -574,10 +587,17 @@ function AddingDropDown(data) {
       }
       datesArray.forEach((date) => {
         dates += "<option value='" + date + "'>" + date + "</option>";
-      });
-      timesArray.forEach((time) => {
-        times += "<option value='" + time + "'>" + time + "</option>";
-      });
+      }
+      const dateData = stationData[date];
+
+      for (const time in dateData) {
+        if (!uniqueTimes.has(time)) {
+          uniqueTimes.add(time);
+          times += "<option value='" + time + "'>" + time + "</option>";
+        }
+      }
+    }
+  }
 
       document.getElementById("start").innerHTML = stationNames;
       document.getElementById("dest").innerHTML = stationNames;
