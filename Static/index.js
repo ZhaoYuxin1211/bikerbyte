@@ -165,7 +165,7 @@ function search(data) {
       const availableBikes = station.availableBikes;
       const availableBikeStands = station.availableBikeStands;
       let center = {
-        lon: Number(station.positionLng),
+        lng: Number(station.positionLng),
         lat: Number(station.positionLat),
       };
 
@@ -184,11 +184,9 @@ function search(data) {
           "</div><div>Available Bikes: " +
           availableBikes +
           "</div><div>Available Bike Stands: " +
-          availableBikeStands +
-          "</div>" +
-          '<div class="d-flex justify-content-between align-items-center">' +
-          '<button id="toggle1" class="btn btn-primary col-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Information Charts</button>' +
-          '<button id="toggle2" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">Plan a Ride</button></div>';
+          availableBikeStands + "</div><div class='d-flex justify-content-between align-items-center'>" +
+        "<button id='toggle1' class='btn btn-primary flex-fill me-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasScrolling' aria-controls='offcanvasScrolling'>Information Charts</button>" +
+        "<button id='toggle2' class='btn btn-primary flex-fill ms-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasWithBackdrop' aria-controls='offcanvasWithBackdrop'>Plan a Ride</button>" + "</div>";
         matchFound = true;
         console.log(station.name);
         const targetStation = station;
@@ -389,70 +387,7 @@ function displayFiveNearestStations(stations, targetStation) {
 }
 
 // -----------------------------------------------------display weather data--------------------------------------------
-//function DisplayWeather(Weatherdata) {
-//  // console.log(Weatherdata);
-//  const weather = Weatherdata.weather;
-//  const temperature = Math.round(weather.main.temp - 273.15);
-//  const main = weather.weather[0].main;
-//  const description = weather.weather[0].description;
-//
-//  // add image to weather display:
-//  // for main: https://openweathermap.org/weather-conditions
-//  function getImageUrl(weatherType) {
-//    if (main === "Thunderstorm") {
-//      return "https://openweathermap.org/img/wn/11d@2x.png";
-//    } else if (main === "Drizzle") {
-//      return "https://openweathermap.org/img/wn/09d@2x.png";
-//    } else if (main === "Rain") {
-//      return "https://openweathermap.org/img/wn/10d@2x.png";
-//    } else if (main === "Snow") {
-//      return "https://openweathermap.org/img/wn/13d@2x.png";
-//    } else if (main === "Clear") {
-//      return "https://openweathermap.org/img/wn/01d@2x.png";
-//    } else if (main === "Clouds") {
-//      return "https://openweathermap.org/img/wn/02d@2x.png";
-//    } else {
-//      return "https://openweathermap.org/img/wn/50d@2x.png";
-//    }
-//  }
-//
-//  // Display weather data
-////  const weatherDiv = document.getElementById("weather-box");
-////  // weatherDiv.innerHTML = `${main}, ${description}, ${temperature}°C`;
-////  weatherDiv.innerHTML = `<img src="${getImageUrl(
-////    main
-////  )}" alt="${main}"> ${main}, ${temperature}°C`;
-//  //  weatherDiv.innerHTML =  '<div>' + main+ '<div>temperature: '+ temperature + '</div>';
-//
-//  // Display weather data
-//  const weatherDiv = document.getElementById("weather-box");
-//  const currentDate = new Date();
-//  const formattedDate = currentDate.toLocaleDateString(undefined, {
-//    month: "short",
-//    day: "numeric"
-//  });
-//  weatherDiv.innerHTML = `<img src="${getImageUrl(
-//    main
-//  )}" alt="${main}"> ${main}, ${temperature}°C <div id="date">${formattedDate}</div>`;
-//
-//  const dateDiv = document.getElementById("date");
-//  dateDiv.style.display = "none";
-//
-//  weatherDiv.addEventListener("mouseenter", function() {
-//    dateDiv.style.display = "block";
-//  });
-//
-//  weatherDiv.addEventListener("mousemove", function(event) {
-////  justify the position of the time but something wrong, need fix.
-//    dateDiv.style.top = event.clientY + "px";
-//    dateDiv.style.left = event.clientX +"px";
-//
-//  });
-//
-//  weatherDiv.addEventListener("mouseleave", function() {
-//    dateDiv.style.display = "none";
-//  });
-//}
+
 function DisplayWeather(Weatherdata) {
   const weather = Weatherdata.weather;
   const temperature = Math.round(weather.main.temp - 273.15);
@@ -485,23 +420,6 @@ function DisplayWeather(Weatherdata) {
   weatherDiv.innerHTML = `<img src="${getImageUrl(
     main
   )}" alt="${main}"> ${formattedDate}: ${main}, ${temperature}°C`;
-
-//  const dateDiv = document.getElementById("date");
-//  dateDiv.style.display = "none";
-//
-//  weatherDiv.addEventListener("mouseenter", function() {
-//    dateDiv.style.display = "block";
-//  });
-//
-//  weatherDiv.addEventListener("mousemove", function(event) {
-//    // Position the day of the week directly below the weather information
-//    dateDiv.style.top = event.clientY + 50 + "px";
-//    dateDiv.style.left = event.clientX + "px";
-//  });
-//
-//  weatherDiv.addEventListener("mouseleave", function() {
-//    dateDiv.style.display = "none";
-//  });
 }
 
 // ----------------------------------------------------------Display Weather Forecast-----------------------------------------

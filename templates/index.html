@@ -13,9 +13,8 @@
     />
     <link rel="stylesheet" type="text/css" href="../Static/style.css"/>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <!--     <script type="module" src="../Static/searchTest.js"></script>-->
     <script type="module" src="../Static/index.js"></script>
-    <!--    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>-->
+
 
     <script
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBqLJ1VO0sxQFYsdj4R0_5ArcCNBQdjJI&callback=initMap&v=weekly"
@@ -60,6 +59,7 @@
             </ul>
         </div>
         <div id="history_chart"></div>
+
 </nav>
 <!-- ------------------------------------------container---------------------------------------- -->
 <div class="container">
@@ -137,29 +137,6 @@
         <div id="chart">
             <h6>History Chart</h6>
             <div id="history"></div>
-            <div
-                    class="alert alert-primary d-flex align-items-center"
-                    role="alert"
-            >
-                <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        fill="currentColor"
-                        class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2"
-                        viewBox="0 0 16 16"
-                        role="img"
-                        aria-label="Warning:"
-                >
-                    <path
-                            d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
-                    />
-                </svg>
-                <div id="warning2">
-                    Data loading takes time, if you find no data in the dropdown box,
-                    please be patient and wait.
-                </div>
-            </div>
             <h6>Predict Chart</h6>
             <div id="predict"></div>
         </div>
@@ -172,7 +149,7 @@
         tabindex="-1"
         id="offcanvasWithBackdrop"
         aria-labelledby="offcanvasWithBackdropLabel"
->e
+>
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasWithBackdropLabel">
             Plan with Ease
@@ -187,29 +164,6 @@
     <!-- --------------------------------------DropDown-------------------------------------------------------------- -->
     <div class="offcanvas-body">
         <div id="predict-tools">
-            <!-- <h6 style="text-align: center">Predict Tools</h6> -->
-            <div
-                    class="alert alert-primary d-flex align-items-center"
-                    role="alert"
-            >
-                <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        fill="currentColor"
-                        class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2"
-                        viewBox="0 0 16 16"
-                        role="img"
-                        aria-label="Warning:"
-                >
-                    <path
-                            d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
-                    />
-                </svg>
-                <div id="warning">
-                    Data loading takes time, if you find no data in the dropdown box,
-                    please be patient and wait.
-                </div>
             </div>
 
             <div id="filter">
