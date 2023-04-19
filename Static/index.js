@@ -63,6 +63,7 @@ function addMarkers(data) {
       },
     });
 
+
     // creates markers with info box with information
     var infoWindow = new google.maps.InfoWindow({
   content:
@@ -141,10 +142,12 @@ function addMarkers(data) {
 
       displayHistoryHourly();
       dispalyPredictChart();
+
       // // call getWeather() function and pass in station position coordinates
       //  getWeather(station.positionLat,station.positionLng));
     });
   });
+  addHeatmap(stations);
 }
 
 //----------------------------------------------------- adding search functions-----------------------------------------
@@ -201,6 +204,33 @@ function search(data) {
     }
   });
 }
+
+
+// ------------------------------------------------------------add a heatmap to Google Map--------------------------------
+
+function addHeatmap(stations) {
+  // Create an array to store the heatmap data points
+  var heatmapData = [];
+
+  // Iterate through the stations and add their location and available bikes as data points
+  stations.forEach((station) => {
+    var location = new google.maps.LatLng(Number(station.positionLat), Number(station.positionLng));
+    var weight = parseInt(station.availableBikes);
+
+    // Add the data point to the heatmapData array
+    heatmapData.push({ location: location, weight: weight });
+  });
+
+  // Create the heatmap
+  var heatmap = new google.maps.visualization.HeatmapLayer({
+    data: heatmapData,
+    map: map,
+  });
+
+  // Set the heatmap's opacity
+  // heatmap.set('opacity', 1);
+}
+
 //-------------------------------------------------------------function display-----------------------------------------
 // function display
 function displayHistoryHourly() {
@@ -278,7 +308,6 @@ function dispalyPredictChart(){
   google.charts.setOnLoadCallback(() => {
     let element = document.getElementsByClassName("clicked-station")[0];
     let value = element.getAttribute("stationnumber");
-    // console.log("ttttttttttt" + value);
     fetch("/predictEach/"+value)
       .then(response => {
         return response.json();
@@ -292,14 +321,21 @@ function dispalyPredictChart(){
         dataTable.addColumn("number", "Predict Available Bikes");
         // Add data to the data table
         for (var i = 0; i < predict.length; i++) {
-          dataTable.addRow([(predict[i][0]).toString(),predict[i][1]]);
+          var date = new Date(predict[i][0]);
+          var formattedDate = date.toLocaleString("en-US", {
+            month: "short",
+            day: "numeric",
+            timeZone: "UTC"
+          });
+          dataTable.addRow([{v:predict[i][0],f:date.toLocaleString()}, predict[i][1]]);
         }
 
         // Define chart options
         var options = {
           title: "Predict Available Bikes of next five days",
           curveType: "function",
-          legend: { position: "bottom" }
+          legend: { position: "bottom" },
+          hAxis: { format: "MMM d" }
         };
 
         // Create and draw the chart
@@ -310,6 +346,10 @@ function dispalyPredictChart(){
   });
 
 }
+
+
+
+
 
 //--------------------------------------------------------displayFiveNearestStations------------------------------------
 function displayFiveNearestStations(stations, targetStation) {
