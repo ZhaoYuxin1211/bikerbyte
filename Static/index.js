@@ -147,8 +147,8 @@ function addMarkers(data) {
       //  getWeather(station.positionLat,station.positionLng));
     });
   });
-  addHeatmap(stations);
 }
+
 
 //----------------------------------------------------- adding search functions-----------------------------------------
 const searchBtn = document.getElementById("search-btn");
@@ -215,7 +215,7 @@ function addHeatmap(stations) {
   // Iterate through the stations and add their location and available bikes as data points
   stations.forEach((station) => {
     var location = new google.maps.LatLng(Number(station.positionLat), Number(station.positionLng));
-    var weight = parseInt(station.availableBikes);
+    var weight = parseInt(station.availableBikes, 10);
 
     // Add the data point to the heatmapData array
     heatmapData.push({ location: location, weight: weight });
@@ -225,11 +225,27 @@ function addHeatmap(stations) {
   var heatmap = new google.maps.visualization.HeatmapLayer({
     data: heatmapData,
     map: map,
+    radius: 50,
+    opacity: 0.5,
+    gradient: [
+      "rgba(255, 255, 255, 0)",
+      "rgba(173, 216, 230, 1)",
+      "rgba(135, 206, 235, 1)",
+      "rgba(135, 206, 250, 1)",
+      "rgba(100, 149, 237, 1)",
+      "rgba(70, 130, 180, 1)",
+      "rgba(65, 105, 225, 1)",
+      "rgba(0, 0, 255, 1)",
+      "rgba(0, 0, 205, 1)",
+      "rgba(0, 0, 139, 1)",
+      "rgba(0, 0, 128, 1)",
+      "rgba(25, 25, 112, 1)",
+      "rgba(0, 0, 90, 1)",
+      "rgba(0, 0, 60, 1)"
+    ]
   });
-
-  // Set the heatmap's opacity
-  // heatmap.set('opacity', 1);
 }
+
 
 //-------------------------------------------------------------function display-----------------------------------------
 // function display
@@ -513,54 +529,64 @@ function DisplayWeatherForecast(WeatherForecastData){
 
 
 // ----------------------------------------------------------DropDown Function------------------------------------------
-let stationsDataReady = false;
-let toolsDataReady = false;
-let stationsData = null;
-let toolsData = null;
-// Process data and call AddingDropDown if both stationsData and toolsData are ready
-function processData() {
-  if (stationsDataReady && toolsDataReady) {
-    AddingDropDown(stationsData, toolsData);
-  }
-}
-
 // Add options for stations, dates, and times to dropdown menus
 const predictBtn = document.getElementById("predict-tools-btn");
-function AddingDropDown(stationsData, toolsData) {
+function AddingDropDown(data) {
+  const stations = data.stations;
+  function findStationNumberByName(name) {
+    const station = stations.find(
+      (station) => station.name === name.toUpperCase()
+    );
+    return station ? station.number : null;
+  }
   let stationNames = "<option value='default'>Select station</option>";
+  let datesArray = [];
+  let timesArray = [];
+  const numberBikeStandsDict = {};
+  const nameNumberDict = {};
   let dates = "<option value='default'>Select date</option>";
   let times = "<option value='default'>Select time</option>";
-  // Create sets to store unique dates and times
-  const uniqueDates = new Set();
-  const uniqueTimes = new Set();
   // Populate dropdown options with data from toolsData
-  for (const stationName in toolsData.value) {
-    const stationData = toolsData.value[stationName];
+  stations.forEach((station) => {
     stationNames +=
-      "<option value='" + stationName + "'>" + stationName + "</option>";
+      "<option value='" + station.name + "'>" + station.name + "</option>";
+    // Add station's number and bikeStands to numberBikeStandsDict
+    numberBikeStandsDict[station.number] = station.bikeStands;
+    nameNumberDict[station.name] = station.number;
+  });
+//  a = findStationNumberByName("CLARENDON ROW");
 
-    for (const date in stationData) {
-      if (!uniqueDates.has(date)) {
-        uniqueDates.add(date);
-        dates += "<option value='" + date + "'>" + date + "</option>";
-      }
-      const dateData = stationData[date];
 
-      for (const time in dateData) {
-        if (!uniqueTimes.has(time)) {
-          uniqueTimes.add(time);
-          times += "<option value='" + time + "'>" + time + "</option>";
+
+  fetch("/ToolsEach/" + 1)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      let predict = data.value;
+      for (const date in predict) {
+        datesArray.push(date);
+        for (const time in predict[date]) {
+          if (!times.includes(time)) {
+            timesArray.push(time);
+          }
         }
       }
-    }
-  }
+      datesArray.forEach((date) => {
+        dates += "<option value='" + date + "'>" + date + "</option>";
+      });
+      timesArray.forEach((time) => {
+        times += "<option value='" + time + "'>" + time + "</option>";
+      });
 
-  document.getElementById("start").innerHTML = stationNames;
-  document.getElementById("dest").innerHTML = stationNames;
-  document.getElementById("date1").innerHTML = dates;
-  document.getElementById("time1").innerHTML = times;
-  document.getElementById("date2").innerHTML = dates;
-  document.getElementById("time2").innerHTML = times;
+      document.getElementById("start").innerHTML = stationNames;
+      document.getElementById("dest").innerHTML = stationNames;
+      document.getElementById("date1").innerHTML = dates;
+      document.getElementById("time1").innerHTML = times;
+      document.getElementById("date2").innerHTML = dates;
+      document.getElementById("time2").innerHTML = times;
+    })
+    .catch((error) => console.error(error));
 
   predictBtn.addEventListener("click", function () {
     // Get user's selections from the dropdown menus
@@ -583,48 +609,65 @@ function AddingDropDown(stationsData, toolsData) {
       alert("Please select all the options");
       return;
     }
-    // Create a map of station names to their respective number of bike stands
-    const stationBikeStandsMap = {};
-    for (let i = 0; i < stationsData.stations.length; i++) {
-      const station = stationsData.stations[i];
-      stationBikeStandsMap[station.name] = station.bikeStands;
-    }
-    // console.log("stationBikeStandsMap", stationBikeStandsMap);
-
-    const startAvailableBikes = toolsData.value[startStation][date1][time1];
-    const destAvailableBikes = toolsData.value[destStation][date2][time2];
-    // calculate available stands (stands-available bikes)
-    const startAvailableStands =
-      stationBikeStandsMap[startStation] - startAvailableBikes;
-    const destAvailableStands =
-      stationBikeStandsMap[destStation] - destAvailableBikes;
 
     // Update the innerText of the HTML elements with the calculated values
-    // Use Math.floor and Math.ceil function make Available bike number to integer
     document.getElementById("start-time").innerText =
       "Start time at " + date1 + " " + time1 + ":";
-    document.getElementById(
-      "start-available-bikes"
-    ).innerText = `Start Station Available Bikes: ${Math.floor(
-      startAvailableBikes
-    )}~${Math.ceil(startAvailableBikes)}`;
-    document.getElementById(
-      "start-available-stands"
-    ).innerText = `Start Station Available Stands: ${Math.floor(
-      startAvailableStands
-    )}~${Math.ceil(startAvailableStands)}`;
     document.getElementById("dest-time").innerText =
       "Arrival time at " + date2 + " " + time2 + ":";
-    document.getElementById(
-      "destination-available-bikes"
-    ).innerText = `Destination Station Available Bikes: ${Math.floor(
-      destAvailableBikes
-    )}~${Math.ceil(destAvailableBikes)}`;
-    document.getElementById(
-      "destination-available-stands"
-    ).innerText = `Destination Station Available Stands: ${Math.floor(
-      destAvailableStands
-    )}~${Math.ceil(destAvailableStands)}`;
+
+    let startNumber = nameNumberDict[startStation];
+    console.log("aaaaaaaaaa:",startNumber)
+    let destNumber = nameNumberDict[destStation];
+    //get the start station predict value
+    fetch("/ToolsEach/" + startNumber)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        let startPredict = data.value;
+        const startAvailableBikes = startPredict[date1][time1];
+        const startAvailableStands =
+          numberBikeStandsDict[startNumber] - startAvailableBikes;
+        // Update the innerText of the HTML elements with the calculated values
+        // Use Math.floor and Math.ceil function make Available bike number to integer
+        document.getElementById(
+          "start-available-bikes"
+        ).innerText = `Start Station Available Bikes: ${Math.floor(
+          startAvailableBikes
+        )}~${Math.ceil(startAvailableBikes)}`;
+        document.getElementById(
+          "start-available-stands"
+        ).innerText = `Start Station Available Stands: ${Math.floor(
+          startAvailableStands
+        )}~${Math.ceil(startAvailableStands)}`;
+      })
+      .catch((error) => console.error(error));
+
+    //get the dest station predict value
+    fetch("/ToolsEach/" + destNumber)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        let destPredict = data.value;
+        const destAvailableBikes = destPredict[date2][time2];
+        const destAvailableStands =
+          numberBikeStandsDict[destNumber] - destAvailableBikes;
+        // Update the innerText of the HTML elements with the calculated values
+        // Use Math.floor and Math.ceil function make Available bike number to integer
+        document.getElementById(
+          "destination-available-bikes"
+        ).innerText = `Destination Station Available Bikes: ${Math.floor(
+          destAvailableBikes
+        )}~${Math.ceil(destAvailableBikes)}`;
+        document.getElementById(
+          "destination-available-stands"
+        ).innerText = `Destination Station Available Stands: ${Math.floor(
+          destAvailableStands
+        )}~${Math.ceil(destAvailableStands)}`;
+      })
+      .catch((error) => console.error(error));
   });
 }
 
@@ -636,10 +679,11 @@ function getStations() {
       // console.log("fetch response", data);
       addMarkers(data);
       search(data);
+      addHeatmap(data.stations);
+      AddingDropDown(data);
+
       // addinfotable(data);
-      stationsData = data;
-      stationsDataReady = true;
-      processData();
+
     })
     .catch((error) => {
       console.error("fetch error", error);
