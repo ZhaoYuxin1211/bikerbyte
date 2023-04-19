@@ -133,7 +133,7 @@ function addMarkers(data) {
         availableBikes +
         "</div><div>Available Bike Stands: " +
         availableBikeStands +
-        "</div><div class='d-flex justify-content-between align-items-center'>" +
+        "</div><br><div class='d-flex justify-content-between align-items-center'>" +
         "<button id='toggle1' class='btn btn-primary flex-fill me-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasScrolling' aria-controls='offcanvasScrolling'>Information Charts</button>" +
         "<button id='toggle2' class='btn btn-primary flex-fill ms-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasWithBackdrop' aria-controls='offcanvasWithBackdrop'>Plan a Ride</button>" + "</div>";
       const targetStation = station;
@@ -150,12 +150,12 @@ function addMarkers(data) {
 //----------------------------------------------------- adding search functions-----------------------------------------
 const searchBtn = document.getElementById("search-btn");
 function search(data) {
-  console.log("search range", data);
+  // console.log("search range", data);
   searchBtn.addEventListener("click", function () {
     const searchInput = document.getElementById("search-input");
     const searchValue = searchInput.value.trim().toUpperCase();
     const stations = data.stations;
-    console.log("search stations:", data);
+    // console.log("search stations:", data);
     // Loop through all stations and find the one that matches the search input
     let matchFound = false;
 
@@ -174,7 +174,7 @@ function search(data) {
         map.setCenter(center);
         map.setZoom(17);
 
-        console.log("center:", station.positionLat, station.positionLng);
+        // console.log("center:", station.positionLat, station.positionLng);
         document.getElementById("info-box").innerHTML =
           "<br><h6>" +
           stationName +
@@ -183,12 +183,11 @@ function search(data) {
           "</div>" +
           "</div><div>Available Bikes: " +
           availableBikes +
-          "</div><div>Available Bike Stands: " +
+          "</div><br><div>Available Bike Stands: " +
           availableBikeStands + "</div><div class='d-flex justify-content-between align-items-center'>" +
         "<button id='toggle1' class='btn btn-primary flex-fill me-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasScrolling' aria-controls='offcanvasScrolling'>Information Charts</button>" +
         "<button id='toggle2' class='btn btn-primary flex-fill ms-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasWithBackdrop' aria-controls='offcanvasWithBackdrop'>Plan a Ride</button>" + "</div>";
         matchFound = true;
-        console.log(station.name);
         const targetStation = station;
         displayFiveNearestStations(stations, targetStation);
         return true;
@@ -212,7 +211,6 @@ function displayHistoryHourly() {
   google.charts.setOnLoadCallback(() => {
     let element = document.getElementsByClassName("clicked-station")[0];
     let value = element.getAttribute("stationnumber");
-    // console.log("ttttttttttt" + value);
     const today_date = new Date().getDay();
     let data_date = 0;
     // trans the get data correspond with the history date data
@@ -551,8 +549,7 @@ function AddingDropDown(stationsData, toolsData) {
       const station = stationsData.stations[i];
       stationBikeStandsMap[station.name] = station.bikeStands;
     }
-    console.log("stationBikeStandsMap", stationBikeStandsMap);
-    console.log("stationBikeStandsMap", stationBikeStandsMap);
+    // console.log("stationBikeStandsMap", stationBikeStandsMap);
 
     const startAvailableBikes = toolsData.value[startStation][date1][time1];
     const destAvailableBikes = toolsData.value[destStation][date2][time2];
@@ -596,7 +593,7 @@ function getStations() {
   fetch("/stations")
     .then((response) => response.json())
     .then((data) => {
-      console.log("fetch response", data);
+      // console.log("fetch response", data);
       addMarkers(data);
       search(data);
       // addinfotable(data);
@@ -613,7 +610,7 @@ function getWeather() {
   fetch("/weather")
     .then((response) => response.json())
     .then((data) => {
-      console.log("fetch response", data);
+      // console.log("fetch response", data);
       DisplayWeather(data);
     });
 }
@@ -622,7 +619,7 @@ function  getForecastWeather(){
   fetch("/weatherForecast")
     .then((response) => response.json())
     .then((data) => {
-      console.log("fetch response", data);
+      // console.log("fetch response", data);
       DisplayWeatherForecast(data);
     });
 }
@@ -631,7 +628,7 @@ function getToolsData() {
   fetch("/predicttools")
     .then((response) => response.json())
     .then((data) => {
-      console.log("fetch predicttools response", data);
+      // console.log("fetch predicttools response", data);
       toolsData = data;
       toolsDataReady = true;
       processData();
