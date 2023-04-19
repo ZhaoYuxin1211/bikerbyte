@@ -17,9 +17,11 @@
 
 
     <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBqLJ1VO0sxQFYsdj4R0_5ArcCNBQdjJI&callback=initMap&v=weekly"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBqLJ1VO0sxQFYsdj4R0_5ArcCNBQdjJI&libraries=visualization&callback=initMap&v=weekly"
             defer
     ></script>
+
+
     <script
             type="text/javascript"
             src="https://www.gstatic.com/charts/loader.js"
@@ -137,7 +139,11 @@
         <div id="chart">
             <h6>History Chart</h6>
             <div id="history"></div>
+            <br>
             <h6>Predict Chart</h6>
+
+            <div id="date-format" style="font-size: 12px; text-align: center;"></div>
+
             <div id="predict"></div>
         </div>
     </div>
