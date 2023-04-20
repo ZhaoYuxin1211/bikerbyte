@@ -190,8 +190,7 @@ function search(data) {
         "<button id='toggle1' class='btn btn-primary flex-fill me-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasScrolling' aria-controls='offcanvasScrolling'>Information Charts</button>" +
         "<button id='toggle2' class='btn btn-primary flex-fill ms-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasWithBackdrop' aria-controls='offcanvasWithBackdrop'>Plan a Ride</button>" + "</div>";
         matchFound = true;
-        const targetStation = station;
-        displayFiveNearestStations(stations, targetStation);
+        displayFiveNearestStations(stations, station);
         return true;
       }
     });
@@ -368,8 +367,8 @@ function dispalyPredictChart(){
 
 //--------------------------------------------------------displayFiveNearestStations------------------------------------
 function displayFiveNearestStations(stations, targetStation) {
-  const targetLat = targetStation.lat;
-  const targetLng = targetStation.lng;
+  const targetLat = targetStation.positionLat;
+  const targetLng = targetStation.positionLng;
   //  const stations = data.stations;
   let nearestStations = [];
 
@@ -387,6 +386,7 @@ function displayFiveNearestStations(stations, targetStation) {
         Math.sin(dLon / 2) *
         Math.cos(lat1Rad) *
         Math.cos(lat2Rad);
+
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
     const distance = R * c;
@@ -399,8 +399,8 @@ function displayFiveNearestStations(stations, targetStation) {
 
   // Find the five nearest stations to the target station
   stations.forEach((station) => {
-    const lat = station.lat;
-    const lng = station.lng;
+    const lat = station.positionLat;
+    const lng = station.positionLng;
     const distance = getDistance(targetLat, targetLng, lat, lng);
 
     if (nearestStations.length < 5) {
@@ -412,6 +412,7 @@ function displayFiveNearestStations(stations, targetStation) {
       nearestStations.sort((a, b) => a.distance - b.distance);
     }
   });
+ 
 
   let infoTable =
     '<br><h6>The Nearest Five Station</h6><table class="table table-hover"><thead id="thead"><tr><th scope="col">Number</th><th scope="col">Station</th><th scope="col">Bikes</th><th scope="col">Stands</th></tr></thead><tbody>';
