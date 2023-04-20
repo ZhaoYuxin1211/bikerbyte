@@ -531,6 +531,7 @@ function DisplayWeatherForecast(WeatherForecastData){
 const predictBtn = document.getElementById("predict-tools-btn");
 function AddingDropDown(data) {
   const stations = data.stations;
+  // 11
   function findStationNumberByName(name) {
     const station = stations.find(
       (station) => station.name === name.toUpperCase()
