@@ -63,7 +63,6 @@ function addMarkers(data) {
       },
     });
 
-
     // creates markers with info box with information
     var infoWindow = new google.maps.InfoWindow({
       content:
@@ -109,9 +108,17 @@ function addMarkers(data) {
       map.setCenter(marker.getPosition()); // set marker position as the center of the map
       document.getElementById("search-input").value = station.name;
       const today_date = new Date().getDay();
-      const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const daysOfWeek = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
       const dayOfWeek = daysOfWeek[today_date];
-      document.getElementById("show_date").innerHTML="Today: "+dayOfWeek;
+      document.getElementById("show_date").innerHTML = "Today: " + dayOfWeek;
 
       // Retrieve information for station
       var stationName = this.getTitle();
@@ -135,15 +142,19 @@ function addMarkers(data) {
         availableBikeStands +
         "</div><br><div class='d-flex justify-content-between align-items-center'>" +
         "<button id='toggle1' class='btn btn-primary flex-fill me-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasScrolling' aria-controls='offcanvasScrolling'>Information Charts</button>" +
-        "<button id='toggle2' class='btn btn-primary flex-fill ms-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasWithBackdrop' aria-controls='offcanvasWithBackdrop'>Plan a Ride</button>" + "</div>";
+        "<button id='toggle2' class='btn btn-primary flex-fill ms-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasWithBackdrop' aria-controls='offcanvasWithBackdrop'>Plan a Ride</button>" +
+        "</div>";
       const targetStation = station;
       displayFiveNearestStations(stations, targetStation);
+
       displayHistoryHourly();
       dispalyPredictChart();
+
+      // // call getWeather() function and pass in station position coordinates
+      //  getWeather(station.positionLat,station.positionLng));
     });
   });
 }
-
 
 //----------------------------------------------------- adding search functions-----------------------------------------
 const searchBtn = document.getElementById("search-btn");
@@ -182,17 +193,17 @@ function search(data) {
           "</div><div>Available Bikes: " +
           availableBikes +
           "</div><br><div>Available Bike Stands: " +
-          availableBikeStands + "</div><div class='d-flex justify-content-between align-items-center'>" +
-        "<button id='toggle1' class='btn btn-primary flex-fill me-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasScrolling' aria-controls='offcanvasScrolling'>Information Charts</button>" +
-        "<button id='toggle2' class='btn btn-primary flex-fill ms-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasWithBackdrop' aria-controls='offcanvasWithBackdrop'>Plan a Ride</button>" + "</div>";
+          availableBikeStands +
+          "</div><div class='d-flex justify-content-between align-items-center'>" +
+          "<button id='toggle1' class='btn btn-primary flex-fill me-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasScrolling' aria-controls='offcanvasScrolling'>Information Charts</button>" +
+          "<button id='toggle2' class='btn btn-primary flex-fill ms-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasWithBackdrop' aria-controls='offcanvasWithBackdrop'>Plan a Ride</button>" +
+          "</div>";
         matchFound = true;
-        displayFiveNearestStations(stations, station);
-        displayHistoryHourly();
-        dispalyPredictChart();
+        const targetStation = station;
+        displayFiveNearestStations(stations, targetStation);
         return true;
       }
     });
-
 
     // If no match was found, clear the info box
     if (!matchFound) {
@@ -202,7 +213,6 @@ function search(data) {
   });
 }
 
-
 // ------------------------------------------------------------add a heatmap to Google Map--------------------------------
 
 function addHeatmap(stations) {
@@ -211,7 +221,10 @@ function addHeatmap(stations) {
 
   // Iterate through the stations and add their location and available bikes as data points
   stations.forEach((station) => {
-    var location = new google.maps.LatLng(Number(station.positionLat), Number(station.positionLng));
+    var location = new google.maps.LatLng(
+      Number(station.positionLat),
+      Number(station.positionLng)
+    );
     var weight = parseInt(station.availableBikes, 10);
 
     // Add the data point to the heatmapData array
@@ -221,8 +234,9 @@ function addHeatmap(stations) {
   // Create the heatmap
   var heatmap = new google.maps.visualization.HeatmapLayer({
     data: heatmapData,
+    map: map,
     radius: 50,
-    opacity: 0.6,
+    opacity: 0.5,
     gradient: [
       "rgba(255, 255, 255, 0)",
       "rgba(173, 216, 230, 1)",
@@ -237,23 +251,10 @@ function addHeatmap(stations) {
       "rgba(0, 0, 128, 1)",
       "rgba(25, 25, 112, 1)",
       "rgba(0, 0, 90, 1)",
-      "rgba(0, 0, 60, 1)"
-    ]
-  });
-
-  // Add event listener to the toggle button
-  document.getElementById("toggle-heatmap").addEventListener("click", function () {
-    if (heatmap.getMap() == null) {
-      // Show the heatmap layer
-      heatmap.setMap(map);
-    } else {
-      // Hide the heatmap layer
-      heatmap.setMap(null);
-    }
+      "rgba(0, 0, 60, 1)",
+    ],
   });
 }
-
-
 
 //-------------------------------------------------------------function display-----------------------------------------
 // function display
@@ -269,35 +270,35 @@ function displayHistoryHourly() {
     let data_date = 0;
     // trans the get data correspond with the history date data
     switch (today_date) {
-    case 0:
-      data_date = 6;
-      break;
-    case 1:
-      data_date = 0;
-      break;
-    case 2:
-       data_date = 1;
-      break;
-    case 3:
-     data_date = 2;
-      break;
-    case 4:
-      data_date = 3;
-      break;
-    case 5:
-      data_date = 4;
-      break;
-    case 6:
-      data_date = 5;
-}
+      case 0:
+        data_date = 6;
+        break;
+      case 1:
+        data_date = 0;
+        break;
+      case 2:
+        data_date = 1;
+        break;
+      case 3:
+        data_date = 2;
+        break;
+      case 4:
+        data_date = 3;
+        break;
+      case 5:
+        data_date = 4;
+        break;
+      case 6:
+        data_date = 5;
+    }
     // const show_today = new Date().getUTCDay();
     fetch("/history/" + value + "/" + data_date)
-      .then(response => {
+      .then((response) => {
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         // Extract available bike stands data from the response
-        var history_weekly = data.history_weekly
+        var history_weekly = data.history_weekly;
         // console.log(history_weekly.length);
         // Create a data table for the chart
         var dataTable = new google.visualization.DataTable();
@@ -306,39 +307,53 @@ function displayHistoryHourly() {
         dataTable.addColumn("number", "Available Bikes");
         // Add data to the data table
         for (var i = 0; i < history_weekly.length; i++) {
-          dataTable.addRow([(history_weekly[i]['hour']).toString(), history_weekly[i]['available_bike_stands'],history_weekly[i]['available_bikes']]);
+          dataTable.addRow([
+            history_weekly[i]["hour"].toString(),
+            history_weekly[i]["available_bike_stands"],
+            history_weekly[i]["available_bikes"],
+          ]);
         }
-        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const daysOfWeek = [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ];
         const dayOfWeek = daysOfWeek[today_date];
 
         // Define chart options
         var options = {
-          title: "Average Available Stands and Bikes of "+dayOfWeek,
+          title: "Average Available Stands and Bikes of " + dayOfWeek,
           curveType: "function",
-          legend: { position: "bottom" }
+          legend: { position: "bottom" },
         };
         // Create and draw the chart
-        var chart = new google.visualization.LineChart(document.getElementById("history"));
+        var chart = new google.visualization.LineChart(
+          document.getElementById("history")
+        );
         chart.draw(dataTable, options);
       })
-      .catch(error => console.error(error));
+      .catch((error) => console.error(error));
   });
 }
 //--------------------------------------------------------displaypredictdata------------------------------------
 
-function dispalyPredictChart(){
+function dispalyPredictChart() {
   google.charts.load("current", { packages: ["corechart"] });
   // Callback function for when Google Charts library is loaded
   google.charts.setOnLoadCallback(() => {
     let element = document.getElementsByClassName("clicked-station")[0];
     let value = element.getAttribute("stationnumber");
-    fetch("/predictEach/"+value)
-      .then(response => {
+    fetch("/predictEach/" + value)
+      .then((response) => {
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         // Extract available bike stands data from the response
-        var predict = data.predict
+        var predict = data.predict;
         // Create a data table for the chart
         var dataTable = new google.visualization.DataTable();
         dataTable.addColumn("string", "Time");
@@ -349,9 +364,12 @@ function dispalyPredictChart(){
           var formattedDate = date.toLocaleString("en-US", {
             month: "short",
             day: "numeric",
-            timeZone: "UTC"
+            timeZone: "UTC",
           });
-          dataTable.addRow([{v:predict[i][0],f:date.toLocaleString()}, predict[i][1]]);
+          dataTable.addRow([
+            { v: predict[i][0], f: date.toLocaleString() },
+            predict[i][1],
+          ]);
         }
 
         // Define chart options
@@ -359,22 +377,23 @@ function dispalyPredictChart(){
           title: "Predict Available Bikes of next five days",
           curveType: "function",
           legend: { position: "bottom" },
-          hAxis: { format: "MMM d" }
+          hAxis: { format: "MMM d" },
         };
 
         // Create and draw the chart
-        var chart = new google.visualization.LineChart(document.getElementById("predict"));
+        var chart = new google.visualization.LineChart(
+          document.getElementById("predict")
+        );
         chart.draw(dataTable, options);
       })
-      .catch(error => console.error(error));
+      .catch((error) => console.error(error));
   });
-
 }
 
 //--------------------------------------------------------displayFiveNearestStations------------------------------------
 function displayFiveNearestStations(stations, targetStation) {
-  const targetLat = targetStation.positionLat;
-  const targetLng = targetStation.positionLng;
+  const targetLat = targetStation.lat;
+  const targetLng = targetStation.lng;
   //  const stations = data.stations;
   let nearestStations = [];
 
@@ -392,7 +411,6 @@ function displayFiveNearestStations(stations, targetStation) {
         Math.sin(dLon / 2) *
         Math.cos(lat1Rad) *
         Math.cos(lat2Rad);
-
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
     const distance = R * c;
@@ -405,8 +423,8 @@ function displayFiveNearestStations(stations, targetStation) {
 
   // Find the five nearest stations to the target station
   stations.forEach((station) => {
-    const lat = station.positionLat;
-    const lng = station.positionLng;
+    const lat = station.lat;
+    const lng = station.lng;
     const distance = getDistance(targetLat, targetLng, lat, lng);
 
     if (nearestStations.length < 5) {
@@ -418,7 +436,6 @@ function displayFiveNearestStations(stations, targetStation) {
       nearestStations.sort((a, b) => a.distance - b.distance);
     }
   });
- 
 
   let infoTable =
     '<br><h6>The Nearest Five Station</h6><table class="table table-hover"><thead id="thead"><tr><th scope="col">Number</th><th scope="col">Station</th><th scope="col">Bikes</th><th scope="col">Stands</th></tr></thead><tbody>';
@@ -475,7 +492,7 @@ function DisplayWeather(Weatherdata) {
   const weatherDiv = document.getElementById("weather-box");
   const currentDate = new Date();
   const formattedDate = currentDate.toLocaleDateString(undefined, {
-    weekday: "short"
+    weekday: "short",
   });
   weatherDiv.innerHTML = `<img src="${getImageUrl(
     main
@@ -484,7 +501,7 @@ function DisplayWeather(Weatherdata) {
 
 // ----------------------------------------------------------Display Weather Forecast-----------------------------------------
 
-function DisplayWeatherForecast(WeatherForecastData){
+function DisplayWeatherForecast(WeatherForecastData) {
   // console.log(Weatherdata);
   const forecast = WeatherForecastData.forecast;
   for (let i = 0; i < forecast.length; i++) {
@@ -492,13 +509,13 @@ function DisplayWeatherForecast(WeatherForecastData){
     const main = forecast[i][1];
     const time = forecast[i][0];
     const date = new Date(time).toLocaleDateString(undefined, {
-      weekday: "short"
+      weekday: "short",
     });
 
     // add image to weather display:
     // for main: https://openweathermap.org/weather-conditions
     function getImageUrl(weatherType) {
-     if (main === "Thunderstorm") {
+      if (main === "Thunderstorm") {
         return "https://openweathermap.org/img/wn/11d@2x.png";
       } else if (main === "Drizzle") {
         return "https://openweathermap.org/img/wn/09d@2x.png";
@@ -517,22 +534,23 @@ function DisplayWeatherForecast(WeatherForecastData){
 
     // Display weather data
     const weatherDiv = document.getElementById("weather-predict");
-    const icon = `<img src="${getImageUrl(main)}" alt="${main}" style="grid-row: 1; grid-column: 1; align-self: flex-start;width: 50px; height: 50px">`;
-    const weatherData = `<div style="grid-row: 2; grid-column: 1;font-size: 10px;text-align: center;">${main}</div><div style="grid-row: 3; grid-column: 1;font-size: 10px;text-align: center;">${temperature}°C</div>`;
+    const icon = `<img src="${getImageUrl(
+      main
+    )}" alt="${main}" style="grid-row: 1; grid-column: 1; align-self: flex-start;width: 50px; height: 50px">`;
+    const weatherData = `<div style="grid-row: 2; grid-column: 1;font-size: 10px;">${main}</div><div style="grid-row: 3; grid-column: 1;font-size: 12px;">${temperature}°C</div>`;
     const dateDiv = document.createElement("div");
     dateDiv.style.position = "absolute";
     dateDiv.style.top = "-20px";
-    dateDiv.style.left = "55%";
+    dateDiv.style.left = "50%";
     dateDiv.style.transform = "translateX(-50%)";
     dateDiv.innerText = date;
-    weatherDiv.innerHTML += `<div style="display: grid; gap: 10px; align-items: center; position: relative;">${icon}${weatherData}</div>`;
-    weatherDiv.lastChild.addEventListener("mouseenter", function() {
+    weatherDiv.innerHTML += `<div style="display: grid; gap: 8px; align-items: center; position: relative;">${icon}${weatherData}</div>`;
+    weatherDiv.lastChild.addEventListener("mouseenter", function () {
       dateDiv.style.display = "block";
     });
     weatherDiv.lastChild.appendChild(dateDiv);
   }
 }
-
 
 // ----------------------------------------------------------DropDown Function------------------------------------------
 const predictBtn = document.getElementById("predict-tools-btn");
@@ -559,9 +577,7 @@ function AddingDropDown(data) {
     numberBikeStandsDict[station.number] = station.bikeStands;
     nameNumberDict[station.name] = station.number;
   });
-//  a = findStationNumberByName("CLARENDON ROW");
-
-
+  //  a = findStationNumberByName("CLARENDON ROW");
 
   fetch("/ToolsEach/" + 1)
     .then((response) => {
@@ -622,7 +638,7 @@ function AddingDropDown(data) {
       "Arrival time at " + date2 + " " + time2 + ":";
 
     let startNumber = nameNumberDict[startStation];
-    console.log("aaaaaaaaaa:",startNumber)
+    console.log("aaaaaaaaaa:", startNumber);
     let destNumber = nameNumberDict[destStation];
     //get the start station predict value
     fetch("/ToolsEach/" + startNumber)
@@ -675,8 +691,147 @@ function AddingDropDown(data) {
       .catch((error) => console.error(error));
   });
 }
+// ---------------------------------------------------------------Addjourney--------------------------------------------
+function bestRoute(data) {
+  const stations = data.stations;
+  let userMarker = null;
+  let nearestStationMarker = null;
+  let route = null;
 
+  function displayRoute(userLocation, nearestStation) {
+    const directionsService = new google.maps.DirectionsService();
+    const directionsRenderer = new google.maps.DirectionsRenderer();
+    directionsRenderer.setMap(map);
+
+    const start = userLocation;
+    const end = new google.maps.LatLng(
+      Number(nearestStation.positionLat),
+      Number(nearestStation.positionLng)
+    );
+
+    const request = {
+      origin: start,
+      destination: end,
+      travelMode: google.maps.TravelMode.WALKING,
+    };
+
+    directionsService.route(request, (result, status) => {
+      if (status === google.maps.DirectionsStatus.OK) {
+        if (route) {
+          route.setMap(null);
+        }
+        directionsRenderer.setDirections(result);
+        route = directionsRenderer;
+
+        // Get the distance and estimated arrival time from the response
+        const distance = result.routes[0].legs[0].distance.text;
+        const duration = result.routes[0].legs[0].duration.text;
+
+        // Create the content string for the info window
+        const contentString = `
+          <div>
+            <p><strong>Distance:</strong> ${distance}</p>
+            <p><strong>Estimated arrival time:</strong> ${duration}</p>
+          </div>
+        `;
+
+        // Create and open the info window with the content string
+        const infoWindow = new google.maps.InfoWindow({
+          content: contentString,
+        });
+        infoWindow.open(map, nearestStationMarker);
+      } else {
+        console.error("Error getting directions: ", status);
+      }
+    });
+  }
+
+  function addMarker(location, title) {
+    const marker = new google.maps.Marker({
+      position: location,
+      map: map,
+      title: title,
+    });
+
+    const infoWindow = new google.maps.InfoWindow({
+      content: title,
+    });
+
+    // Open the info window automatically without waiting for a click event
+    infoWindow.open(map, marker);
+
+    return { marker, infoWindow };
+  }
+
+  const routeBtn = document.getElementById("best-route");
+  routeBtn.addEventListener("click", function () {
+    if (userMarker) {
+      userMarker.setMap(null);
+      userMarker = null;
+    }
+    if (nearestStationMarker) {
+      nearestStationMarker.setMap(null);
+      nearestStationMarker = null;
+    }
+    if (route) {
+      route.setMap(null);
+      route = null;
+    }
+
+    // Allow the user to select a location on the map
+    const clickListener = map.addListener("click", (event) => {
+      if (userMarker) {
+        userMarker.setMap(null);
+        userMarker = null;
+      }
+      if (nearestStationMarker) {
+        nearestStationMarker.setMap(null);
+        nearestStationMarker = null;
+      }
+      if (route) {
+        route.setMap(null);
+        route = null;
+      }
+
+      const userLocation = event.latLng;
+      userMarker = addMarker(userLocation, "Your location");
+      findNearestStation(userLocation);
+    });
+  });
+
+  function findNearestStation(userLocation) {
+    let minDistance = Infinity;
+    let nearestStation = null;
+
+    stations.forEach((station) => {
+      const stationLocation = {
+        lat: Number(station.positionLat),
+        lng: Number(station.positionLng),
+      };
+
+      const distance = google.maps.geometry.spherical.computeDistanceBetween(
+        userLocation,new google.maps.LatLng(stationLocation)
+);
+ if (distance < minDistance) {
+    minDistance = distance;
+    nearestStation = station;
+  }
+});
+
+if (nearestStation) {
+  const { marker, infoWindow } = addMarker(
+    new google.maps.LatLng(
+      Number(nearestStation.positionLat),
+      Number(nearestStation.positionLng)
+    ),
+    "Nearest station"
+  );
+
+  nearestStationMarker = marker;
+  displayRoute(userLocation, nearestStation);
+}}}
 //-------------------------------------------------------------get data functions---------------------------------------
+
 function getStations() {
   fetch("/stations")
     .then((response) => response.json())
@@ -687,8 +842,9 @@ function getStations() {
       addHeatmap(data.stations);
       AddingDropDown(data);
 
-      // addinfotable(data);
+      bestRoute(data);
 
+      // addinfotable(data);
     })
     .catch((error) => {
       console.error("fetch error", error);
@@ -704,7 +860,7 @@ function getWeather() {
     });
 }
 
-function  getForecastWeather(){
+function getForecastWeather() {
   fetch("/weatherForecast")
     .then((response) => response.json())
     .then((data) => {
