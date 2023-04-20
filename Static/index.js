@@ -694,74 +694,75 @@ function AddingDropDown(data) {
 // ---------------------------------------------------------------Addjourney--------------------------------------------
 function bestRoute(data) {
   const stations = data.stations;
+  console.log("yyyyyyyyyyyy",stations)
   let userMarker = null;
   let nearestStationMarker = null;
   let route = null;
 
   function displayRoute(userLocation, nearestStation) {
-    const directionsService = new google.maps.DirectionsService();
-    const directionsRenderer = new google.maps.DirectionsRenderer();
-    directionsRenderer.setMap(map);
+  const directionsService = new google.maps.DirectionsService();
+  const directionsRenderer = new google.maps.DirectionsRenderer();
+  directionsRenderer.setMap(map);
 
-    const start = userLocation;
-    const end = new google.maps.LatLng(
-      Number(nearestStation.positionLat),
-      Number(nearestStation.positionLng)
-    );
+  const start = userLocation;
+  const end = new google.maps.LatLng(
+    Number(nearestStation.positionLat),
+    Number(nearestStation.positionLng)
+  );
 
-    const request = {
-      origin: start,
-      destination: end,
-      travelMode: google.maps.TravelMode.WALKING,
-    };
+  const request = {
+    origin: start,
+    destination: end,
+    travelMode: google.maps.TravelMode.WALKING,
+  };
 
-    directionsService.route(request, (result, status) => {
-      if (status === google.maps.DirectionsStatus.OK) {
-        if (route) {
-          route.setMap(null);
-        }
-        directionsRenderer.setDirections(result);
-        route = directionsRenderer;
-
-        // Get the distance and estimated arrival time from the response
-        const distance = result.routes[0].legs[0].distance.text;
-        const duration = result.routes[0].legs[0].duration.text;
-
-        // Create the content string for the info window
-        const contentString = `
-          <div>
-            <p><strong>Distance:</strong> ${distance}</p>
-            <p><strong>Estimated arrival time:</strong> ${duration}</p>
-          </div>
-        `;
-
-        // Create and open the info window with the content string
-        const infoWindow = new google.maps.InfoWindow({
-          content: contentString,
-        });
-        infoWindow.open(map, nearestStationMarker);
-      } else {
-        console.error("Error getting directions: ", status);
+  directionsService.route(request, (result, status) => {
+    if (status === google.maps.DirectionsStatus.OK) {
+      if (route) {
+        route.setMap(null);
       }
-    });
-  }
+      directionsRenderer.setDirections(result);
+      route = directionsRenderer;
 
-  function addMarker(location, title) {
-    const marker = new google.maps.Marker({
-      position: location,
-      map: map,
-      title: title,
-    });
+      // Get the distance and estimated arrival time from the response
+      const distance = result.routes[0].legs[0].distance.text;
+      const duration = result.routes[0].legs[0].duration.text;
 
-    const infoWindow = new google.maps.InfoWindow({
-      content: title,
-    });
+      // Create the content string for the info window
+      const contentString = `
+        <div>
+          <p><strong>Distance:</strong> ${distance}</p>
+          <p><strong>Estimated arrival time:</strong> ${duration}</p>
+        </div>
+      `;
 
-    // Open the info window automatically without waiting for a click event
-    infoWindow.open(map, marker);
+      // Create and open the info window with the content string
+      const infoWindow = new google.maps.InfoWindow({
+        content: contentString,
+      });
+      infoWindow.open(map, nearestStationMarker);
+    } else {
+      console.error("Error getting directions: ", status);
+    }
+  });
+}
 
-    return { marker, infoWindow };
-  }
+function addMarker(location, title) {
+  const marker = new google.maps.Marker({
+    position: location,
+    map: map,
+    title: title,
+  });
+
+  const infoWindow = new google.maps.InfoWindow({
+    content: title,
+  });
+
+  // Open the info window automatically without waiting for a click event
+  infoWindow.open(map, marker);
+
+  return marker;
+}
 
   const routeBtn = document.getElementById("best-route");
   routeBtn.addEventListener("click", function () {
@@ -804,32 +805,35 @@ function bestRoute(data) {
     let nearestStation = null;
 
     stations.forEach((station) => {
+    console.log("rrrrrrr",station)
       const stationLocation = {
         lat: Number(station.positionLat),
         lng: Number(station.positionLng),
       };
-
+      console.log("zzzzzzzz",stationLocation)
       const distance = google.maps.geometry.spherical.computeDistanceBetween(
-        userLocation,new google.maps.LatLng(stationLocation)
-);
- if (distance < minDistance) {
-    minDistance = distance;
-    nearestStation = station;
+        userLocation,
+        new google.maps.LatLng(stationLocation)
+      );
+
+      if (distance < minDistance) {
+        minDistance = distance;
+        nearestStation = station;
+      }
+    });
+
+    if (nearestStation) {
+      nearestStationMarker = addMarker(
+        new google.maps.LatLng(
+          Number(nearestStation.positionLat),
+          Number(nearestStation.positionLng)
+        ),
+        "Nearest station"
+      );
+      displayRoute(userLocation, nearestStation);
+    }
   }
-});
-
-if (nearestStation) {
-  const { marker, infoWindow } = addMarker(
-    new google.maps.LatLng(
-      Number(nearestStation.positionLat),
-      Number(nearestStation.positionLng)
-    ),
-    "Nearest station"
-  );
-
-  nearestStationMarker = marker;
-  displayRoute(userLocation, nearestStation);
-}}}
+}
 //-------------------------------------------------------------get data functions---------------------------------------
 
 function getStations() {
