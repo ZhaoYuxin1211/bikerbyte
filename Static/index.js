@@ -522,14 +522,14 @@ function DisplayWeatherForecast(WeatherForecastData){
     // Display weather data
     const weatherDiv = document.getElementById("weather-predict");
     const icon = `<img src="${getImageUrl(main)}" alt="${main}" style="grid-row: 1; grid-column: 1; align-self: flex-start;width: 50px; height: 50px">`;
-    const weatherData = `<div style="grid-row: 2; grid-column: 1;font-size: 10px;">${main}</div><div style="grid-row: 3; grid-column: 1;font-size: 12px;">${temperature}°C</div>`;
+    const weatherData = `<div style="grid-row: 2; grid-column: 1;font-size: 10px;text-align: center;">${main}</div><div style="grid-row: 3; grid-column: 1;font-size: 10px;text-align: center;">${temperature}°C</div>`;
     const dateDiv = document.createElement("div");
     dateDiv.style.position = "absolute";
     dateDiv.style.top = "-20px";
-    dateDiv.style.left = "50%";
+    dateDiv.style.left = "55%";
     dateDiv.style.transform = "translateX(-50%)";
     dateDiv.innerText = date;
-    weatherDiv.innerHTML += `<div style="display: grid; gap: 8px; align-items: center; position: relative;">${icon}${weatherData}</div>`;
+    weatherDiv.innerHTML += `<div style="display: grid; gap: 10px; align-items: center; position: relative;">${icon}${weatherData}</div>`;
     weatherDiv.lastChild.addEventListener("mouseenter", function() {
       dateDiv.style.display = "block";
     });
