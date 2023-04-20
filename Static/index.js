@@ -138,12 +138,8 @@ function addMarkers(data) {
         "<button id='toggle2' class='btn btn-primary flex-fill ms-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasWithBackdrop' aria-controls='offcanvasWithBackdrop'>Plan a Ride</button>" + "</div>";
       const targetStation = station;
       displayFiveNearestStations(stations, targetStation);
-
       displayHistoryHourly();
       dispalyPredictChart();
-
-      // // call getWeather() function and pass in station position coordinates
-      //  getWeather(station.positionLat,station.positionLng));
     });
   });
 }
@@ -191,9 +187,12 @@ function search(data) {
         "<button id='toggle2' class='btn btn-primary flex-fill ms-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasWithBackdrop' aria-controls='offcanvasWithBackdrop'>Plan a Ride</button>" + "</div>";
         matchFound = true;
         displayFiveNearestStations(stations, station);
+        displayHistoryHourly();
+        dispalyPredictChart();
         return true;
       }
     });
+
 
     // If no match was found, clear the info box
     if (!matchFound) {
@@ -222,9 +221,8 @@ function addHeatmap(stations) {
   // Create the heatmap
   var heatmap = new google.maps.visualization.HeatmapLayer({
     data: heatmapData,
-    map: map,
     radius: 50,
-    opacity: 0.5,
+    opacity: 0.6,
     gradient: [
       "rgba(255, 255, 255, 0)",
       "rgba(173, 216, 230, 1)",
@@ -242,17 +240,19 @@ function addHeatmap(stations) {
       "rgba(0, 0, 60, 1)"
     ]
   });
+
   // Add event listener to the toggle button
-document.getElementById("toggle-heatmap").addEventListener("click", function () {
-  if (heatmap.getMap() == null) {
-    // Show the heatmap layer
-    heatmap.setMap(map);
-  } else {
-    // Hide the heatmap layer
-    heatmap.setMap(null);
-  }
-});
+  document.getElementById("toggle-heatmap").addEventListener("click", function () {
+    if (heatmap.getMap() == null) {
+      // Show the heatmap layer
+      heatmap.setMap(map);
+    } else {
+      // Hide the heatmap layer
+      heatmap.setMap(null);
+    }
+  });
 }
+
 
 
 //-------------------------------------------------------------function display-----------------------------------------
@@ -370,10 +370,6 @@ function dispalyPredictChart(){
   });
 
 }
-
-
-
-
 
 //--------------------------------------------------------displayFiveNearestStations------------------------------------
 function displayFiveNearestStations(stations, targetStation) {
