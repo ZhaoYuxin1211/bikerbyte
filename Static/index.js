@@ -242,6 +242,16 @@ function addHeatmap(stations) {
       "rgba(0, 0, 60, 1)"
     ]
   });
+  // Add event listener to the toggle button
+document.getElementById("toggle-heatmap").addEventListener("click", function () {
+  if (heatmap.getMap() == null) {
+    // Show the heatmap layer
+    heatmap.setMap(map);
+  } else {
+    // Hide the heatmap layer
+    heatmap.setMap(null);
+  }
+});
 }
 
 

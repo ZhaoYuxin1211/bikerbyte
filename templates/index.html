@@ -32,8 +32,7 @@
 <nav
         id="nav"
         class="navbar navbar-expand-lg bg-body-tertiary"
-        style="background-color: #e3f2fd !important"
->
+        style="background-color: #e3f2fd !important">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
             <img
@@ -60,8 +59,7 @@
                 </li>
             </ul>
         </div>
-        <div id="history_chart"></div>
-
+        </div>
 </nav>
 <!-- ------------------------------------------container---------------------------------------- -->
 <div class="container">
@@ -70,6 +68,14 @@
         <div id="info01">
             <div id="weather-box">weather box</div>
             <div id="weather-predict" style="display: flex;"></div>
+           <div id="button-group" style="display: flex; justify-content: space-around; margin-bottom: 20px;">
+              <button class="btn btn-outline-secondary" id="toggle-heatmap">Heatmap</button>
+              <button class="btn btn-outline-secondary" id="best-route">Best-Route</button>
+            </div>
+
+
+
+
 
             <nav id="search" class="navbar bg-body-tertiary">
                 <div class="container-fluid">
@@ -175,18 +181,18 @@
             <div id="filter">
                 <form action="#nowhere">
                     <div class="form-group">
-                        <label for="tart"><h6>Start Station</h6></label>
-                        <select class="form-control" name="tart" id="start"></select>
+                        <label for="start"><h6>Start Station</h6></label>
+                        <select class="form-control" name="start" id="start"></select>
                     </div>
                     <div
                             class="form-row d-flex justify-content-between align-items-center"
                     >
                         <div class="form-group col-5">
-                            <label for="rank"><h6>Start Date</h6></label>
+                            <label for="date1"><h6>Start Date</h6></label>
                             <select class="form-control" name="date1" id="date1"></select>
                         </div>
                         <div class="form-group col-5">
-                            <label for="rank"><h6>Start Time</h6></label>
+                            <label for="time1"><h6>Start Time</h6></label>
                             <select class="form-control" name="time1" id="time1"></select>
                         </div>
                     </div>
@@ -198,11 +204,11 @@
                             class="form-row d-flex justify-content-between align-items-center"
                     >
                         <div class="form-group col-5">
-                            <label for="rank"><h6>Arrival Date</h6></label>
+                            <label for="date2"><h6>Arrival Date</h6></label>
                             <select class="form-control" name="date2" id="date2"></select>
                         </div>
                         <div class="form-group col-5">
-                            <label for="rank"><h6>Arrival Time</h6></label>
+                            <label for="time2"><h6>Arrival Time</h6></label>
                             <select class="form-control" name="time2" id="time2"></select>
                         </div>
                     </div>

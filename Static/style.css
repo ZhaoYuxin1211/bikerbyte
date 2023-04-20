@@ -109,3 +109,13 @@ body,
 #info-table{
   font-size: 12px;
 }
+
+#button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+#button-group button {
+  margin-right:10px;
+}
