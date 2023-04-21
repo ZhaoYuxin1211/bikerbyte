@@ -181,8 +181,8 @@ function search(data) {
           "</div>" +
           "</div><div>Available Bikes: " +
           availableBikes +
-          "</div><br><div>Available Bike Stands: " +
-          availableBikeStands + "</div><div class='d-flex justify-content-between align-items-center'>" +
+          "</div><div>Available Bike Stands: " +
+          availableBikeStands + "</div><br><div class='d-flex justify-content-between align-items-center'>" +
         "<button id='toggle1' class='btn btn-primary flex-fill me-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasScrolling' aria-controls='offcanvasScrolling'>Information Charts</button>" +
         "<button id='toggle2' class='btn btn-primary flex-fill ms-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasWithBackdrop' aria-controls='offcanvasWithBackdrop'>Plan a Ride</button>" + "</div>";
         matchFound = true;
@@ -425,7 +425,7 @@ function displayFiveNearestStations(stations, targetStation) {
  
 
   let infoTable =
-    '<br><h6>The Nearest Five Station</h6><table class="table table-hover"><thead id="thead"><tr><th scope="col">Number</th><th scope="col">Station</th><th scope="col">Bikes</th><th scope="col">Stands</th></tr></thead><tbody>';
+    '<br><h6>The Nearest Five Stations</h6><table class="table table-hover"><thead id="thead"><tr><th scope="col">Number</th><th scope="col">Station</th><th scope="col">Bikes</th><th scope="col">Stands</th></tr></thead><tbody>';
   // Display information of the five nearest stations on a table
   nearestStations.forEach(({ station }) => {
     const stationName = station.name;
