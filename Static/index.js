@@ -138,8 +138,8 @@ function addMarkers(data) {
         "<button id='toggle2' class='btn btn-primary flex-fill ms-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasWithBackdrop' aria-controls='offcanvasWithBackdrop'>Plan a Ride</button>" + "</div>";
       const targetStation = station;
       displayFiveNearestStations(stations, targetStation);
-      displayHistoryHourly();
-      dispalyPredictChart();
+      displayHistoryHourly(stationNumber);
+      dispalyPredictChart(stationNumber);
     });
   });
 }
@@ -187,8 +187,10 @@ function search(data) {
         "<button id='toggle2' class='btn btn-primary flex-fill ms-1' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasWithBackdrop' aria-controls='offcanvasWithBackdrop'>Plan a Ride</button>" + "</div>";
         matchFound = true;
         displayFiveNearestStations(stations, station);
-        displayHistoryHourly();
-        dispalyPredictChart();
+        if (stationName == searchValue) {
+          displayHistoryHourly(stationNumber);
+          dispalyPredictChart(stationNumber);
+        }
         return true;
       }
     });
@@ -257,14 +259,15 @@ function addHeatmap(stations) {
 
 //-------------------------------------------------------------function display-----------------------------------------
 // function display
-function displayHistoryHourly() {
+function displayHistoryHourly(stationNumber) {
   // Load Google Charts library
   google.charts.load("current", { packages: ["corechart"] });
 
   // Callback function for when Google Charts library is loaded
   google.charts.setOnLoadCallback(() => {
     let element = document.getElementsByClassName("clicked-station")[0];
-    let value = element.getAttribute("stationnumber");
+    // let value = element.getAttribute("stationnumber");
+     let value = stationNumber;
     const today_date = new Date().getDay();
     let data_date = 0;
     // trans the get data correspond with the history date data
@@ -326,12 +329,13 @@ function displayHistoryHourly() {
 }
 //--------------------------------------------------------displaypredictdata------------------------------------
 
-function dispalyPredictChart(){
+function dispalyPredictChart(stationNumber){
   google.charts.load("current", { packages: ["corechart"] });
   // Callback function for when Google Charts library is loaded
   google.charts.setOnLoadCallback(() => {
     let element = document.getElementsByClassName("clicked-station")[0];
-    let value = element.getAttribute("stationnumber");
+    // let value = element.getAttribute("stationnumber");
+    let value = stationNumber;
     fetch("/predictEach/"+value)
       .then(response => {
         return response.json();
