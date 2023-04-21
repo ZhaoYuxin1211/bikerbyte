@@ -675,117 +675,262 @@ function AddingDropDown(data) {
   });
 }
 
-//-------------------------------------------------------------get data functions---------------------------------------
-function getStations() {
-  fetch("/stations")
-    .then((response) => response.json())
-    .then((data) => {
-      // console.log("fetch response", data);
-      addMarkers(data);
-      search(data);
-      addHeatmap(data.stations);
-      AddingDropDown(data);
+// ---------------------------------------------------------------Addjourney--------------------------------------------
+function bestRoute(data) {
+  const stations = data.stations;
+  console.log("yyyyyyyyyyyy", stations)
+  let userMarker = null;
+  let nearestStationMarker = null;
+  let route = null;
 
-      // addinfotable(data);
+  function displayRoute(userLocation, nearestStation) {
+    const directionsService = new google.maps.DirectionsService();
+    const directionsRenderer = new google.maps.DirectionsRenderer();
+    directionsRenderer.setMap(map);
 
-    })
-    .catch((error) => {
-      console.error("fetch error", error);
+    const start = userLocation;
+    const end = new google.maps.LatLng(
+        Number(nearestStation.positionLat),
+        Number(nearestStation.positionLng)
+    );
+
+    const request = {
+      origin: start,
+      destination: end,
+      travelMode: google.maps.TravelMode.WALKING,
+    };
+
+    directionsService.route(request, (result, status) => {
+      if (status === google.maps.DirectionsStatus.OK) {
+        if (route) {
+          route.setMap(null);
+        }
+        directionsRenderer.setDirections(result);
+        route = directionsRenderer;
+
+        // Get the distance and estimated arrival time from the response
+        const distance = result.routes[0].legs[0].distance.text;
+        const duration = result.routes[0].legs[0].duration.text;
+
+        // Create the content string for the info window
+        const contentString = `
+        <div>
+          <p><strong>Distance:</strong> ${distance}</p>
+          <p><strong>Estimated arrival time:</strong> ${duration}</p>
+        </div>
+      `;
+
+        // Create and open the info window with the content string
+        const infoWindow = new google.maps.InfoWindow({
+          content: contentString,
+        });
+        infoWindow.open(map, nearestStationMarker);
+      } else {
+        console.error("Error getting directions: ", status);
+      }
     });
-}
-
-function getWeather() {
-  fetch("/weather")
-    .then((response) => response.json())
-    .then((data) => {
-      // console.log("fetch response", data);
-      DisplayWeather(data);
-    });
-}
-
-function  getForecastWeather(){
-  fetch("/weatherForecast")
-    .then((response) => response.json())
-    .then((data) => {
-      // console.log("fetch response", data);
-      DisplayWeatherForecast(data);
-    });
-}
-
-function getToolsData() {
-  fetch("/predicttools")
-    .then((response) => response.json())
-    .then((data) => {
-      // console.log("fetch predicttools response", data);
-      toolsData = data;
-      toolsDataReady = true;
-      processData();
-    });
-}
-//---------------------------------------------------------------------init map-----------------------------------------------------------
-function initMap() {
-  const dublin = { lat: 53.35014, lng: -6.266155 };
-  // The map, centered at Dublin
-  map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 14,
-    center: dublin,
-    styles: [
-      {
-        featureType: "all",
-        stylers: [
-          {
-            saturation: 0,
-          },
-          {
-            hue: "#e3f2fd",
-          },
-        ],
-      },
-      {
-        featureType: "road",
-        stylers: [
-          {
-            saturation: -70,
-          },
-        ],
-      },
-
-      {
-        featureType: "transit",
-        stylers: [
-          {
-            visibility: "off",
-          },
-        ],
-      },
-
-      {
-        featureType: "poi",
-        stylers: [
-          {
-            visibility: "off",
-          },
-        ],
-      },
-      {
-        featureType: "water",
-        stylers: [
-          {
-            visibility: "simplified",
-          },
-          {
-            saturation: -60,
-          },
-        ],
-      },
-    ],
+  }
+  function addMarker(location, title) {
+  const marker = new google.maps.Marker({
+    position: location,
+    map: map,
+    title: title,
   });
 
-  getStations();
-  getWeather();
-  getToolsData();
-  getForecastWeather();
+  const infoWindow = new google.maps.InfoWindow({
+    content: title,
+  });
+
+  // Open the info window automatically without waiting for a click event
+  infoWindow.open(map, marker);
+
+  return marker;
 }
+
+  const routeBtn = document.getElementById("best-route");
+  routeBtn.addEventListener("click", function () {
+    if (userMarker) {
+      userMarker.setMap(null);
+      userMarker = null;
+    }
+    if (nearestStationMarker) {
+      nearestStationMarker.setMap(null);
+      nearestStationMarker = null;
+    }
+    if (route) {
+      route.setMap(null);
+      route = null;
+    }
+
+    // Allow the user to select a location on the map
+    const clickListener = map.addListener("click", (event) => {
+      if (userMarker) {
+        userMarker.setMap(null);
+        userMarker = null;
+      }
+      if (nearestStationMarker) {
+        nearestStationMarker.setMap(null);
+        nearestStationMarker = null;
+      }
+      if (route) {
+        route.setMap(null);
+        route = null;
+      }
+
+      const userLocation = event.latLng;
+      userMarker = addMarker(userLocation, "Your location");
+      findNearestStation(userLocation);
+    });
+  });
+
+  function findNearestStation(userLocation) {
+    let minDistance = Infinity;
+    let nearestStation = null;
+
+    stations.forEach((station) => {
+    console.log("rrrrrrr",station)
+      const stationLocation = {
+        lat: Number(station.positionLat),
+        lng: Number(station.positionLng),
+      };
+      console.log("zzzzzzzz",stationLocation)
+      const distance = google.maps.geometry.spherical.computeDistanceBetween(
+        userLocation,
+        new google.maps.LatLng(stationLocation)
+      );
+
+      if (distance < minDistance) {
+        minDistance = distance;
+        nearestStation = station;
+      }
+    });
+
+    if (nearestStation) {
+      nearestStationMarker = addMarker(
+        new google.maps.LatLng(
+          Number(nearestStation.positionLat),
+          Number(nearestStation.positionLng)
+        ),
+        "Nearest station"
+      );
+      displayRoute(userLocation, nearestStation);
+    }
+  }
+}
+
+//-------------------------------------------------------------get data functions---------------------------------------
+  function getStations() {
+    fetch("/stations")
+        .then((response) => response.json())
+        .then((data) => {
+          // console.log("fetch response", data);
+          addMarkers(data);
+          search(data);
+          addHeatmap(data.stations);
+          AddingDropDown(data);
+          bestRoute(data);
+
+          // addinfotable(data);
+
+        })
+        .catch((error) => {
+          console.error("fetch error", error);
+        });
+  }
+
+  function getWeather() {
+    fetch("/weather")
+        .then((response) => response.json())
+        .then((data) => {
+          // console.log("fetch response", data);
+          DisplayWeather(data);
+        });
+  }
+
+  function getForecastWeather() {
+    fetch("/weatherForecast")
+        .then((response) => response.json())
+        .then((data) => {
+          // console.log("fetch response", data);
+          DisplayWeatherForecast(data);
+        });
+  }
+
+  function getToolsData() {
+    fetch("/predicttools")
+        .then((response) => response.json())
+        .then((data) => {
+          // console.log("fetch predicttools response", data);
+          toolsData = data;
+          toolsDataReady = true;
+          processData();
+        });
+  }
+
+//---------------------------------------------------------------------init map-----------------------------------------------------------
+  function initMap() {
+    const dublin = {lat: 53.35014, lng: -6.266155};
+    // The map, centered at Dublin
+    map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 14,
+      center: dublin,
+      styles: [
+        {
+          featureType: "all",
+          stylers: [
+            {
+              saturation: 0,
+            },
+            {
+              hue: "#e3f2fd",
+            },
+          ],
+        },
+        {
+          featureType: "road",
+          stylers: [
+            {
+              saturation: -70,
+            },
+          ],
+        },
+
+        {
+          featureType: "transit",
+          stylers: [
+            {
+              visibility: "off",
+            },
+          ],
+        },
+
+        {
+          featureType: "poi",
+          stylers: [
+            {
+              visibility: "off",
+            },
+          ],
+        },
+        {
+          featureType: "water",
+          stylers: [
+            {
+              visibility: "simplified",
+            },
+            {
+              saturation: -60,
+            },
+          ],
+        },
+      ],
+    });
+
+    getStations();
+    getWeather();
+    getToolsData();
+    getForecastWeather();
+  }
 
 var map = null;
 window.initMap = initMap;
