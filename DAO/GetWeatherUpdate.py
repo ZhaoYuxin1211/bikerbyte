@@ -16,4 +16,3 @@ def get_weather_data():
     except:
         print(traceback.format_exc())
         return None
-

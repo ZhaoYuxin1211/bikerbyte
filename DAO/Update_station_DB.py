@@ -14,11 +14,6 @@ engine = sqla.create_engine(
     "mysql+pymysql://{}:{}@{}:{}/{}".format(dbinfo.DB_USERNAME, dbinfo.DB_PASSWORD, dbinfo.DB_ADDRESS, dbinfo.DB_PORT,
                                             dbinfo.DB_SCHEMA), echo=True)
 
-
-# def write_to_file(text):
-#     with open("data/bike_{}".format(now).replace(" ", "_"), "w") as f:
-#         f.write(r.text)
-
 # update station data into database
 def stations_to_db(text):
     stations = json.loads(text)
@@ -49,11 +44,6 @@ def availability_to_db(text):
         # update
         engine.execute("UPDATE availability SET last_update = %s, available_bikes = %s, available_bike_stands = %s, "
                        "status = %s WHERE number = %s", vals)
-        # insert
-        # vals = (
-        #     int(a.get('number')), a.get('last_update'), int(a.get('available_bikes')),
-        #     int(a.get('available_bike_stands')), a.get('status'))
-        # engine.execute("INSERT INTO availability VALUES (%s,%s,%s,%s,%s)" , vals)
     return
 
 
@@ -62,16 +52,12 @@ def main():
         try:
             # now = datetime.datetime.now()
             r = requests.get(dbinfo.STATIONS_URI, params={"apiKey": dbinfo.JCKEY, "contract": dbinfo.NAME})
-            # print(r, now)
-            # write_to_file(r.text)
             stations_to_db(r.text)
             availability_to_db(r.text)
-            # print(a)
             time.sleep(10 * 60) # update every 10min
         except:
             print(traceback.format_exc())
             if engine is None:
                 return
-
 
 main()

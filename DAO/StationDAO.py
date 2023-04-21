@@ -3,6 +3,7 @@ import sqlalchemy as sqla
 import pandas as pd
 from datetime import datetime
 
+
 def StationDAO():
     # create engine
     engine = sqla.create_engine(
@@ -47,7 +48,4 @@ def StationDAO():
         stations.append(stationDic)
         # print(stations)
 
-
     return stations
-
-

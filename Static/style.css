@@ -1,122 +1,132 @@
 html,
 body,
 #nav {
-  width: 100vw;
-  height: 55px;
+    width: 100vw;
+    height: 55px;
 
 }
+
 .container {
-  position: absolute;
-  margin-left: 0;
-  margin-right: 0;
-  padding-left: 0;
-  padding-right: 0;
+    position: absolute;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 #map {
-  height: 98vh;
-  width: 100vw;
+    height: 98vh;
+    width: 100vw;
 
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
+
 .fixed-box {
-  align-items: center;
-  position: absolute;
-  top: 0;
-  top: 10px;
-  right: -6vw;
-  width: 350px;
-  z-index: 1;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    top: 10px;
+    right: -6vw;
+    width: 350px;
+    z-index: 1;
 }
+
 #info01 {
-  font-size: 14px;
-  border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.7); /* 背景色为白色半透明 */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* 添加阴影效果 */
-  opacity: 1; /* 设置不透明度为1，也就是完全不透明 */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    font-size: 14px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.7); /* 背景色为白色半透明 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* 添加阴影效果 */
+    opacity: 1; /* 设置不透明度为1，也就是完全不透明 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
 #info02 {
-  font-size: 14px;
-  text-align: center;
-  border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.7); /* 背景色为白色半透明 */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* 添加阴影效果 */
-  opacity: 1; /* 设置不透明度为1，也就是完全不透明 */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.7); /* 背景色为白色半透明 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* 添加阴影效果 */
+    opacity: 1; /* 设置不透明度为1，也就是完全不透明 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
 #toggle1,
 #toggle2 {
-  font-size: 12px;
-  width: 130px;
+    font-size: 12px;
+    width: 130px;
 
-  background-color: #4479a1;
+    background-color: #4479a1;
 }
+
 #chart {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
 #history,
 #predict {
-  background-color: rgb(214, 203, 203);
-  height: 300px;
-  width: 400px;
+    background-color: rgb(214, 203, 203);
+    height: 300px;
+    width: 400px;
 }
+
 .badge {
-  background-color: #4479a1;
+    background-color: #4479a1;
 }
+
 #thead {
-  background-color: #4479a1;
-  color: aliceblue;
+    background-color: #4479a1;
+    color: aliceblue;
 }
+
 #carouselExampleDark {
-  background-color: #4479a1;
-  height: 280px;
+    background-color: #4479a1;
+    height: 280px;
 }
 
 #navbar-example2 {
-  text-align: center;
-  width: 300px;
-  background-color: white !important;
+    text-align: center;
+    width: 300px;
+    background-color: white !important;
 }
 
 #predict-scroll {
-  width: 300px;
+    width: 300px;
 }
 
 #info-box {
-  width: 280px;
+    width: 280px;
 }
 
-#predict-tools-btn{
- background-color: #4479a1;
+#predict-tools-btn {
+    background-color: #4479a1;
 }
 
 #show_date {
-  font-size: 14px;
-  color: #4479a1;
+    font-size: 14px;
+    color: #4479a1;
 }
 
-#info-table{
-  font-size: 12px;
+#info-table {
+    font-size: 12px;
 }
 
 #button-group {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
 }
 
 #button-group button {
-  margin-right:10px;
+    margin-right: 10px;
 }
 

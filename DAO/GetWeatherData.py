@@ -17,7 +17,7 @@ def main():
             print(weatherinfo.get('main').get('temp'))
             print(weatherinfo.get('main').get('humidity'))
             print(weatherinfo.get('wind').get('speed'))
-            # print(int(round(time.time() * 1000)))
+
             time.sleep(60)
         except:
             print(traceback.format_exc())

@@ -33,7 +33,6 @@ def HistroryStationWeekly(stationNumber, weekday):
     return history_weekly
 
 
-
 def HistoryStationDAO(number):
     # create engine
     engine = sqla.create_engine(
@@ -61,6 +60,3 @@ def HistoryStationDAO(number):
     history_data = json.loads(js)
 
     return history_data
-
-
-
