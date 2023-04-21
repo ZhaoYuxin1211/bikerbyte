@@ -113,7 +113,7 @@ def predict_dict_each(stationNumber):
     return predict_each
 
 
-print(predict_dict_each(1))
+# print(predict_dict_each(1))
 
 
 

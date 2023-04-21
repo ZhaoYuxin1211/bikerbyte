@@ -17,4 +17,3 @@ def get_weather_data():
         print(traceback.format_exc())
         return None
 
-get_weather_data()

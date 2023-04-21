@@ -60,14 +60,7 @@ def HistoryStationDAO(number):
     js = df.to_json(orient='records')
     history_data = json.loads(js)
 
-
-    # print(type(history_data))
-    # print(history_data)
-
     return history_data
 
 
 
-
-# HistoryStationDAO(1)
-print(HistroryStationWeekly(1, 1))

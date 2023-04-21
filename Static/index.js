@@ -625,7 +625,7 @@ function AddingDropDown(data) {
       "Arrival time at " + date2 + " " + time2 + ":";
 
     let startNumber = nameNumberDict[startStation];
-    console.log("aaaaaaaaaa:",startNumber)
+    // console.log("aaaaaaaaaa:",startNumber)
     let destNumber = nameNumberDict[destStation];
     //get the start station predict value
     fetch("/ToolsEach/" + startNumber)

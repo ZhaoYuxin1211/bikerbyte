@@ -46,13 +46,8 @@ def StationDAO():
         # print(stationDic)
         stations.append(stationDic)
         # print(stations)
-    # stationData = json.dumps(stations)
-    # print(stations)
+
 
     return stations
 
-print(StationDAO())
 
-
-
-# StationDAO()
