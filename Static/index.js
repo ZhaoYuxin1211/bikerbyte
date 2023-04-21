@@ -75,15 +75,16 @@ function addMarkers(data) {
                 station.status +
                 "</span>" +
                 "</h6></div>" +
-                '<div id="station_availability"><h6>' +
+                '<center><div id="station_availability"><h6>' +
                 "Available Bikes: " +
                 station.availableBikes +
-                "</h6></div>" +
-                '<div id="station_availability"><h6>' +
+                "</h6></div></center>" +
+                '<center><div id="station_availability"><h6>' +
                 "Available Stands: " +
                 station.availableBikeStands +
-                "</h6></div>",
+                "</h6></div></center>",
         });
+
         // makes the info box if you mouseover the box
         marker.addListener("mouseover", function () {
             if (infoWindow.getMap() == null) {
@@ -346,7 +347,6 @@ function dispalyPredictChart(stationNumber) {
                     title: "Predict Available Bikes of next five days",
                     curveType: "function",
                     legend: {position: "bottom"},
-
                     hAxis: {
                         format: "MMM d",
                         gridlines: {count: -1},
