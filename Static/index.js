@@ -562,7 +562,6 @@ function AddingDropDown(data) {
 //  a = findStationNumberByName("CLARENDON ROW");
 
 
-
   fetch("/ToolsEach/" + 1)
     .then((response) => {
       return response.json();
