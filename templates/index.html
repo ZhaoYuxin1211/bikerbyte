@@ -74,7 +74,11 @@
             <div id="weather-predict" style="display: flex;"></div>
            <div id="button-group" style="display: flex; justify-content: space-around; margin-bottom: 20px;">
               <button class="btn btn-outline-secondary" id="toggle-heatmap">Heatmap</button>
-              <button class="btn btn-outline-secondary" id="best-route">Best-Route</button>
+<!--              <button class="btn btn-outline-secondary" id="best-route">Best-Route</button>-->
+               <!-- Button trigger modal -->
+<button type="button" id="best-route" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Best-Route
+</button>
             </div>
 
 
@@ -238,6 +242,24 @@
             <p id="destination-available-stands"></p>
         </div>
     </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">User Guide</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Click on the map to set your location and see the nearest station and optimal route. Follow the map to get there easily.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
 </div>
 
 <script
