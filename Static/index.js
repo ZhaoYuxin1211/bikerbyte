@@ -318,7 +318,6 @@ function dispalyPredictChart(stationNumber) {
     google.charts.load("current", {packages: ["corechart"]});
     // Callback function for when Google Charts library is loaded
     google.charts.setOnLoadCallback(() => {
-        let element = document.getElementsByClassName("clicked-station")[0];
         let value = stationNumber;
         fetch("/predictEach/" + value)
             .then(response => {
@@ -337,17 +336,22 @@ function dispalyPredictChart(stationNumber) {
                     var formattedDate = date.toLocaleString("en-US", {
                         month: "short",
                         day: "numeric",
+                        hour: "2-digit",
                         timeZone: "UTC"
                     });
-                    dataTable.addRow([{v: predict[i][0], f: date.toLocaleString()}, predict[i][1]]);
+                    dataTable.addRow([{v: predict[i][0], f: formattedDate}, predict[i][1]]);
                 }
-
                 // Define chart options
                 var options = {
                     title: "Predict Available Bikes of next five days",
                     curveType: "function",
                     legend: {position: "bottom"},
-                    hAxis: {format: "MMM d"}
+
+                    hAxis: {
+                        format: "MMM d",
+                        gridlines: {count: -1},
+                        minorGridlines: {count: -1}
+                    }
                 };
                 // Create and draw the chart
                 var chart = new google.visualization.LineChart(document.getElementById("predict"));
