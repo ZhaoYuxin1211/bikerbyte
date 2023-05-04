@@ -77,6 +77,6 @@ The development process included rigorous testing and optimization to ensure a s
 
 ## Contributors
 
-- [ZRQ-rikkie](https://github.com/ZRQ-rikkie)
-- [leslieruan](https://github.com/leslieruan)
-- [ZhaoYuxin1211](https://github.com/ZhaoYuxin1211)
+- [Ruiqi Zhao](https://github.com/ZRQ-rikkie)
+- [Pingxia Ruan](https://github.com/leslieruan)
+- [Yuxin Zhao](https://github.com/ZhaoYuxin1211)
