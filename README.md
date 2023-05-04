@@ -7,7 +7,7 @@ Watch the guide video：https://www.youtube.com/watch?v=5suCjTiOL48
 
 [![BikerByte Video](https://img.youtube.com/vi/5suCjTiOL48/maxresdefault.jpg)](https://www.youtube.com/watch?v=5suCjTiOL48)
 
-
+## Introduction
 BikerByte is a user-centric standalone web application tailored specifically for Dublin Bikes users, aiming to revolutionize and improve the overall biking experience within the city. The application incorporates a wide array of valuable features, data-driven insights, and real-time information catering to the unique needs of urban cyclists.
 
 ![BikerByte App Screenshot](https://user-images.githubusercontent.com/74203373/236268260-a4b4106f-99e3-4dc8-bf2a-546652c04f59.png)
