@@ -1,5 +1,6 @@
 # BikerByte - Dublin Bikes Web Application
 
+
 BikerByte is a user-centric standalone web application tailored specifically for Dublin Bikes users, aiming to revolutionize and improve the overall biking experience within the city. The application incorporates a wide array of valuable features, data-driven insights, and real-time information catering to the unique needs of urban cyclists.
 
 ![BikerByte App Screenshot](https://user-images.githubusercontent.com/74203373/236268260-a4b4106f-99e3-4dc8-bf2a-546652c04f59.png)
@@ -39,6 +40,8 @@ BikerByte is a user-centric standalone web application tailored specifically for
 The BikerByte web application features a backend implemented in Python and a frontend designed using HTML, JavaScript, and CSS, with Jinja serving as the templating engine. The application is deployed on an EC2 server and utilizes an RDS database for data storage.
 
 ![Architecture Diagram](https://user-images.githubusercontent.com/74203373/236263096-22df9ffc-adeb-4786-a7df-852e15181af3.jpg)
+![image](https://user-images.githubusercontent.com/74203373/236270769-2c2886a1-25ab-4325-96d7-57c01c192986.png)
+
 
 ## Technologies
 
