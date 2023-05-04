@@ -37,9 +37,9 @@ The purpose of this project is to create an all-inclusive, user-centric standalo
   - Personalized recommendations based on user preferences and biking history 
   - 
 ###### 3. User Flow
-<p align="center">
-![image](https://user-images.githubusercontent.com/74203373/236265983-82320d6c-195c-4e68-b18f-85be9f991afd.png)
-</p>
+
+![image](https://user-images.githubusercontent.com/74203373/236268260-a4b4106f-99e3-4dc8-bf2a-546652c04f59.png)
+
 
 
 #### II.  Architecture
