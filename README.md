@@ -1,6 +1,49 @@
-#### Architecture
+## Project Description
 
-##### I. Overview
+#### I.  Project Overview
+
+##### I. I. Introduction
+
+The purpose of this project is to create an all-inclusive, user-centric standalone web application tailored specifically for Dublin Bikes users, with the goal of revolutionizing and improving the overall biking experience within the city. To achieve this, the application will incorporate a wide array of valuable features, data-driven insights, and real-time information that cater to the unique needs of urban cyclists.
+
+##### I. II. App Functionality
+
+###### 1. Core Functionalities
+
+- Descriptions of the Main Tasks the App Performs: 
+  - Displaying Station Markers and Basic Information: The application will visually present station markers on an interactive map, enabling users to quickly and easily identify bike station locations across the city. By clicking on a station marker, users can access essential information about each station, such as the number of available bikes, available parking spaces, and operational hours, ensuring they have all the information needed to make informed decisions.
+  - User-friendly Station Search Feature: The application will include a user-friendly search functionality that allows users to quickly find a specific station by entering its name, address, or other identifying information. Upon searching, the application will display essential information about the selected station, such as the number of available bikes, available parking spaces, and operational hours, further enhancing the user experience and simplifying the decision-making process.
+  - Displaying Basic Information for the Nearest Five Stations: To provide users with alternative options and enhance their biking experience, the application will also display basic information for the five stations nearest to the user-selected station. This feature allows users to make better-informed decisions by comparing the availability of bikes and parking spaces across multiple nearby stations, ensuring they have backup options in case their preferred station is fully occupied or temporarily unavailable.
+  - Identifying the Closest Bike Station and Calculating the Most Efficient Route: The system identifies the closest bike station to the user's location and calculates the most efficient route based on factors such as distance.
+  - Displaying a Dynamic Heat Map of Bike Stations: The application will visually represent the relative popularity, usage levels, and real-time occupancy of bike stations across the city, empowering users to make informed decisions.
+  - Displaying Stations with Adequate Available Bikes: The application will consider factors such as bike availability and station proximity when suggesting stations for starting a journey.
+  - Presenting Data-driven Insights from Recent Occupancy Trends: The application will help users understand how factors such as time of day, weather, and special events influence bike usage and station availability.
+  - Incorporating Real-time Weather Information: The application will consider weather conditions as they have a significant impact on station occupancy, bike usage patterns, and user safety.
+  - Showcasing Predictive and historical Information on Bike Station Availability:  By employing cutting-edge data analytics and machine learning methodologies, it anticipates future demand, thereby enabling users to make well-informed choices regarding their biking endeavors.
+  - Assisting Users in Planning Their Biking Journeys: The application will offer valuable data, personalized recommendations, and user-friendly tools to simplify the process and optimize the overall experience.
+- How the App Stands Out from Competitors: 
+  - The app differentiates itself from competitors by offering a comprehensive, user-centric experience tailored to Dublin Bikes users. Its unique combination of real-time information, data-driven insights, personalized recommendations, and user engagement features sets it apart from other similar applications.
+
+###### 2. Supporting Functionalities
+
+- Features that Enhance User Experience: 
+  - Interactive map displaying station markers and basic information 
+  - User-friendly station search functionality 
+  - Presentation of basic information for the five nearest stations as alternative options 
+  - Integration of real-time weather information affecting biking conditions
+- Features that Differentiate the App from Others: 
+  - Dynamic heat map visually representing station usage levels and occupancy 
+  - Advanced data analytics and machine learning techniques for predictive information 
+  - Personalized recommendations based on user preferences and biking history 
+  - 
+###### 3. User Flow
+
+![image](https://user-images.githubusercontent.com/74203373/236265983-82320d6c-195c-4e68-b18f-85be9f991afd.png)
+
+
+#### II.  Architecture
+
+##### II. I. Overview
 
 Our web application, "BikerByte," features a backend implemented in Python and a frontend designed using HTML, JavaScript, and CSS, with Jinja serving as the templating engine. The application is deployed on an EC2 server and utilizes an RDS database for data storage.
 
@@ -12,7 +55,7 @@ To ensure the security of the application, the EC2 server has strict inbound rul
 
 ![figure1](https://user-images.githubusercontent.com/74203373/236263096-22df9ffc-adeb-4786-a7df-852e15181af3.jpg)
 
-<img width="606" alt="figure2" src="https://user-images.githubusercontent.com/74203373/236263163-45462161-1866-463c-b5c3-5c6a078f6ac8.png" style="zoom: 120%;">
+![image](https://user-images.githubusercontent.com/74203373/236263843-65b82d9a-38c9-43a5-b471-b66120d31e00.png)
 
 ##### II.  Technologies
 
