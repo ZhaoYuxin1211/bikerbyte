@@ -12,7 +12,7 @@ To ensure the security of the application, the EC2 server has strict inbound rul
 
 ![figure1](https://user-images.githubusercontent.com/74203373/236263096-22df9ffc-adeb-4786-a7df-852e15181af3.jpg)
 
-<img width="606" alt="figure2" src="https://user-images.githubusercontent.com/74203373/236263163-45462161-1866-463c-b5c3-5c6a078f6ac8.png">
+<img width="606" alt="figure2" src="https://user-images.githubusercontent.com/74203373/236263163-45462161-1866-463c-b5c3-5c6a078f6ac8.png" style="zoom: 120%;">
 
 ##### II.  Technologies
 
