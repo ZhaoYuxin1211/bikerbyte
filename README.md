@@ -56,7 +56,7 @@ To ensure the security of the application, the EC2 server has strict inbound rul
 
 ![figure1](https://user-images.githubusercontent.com/74203373/236263096-22df9ffc-adeb-4786-a7df-852e15181af3.jpg)
 
-![image](https://user-images.githubusercontent.com/74203373/236263843-65b82d9a-38c9-43a5-b471-b66120d31e00.png)
+![image](https://user-images.githubusercontent.com/74203373/236268646-a46cf4ac-fb12-4d41-87bf-2efb516745c1.png)
 
 ##### II.  Technologies
 
