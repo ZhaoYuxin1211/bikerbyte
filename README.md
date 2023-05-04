@@ -38,7 +38,7 @@ The purpose of this project is to create an all-inclusive, user-centric standalo
   - 
 ###### 3. User Flow
 
-![image](https://user-images.githubusercontent.com/74203373/236265983-82320d6c-195c-4e68-b18f-85be9f991afd.png)
+                  ![image](https://user-images.githubusercontent.com/74203373/236265983-82320d6c-195c-4e68-b18f-85be9f991afd.png)
 
 
 #### II.  Architecture
